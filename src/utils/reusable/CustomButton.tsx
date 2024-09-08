@@ -1,14 +1,32 @@
-import React from 'react'
+import { Button,ButtonProps  } from "@mantine/core";
 
-interface Props {
-    
+interface CustomButtonProps extends ButtonProps {
+    label: string;
+    onClick: () => void;
+    variant?: ButtonProps['variant'];
+    color?: ButtonProps['color'];
+    size?: ButtonProps['size'];
+    fullWidth?: boolean;
+    radius?: ButtonProps['radius'];
+
 }
 
-const CustomButton: React.FC<Props> = () => {
+
+const CustomButton= (props: CustomButtonProps) => {
+    const { label, onClick, variant, color, size, fullWidth, radius, } = props;
     return (
-        <div>
-            custombutton
-        </div>
+        <Button
+            onClick={onClick}
+            variant={variant}
+            color={color}
+            size={size}
+            fullWidth={fullWidth}
+            radius={radius}
+            style={{ display: 'flex', justifyContent: 'space-between' }} // Align content
+        >           
+            <span >{label}</span>
+
+        </Button>
     )
 }
 
