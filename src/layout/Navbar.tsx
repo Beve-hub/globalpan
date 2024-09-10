@@ -25,8 +25,9 @@ import {
     };
   
     return (
-      <Box component="nav"  bg="grape">
+      <Box component="nav"  bg="white" style={{display:'sticky'}}>
         <header >
+          
           <Flex justify="space-between" mx="70" align="center" px="md" py="sm">
             {/* Logo Section */}
             <a>
@@ -44,7 +45,16 @@ import {
                 {/* Centered Navigation Links */}
                 <Group style={{ flex: 1, justifyContent: "center" }}>
                   {NavData.map((item, index) => (
-                    <NavLink key={index} to={item.path} style={{textDecoration: 'none', gap:10,}}>
+                    <NavLink 
+                    key={index} 
+                    to={item.path}
+                    style={({ isActive }) => ({
+
+                      textDecoration: "none",
+                      fontWeight: isActive ? "bold" : "normal",
+                      color: isActive ? "#293991" : "dimgray",
+                      gap:20,
+                    })}>
                       {item.name}
                     </NavLink>
                   ))}
@@ -56,7 +66,7 @@ import {
                     label="Login"
                     onClick={handleLogin}
                     variant="filled"
-                    color="#008C73"
+                    color="#293991"
                     radius="sm"
                   />                   
                 </Group>

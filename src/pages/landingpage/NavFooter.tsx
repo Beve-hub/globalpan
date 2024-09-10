@@ -1,36 +1,28 @@
-import { Image, Text, Container, ActionIcon, Group } from '@mantine/core';
-import { FaXTwitter, FaFacebookF, FaYoutube } from "react-icons/fa6";
+import { Image, Text,  ActionIcon, Group, Button, Flex, } from '@mantine/core';
+import { FaXTwitter, FaFacebookF, FaYoutube, } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import Logo from '@/asset/logo.png';
+import { MdEmail } from "react-icons/md";
 
 const data = [
   {
-    title: 'About',
+    title: 'Our Company',
     links: [
-      { label: 'Features', link: '#' },
-      { label: 'Pricing', link: '#' },
-      { label: 'Support', link: '#' },
-      { label: 'Forums', link: '#' },
+      { label: 'Home', link: '/' },
+      { label: 'About', link: '/about' },
+      { label: 'Investment', link: '/investment' },
+      { label: 'Contact', link: '/contact' },
     ],
   },
   {
-    title: 'Project',
+    title: 'Contact Us',
     links: [
-      { label: 'Contribute', link: '#' },
-      { label: 'Media assets', link: '#' },
-      { label: 'Changelog', link: '#' },
-      { label: 'Releases', link: '#' },
+      { label: '+1(839) 253 6890', link: '#' },
+      { label: 'support@panglobal.com', link: '#' },
+      { label: '106 New St, England B2 4JU United Kingdom', link: '#' },
+   
     ],
-  },
-  {
-    title: 'Community',
-    links: [
-      { label: 'Join Discord', link: '#' },
-      { label: 'Follow on Twitter', link: '#' },
-      { label: 'Email newsletter', link: '#' },
-      { label: 'GitHub discussions', link: '#' },
-    ],
-  },
+  }
 ];
 
 const NavFooter = () => {
@@ -58,18 +50,46 @@ const NavFooter = () => {
   });
 
   return (
-    <footer style={{ width:'100vw', marginTop: '120px', paddingTop: 'calc(var(--mantine-spacing-xl) * 2)', paddingBottom: 'calc(var(--mantine-spacing-xl) * 2)', backgroundColor: 'var(--mantine-color-gray-0)', borderTop: '1px solid var(--mantine-color-gray-2)' }}>
-      <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
+    <footer style={{  marginTop: '120px', paddingTop: 'calc(var(--mantine-spacing-xl) * 2)', paddingBottom: 'calc(var(--mantine-spacing-xl) )', backgroundColor: 'var(--mantine-color-gray-0)', borderTop: '1px solid var(--mantine-color-gray-2)' }}>
+      <Flex   gap="xl"
+      justify="center"
+      align="center"
+      direction="row"
+      wrap="wrap"
+      style={{width:'100vw'}}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Image src={Logo} alt="" width={150} height={150} style={{ maxWidth: '200px' }} />
-          <Text size="xs" color="dimmed" style={{ marginTop: '5px', textAlign: 'center' }}>
-            Build fully functional accessible web applications faster than ever
+          <Image src={Logo} alt="" width={100} height={100} style={{ maxWidth: '200px' }} />
+          <Text size="xs" color="dimmed" style={{ marginTop: '5px', textAlign: 'start',width:'20rem', }}>
+            Build fully functional accessible  for our clients and employees while adhering to principles of excellence and trust.
           </Text>
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>{groups}</div>
-      </Container>
-      <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'var(--mantine-spacing-xl)', paddingTop: 'var(--mantine-spacing-xl)', paddingBottom: 'var(--mantine-spacing-xl)', borderTop: '1px solid var(--mantine-color-gray-2)' }}>
-        <Text color="dimmed" size="sm">
+        <div style={{gap:70,display: 'flex', flexWrap: 'wrap' }}>
+        {groups}
+            
+            <div>
+                <Text  color="black" mt="5px"  fw="bold" fz="lg">
+                News Letter
+                </Text>
+                <Text size="sm" color="dimmed" style={{ width:'15rem', flexWrap: 'wrap' }}>
+                Sign up to our weekly newsletter to get the latest updates.
+                </Text>
+                <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                  <input type="text" placeholder="Enter your email" style={{ padding: '5px 10px', borderRadius: '5px', backgroundColor: 'var(--mantine-color-gray-1)', border: 'none' }} />
+                  <Button size="sm" color="#293991" variant="filled">
+                    <MdEmail size={24}/>
+                  </Button>
+                </form>              
+            </div>
+        </div>
+      </Flex>
+      <Flex
+      mx="20"
+       gap="xl"
+      justify="space-between"
+      align="center"
+      direction="row"
+      wrap="wrap" style={{ marginTop: 'var(--mantine-spacing-xl)', paddingTop: 'var(--mantine-spacing-xl)',  borderTop: '1px solid var(--mantine-color-gray-2)' }}>
+       <Text color="dimmed" size="sm">
           © 2020 mantine.dev. All rights reserved.
         </Text>
 
@@ -87,7 +107,7 @@ const NavFooter = () => {
             <AiFillInstagram size={24} />
           </ActionIcon>
         </Group>
-      </Container>
+      </Flex>
     </footer>
   );
 }
