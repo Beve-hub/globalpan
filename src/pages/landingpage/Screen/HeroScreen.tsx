@@ -1,114 +1,108 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Carousel } from '@mantine/carousel';
-import { Image, Text, Overlay,  Button, Title } from '@mantine/core';
-import Autoplay from 'embla-carousel-autoplay';
-
-import { useNavigate } from 'react-router-dom';
-import { heroFont, HeroFontItem } from '@/utils/data/Data';
+import { heroFont } from '@/utils/data/Data';
+import { Button, useMantineTheme } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
 
 const HeroScreen = () => {
-  const navigate = useNavigate();
-  const autoplay = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
-  const [slides, setSlides] = useState<JSX.Element[]>([]);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const theme = useMantineTheme();
 
   useEffect(() => {
-    // Generate slides only if heroFont data changes
-    // Const test = heroFont.map( (item: any) => item );
-    // Console.log({ test });
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % heroFont.length);
+    }, 10000);
 
-    const uniqueItems = Array.from(new Set(heroFont.map(item => item.title)))
-      .map(title => {
-        return heroFont.find(item => item.title === title);
-      })
-      .filter(item => item !== undefined) as HeroFontItem[];
+    return () => clearInterval(slideInterval);
+  }, [heroFont.length]);
 
-    const slideComponents = uniqueItems.map((item, index) => (
-      <Carousel.Slide key={index}>
-        <Image
-          src={item.image}
-          alt="hero_image"
-          fit="cover"
-          style={{
-            objectFit: 'cover',
-            height: '90vh',
-            width: '100%',
-            position: 'absolute',
-            top: '0',
-            zIndex: 0,
-          }}
-        />
-        <Overlay
-          gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.85) 100%)"
-          opacity={0.8}
-          zIndex={1}
-          style={{ height: '90vh' }}
-        />
+  return (
+    <div
+      style={{
+        height: "90vh",
+        overflow: "hidden",
+        position: "relative",
+        display: "flex",
+        alignItems: "center", // Center content vertically
+        justifyContent: "center", // Center content horizontally
+      }}
+    >
+      {heroFont.map((item, index) => (
         <div
-          style={{           
-            color: 'white',
-            width: '80%',
-            maxWidth: '600px',
-            padding: '0 1rem',
-            margin: 'auto',
-            textAlign: 'start',
-            zIndex: 3,
-            position: 'relative',
+          key={index}
+          style={{
+            opacity: index === currentSlide ? 1 : 0,
+            transform: index === currentSlide ? "translateX(0)" : "translateX(100%)",
+            transition: "opacity 1s ease, transform 1s ease",
+            backgroundImage: `url(${item.image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundColor: '#121212',
+            height: "100%",
+            width: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
           }}
         >
-          <Title
-            order={3}
+          {/* Overlay */}
+          <div
             style={{
-              fontWeight: 700,
-              color: 'white',
-              lineHeight: 1.2,
-              fontSize: '32px',
-              marginTop: 'var(--mantine-spacing-xs)',
-              cursor: 'default',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Content */}
+          <div
+            style={{
+              position: "absolute",
+              top: "40%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              textAlign: "center",
+              color: "white",
+              zIndex: 2,
+              padding: "0 5%",
+              width: "90%",
+              maxWidth: "1000px",
             }}
           >
-            {item.title}
-          </Title>
-          <Text
-            style={{
-              color: 'white',
-              opacity: 0.7,
-              fontWeight: 400,
-              cursor: 'default',
-            }}
-            size="md"
-          >
-            {item.description}
-          </Text>
-          <Button variant="filled" color="#293991" onClick={() => navigate('/login')}>
-            Get started Now
-          </Button>
+            <h1
+              style={{
+                fontSize: theme.breakpoints.xs ? "2.5rem" : theme.breakpoints.sm ? "3rem" : "4rem", // More refined responsive font size
+                marginBottom: "1rem",
+              }}
+            >
+              {item.title}
+            </h1>
+            <p
+              style={{
+                fontSize: theme.breakpoints.xs ? "1rem" : theme.breakpoints.sm ? "2.5rem" : "3rem", // More refined responsive font size
+                marginBottom: "1.5rem",
+              }}
+            >
+              {item.description}
+            </p>
+            <Button
+              style={{
+                padding: theme.breakpoints.xs ? "8px 16px" : "10px 20px",
+                fontSize: theme.breakpoints.xs ? "0.875rem" : "1rem", // Adjust font size for smaller screens
+                backgroundColor: "#1a73e8",
+                color: "white",
+                border: "none",
+                cursor: "pointer",
+                width: "auto",
+              }}
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
-      </Carousel.Slide>
-    ));
-
-    setSlides(slideComponents);
-  }, [heroFont, navigate]);
-
-  console.log('slides', slides);
- 
-  return (
-    <div style={{ height: '90vh', position: 'relative' }}>
-      <Carousel
-        withControls={false}
-        plugins={[autoplay.current]}
-        onMouseEnter={() => autoplay.current.stop()}
-        onMouseLeave={() => autoplay.current.reset()}
-        loop
-        style={{
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          top: '0',
-          zIndex: 2,
-        }}
-      >
-        {slides}
-      </Carousel>
+      ))}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import Testimonia from './Testimonia';
 import Support from './Support';
 import CardSlide from './CardSlide';
 import TradeView from '../TradeView';
+import WidthrawalTrend from '../WidthrawalTrend';
 
 interface Props {
     
@@ -17,19 +18,19 @@ interface Props {
 
 const LandingPage: React.FC<Props> = () => {
     return (
-        <div>
-            
+        <div>            
             <HeroScreen />
             <CardSlide/>
-            <AboutUs/>
+           <AboutUs/>
             <ForexChat/>
             <Package/>
-            <Company/>
             <CryptoLive/>
+            <Company/>
             <Started/>
             <Testimonia/>
             <Support/>
             <TradeView/>
+            <WidthrawalTrend/>
         </div>
     )
 }

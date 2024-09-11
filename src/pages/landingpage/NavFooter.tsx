@@ -50,7 +50,7 @@ const NavFooter = () => {
   });
 
   return (
-    <footer style={{  marginTop: '120px', paddingTop: 'calc(var(--mantine-spacing-xl) * 2)', paddingBottom: 'calc(var(--mantine-spacing-xl) )', backgroundColor: 'var(--mantine-color-gray-0)', borderTop: '1px solid var(--mantine-color-gray-2)' }}>
+    <footer style={{  paddingTop: 'calc(var(--mantine-spacing-xl) * 2)', paddingBottom: 'calc(var(--mantine-spacing-xl) )', backgroundColor: 'var(--mantine-color-gray-0)', borderTop: '1px solid var(--mantine-color-gray-2)' }}>
       <Flex   gap="xl"
       justify="center"
       align="center"

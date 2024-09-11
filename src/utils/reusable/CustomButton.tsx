@@ -22,7 +22,7 @@ const CustomButton= (props: CustomButtonProps) => {
             size={size}
             fullWidth={fullWidth}
             radius={radius}
-            style={{ display: 'flex', justifyContent: 'space-between' }} // Align content
+            style={{ display: 'flex', justifyContent: 'center' }} // Align content
         >           
             <span >{label}</span>
 

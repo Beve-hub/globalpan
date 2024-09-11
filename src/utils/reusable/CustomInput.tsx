@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { TextInput, TextInputProps } from '@mantine/core';
+import { IconType } from 'react-icons';
 
-interface Props {
-    
+interface InputFieldProps extends TextInputProps {
+  icon?: IconType; // Use IconType for React Icons
 }
 
-const CustomInput: React.FC<Props> = () => {
+const CustomInput: React.FC<InputFieldProps> = ({ icon: Icon, ...props }) => {
     return (
-        <div>
-            customInput
-        </div>
+        <TextInput
+        {...props}
+        rightSection={Icon ? <Icon size={18} /> : null}
+      />
     )
 }
 

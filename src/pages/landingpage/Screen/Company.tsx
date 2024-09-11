@@ -1,59 +1,126 @@
-import { Image, SimpleGrid ,Text } from '@mantine/core';
+import {Box, Flex, Image, SimpleGrid, Text, } from '@mantine/core';
 import IMG from '@/asset/real ceo.png';
 import { useMediaQuery } from '@mantine/hooks';
-
-
+import { PiTimerThin,PiUsersThreeThin } from "react-icons/pi";
 
 const Company = () => {
-    const isMobile = useMediaQuery('(max-width: 768px)');
-  
-    return (
-        <div style={{
-            padding: '50px 20px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',            
-            maxWidth: '120vw',
-           
-        }}>
-            <SimpleGrid
-        cols={{ base: 1, sm: 1, lg: 2 }}
-        spacing={{ base: 10, sm: 'xl' }}
-        mx="70"
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  return (
+    <div
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '70vh',
+        maxWidth: '80vw',
+        width: '100%',
+        paddingTop:50,
+        margin: '0 auto',
+      }}
+    >
+      <SimpleGrid
+        cols={isMobile ? 1 : 2}
+        spacing={20} // Add gap between the image and text content
+        
       >
+        {!isMobile && ( // Only display the image when not on mobile
+          <Image
+            src={IMG}
+            alt="About Us Image"
+            style={{
+              height: '25rem',
+              width: '100%',
+              maxWidth: '25rem',
+              borderRadius: '10px',
+            }}
+          />
+        )}
         <div>
-          <div>
-            <Text fw={700} fz={24} >
-              Compnay Review
-            </Text>
-            <Text my={10} fw={500} fz={20} style={{ color: '#293991' }}>
-              Get to know us <span style={{backgroundColor:'#293991',width:'20rem', height:'20px', fontSize:4,}}>iusududufhcjjdjdskjalkhdhhdhdhdhdhdxbhhhshshdhomedhjdhdhhddhhdhdhdh </span>
-            </Text>
-            <Text fz={17}>
-              Pan Global is the investors gateway to the world’s markets. we’re the core in real estate, stocks and E-currencies. our transparent, low commissions and financing rates, support for best price, stock yield enhancement program which help minimize costs to maximize your returns.
-            </Text>
-          </div>
+          <Text fw={700} fz={24}>
+            Company Review
+          </Text>
+          <Text my={10} fw={500} fz={24} style={{ color: '#293991' }}>
+            Get to know us{' '}
+            <span
+              style={{
+                backgroundColor: '#293991',
+                width: '20rem',
+                height: '20px',
+                fontSize: 4,
+              }}
+            >
+              iusududufhcjjdjdskjalkhdhhdhdhdhdhdxbhhhshshdhomedhjdhdhhddhhdhdhdh
+            </span>
+          </Text>
+          <Text fz={17}>
+          As a lifetime business partner, Pan global trade is committed in helping investors maximize profits by giving the upper-hand on increasing capital value with early detection of profitable trends.
+          We’re very selective about the investments we recommend. Because we know how hard you’re working to achieve the milestones that mean the most to you. And we want to make sure we’re giving you the best possible choices.
+          </Text>
+
+          <Flex direction={{ base: 'column', sm: 'row' }} gap={20} mt={40}>
+      {/* First Item */}
+      <Box
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          border: '1px solid #293991',
+          borderRadius: 10,
+          alignItems: 'center',
+          gap: 20,
+          padding: 10,
+        }}
+      >
+        <PiTimerThin size={30} color="#293991" />
+        <Box
+          style={{
+            display: 'grid',
+            borderLeft: '0.5px solid #293991',
+            paddingLeft: 10,
+          }}
+        >
+          <Text fz={23} fw={900} color="#293991" ta="center">
+            7+
+          </Text>
+          <Text fz={18} fw={300} color="#293991">
+            Years experience
+          </Text>
+        </Box>
+      </Box>
+
+      {/* Second Item */}
+      <Box
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          border: '1px solid #293991',
+          borderRadius: 10,
+          alignItems: 'center',
+          gap: 20,
+          padding: 10,
+        }}
+      >
+        <PiUsersThreeThin size={30} color="#293991" />
+        <Box
+          style={{
+            display: 'grid',
+            borderLeft: '0.5px solid #293991',
+            paddingLeft: 10,
+          }}
+        >
+          <Text fz={23} fw={900} color="#293991" ta="center">
+            489K
+          </Text>
+          <Text fz={18} fw={300} color="#293991">
+            Happy Clients
+          </Text>
+        </Box>
+      </Box>
+    </Flex>
           
         </div>
-        <div>
-          {!isMobile && ( // Only display the image when not on mobile
-            <Image
-              src={IMG}
-              alt="About Us Image"
-              style={{
-                height: '30rem',
-                width: '100%',
-                maxWidth: '30rem',
-                borderRadius: '10px',
-              }}
-            />
-          )}
-        </div>
       </SimpleGrid>
-        </div>
-      
-    );
-}
+    </div>
+  );
+};
 
-export default Company
+export default Company;

@@ -17,6 +17,7 @@ const AboutUs = () => {
       cols={{ base: 1, sm: 1, lg: 2 }}
       spacing={{ base: 10, sm: 'xl' }}
       mx="70"
+      mt={50}
     >
       <div>
         {!isMobile && ( // Only display the image when not on mobile
@@ -39,7 +40,17 @@ const AboutUs = () => {
             ABOUT US
           </Text>
           <Text my={10} fw={500} fz={20} style={{ color: '#293991' }}>
-            Who is Pan Global?
+            Who is Pan Global?{' '}
+            <span
+              style={{
+                backgroundColor: '#293991',
+                width: '20rem',
+                height: '20px',
+                fontSize: 4,
+              }}
+            >
+              iusududufhcjjdjdskjalkhdhhdhdhdhdhdxbhhhshshdhomedhjdhdhhddhhdhdhdh
+            </span>
           </Text>
           <Text fz={17}>
             Pan Global is the investors gateway to the world’s markets. we’re the core in real estate, stocks and E-currencies. our transparent, low commissions and financing rates, support for best price, stock yield enhancement program which help minimize costs to maximize your returns.
