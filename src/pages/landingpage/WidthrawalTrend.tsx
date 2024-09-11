@@ -44,7 +44,7 @@ const WidthrawalTrend: React.FC<Props> = () => {
               wordBreak: 'break-word', // Ensure long words break properly
             }}
           >
-            <span style={{fontWeight:500,}}>{item.name}</span> from <span style={{fontWeight:500,}}>{item.country}</span> has just withdrawn <span style={{fontWeight:500,}}>${item.amount}</span>
+            <span style={{fontWeight:500,}}>{item.name}</span> from <span style={{fontWeight:500,}}>{item.country}</span> has just withdrew <span style={{fontWeight:600,}}>${item.amount}</span>
           </Text>
         ) : null
       )}
