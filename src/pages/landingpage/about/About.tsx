@@ -1,13 +1,16 @@
 import React from 'react'
+import AboutTop from './screen/AboutTop'
+import AboutMain from './screen/AboutMain'
+import Vision from './screen/Vision'
+import Certificate from './screen/Certificate'
 
-interface Props {
-    
-}
-
-const About: React.FC<Props> = () => {
+const About = () => {
     return (
         <div>
-            about
+            <AboutTop/>
+            <AboutMain/>
+            <Vision/>
+            <Certificate/>
         </div>
     )
 }

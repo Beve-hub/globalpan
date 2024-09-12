@@ -6,9 +6,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
 
-interface Props {}
 
-const Support: React.FC<Props> = () => {
+
+const Support = () => {
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Adjust breakpoint as needed
 

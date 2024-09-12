@@ -1,13 +1,17 @@
 import React from 'react'
+import TeamTop from './screen/TeamTop'
+import TeamCeo from './screen/TeamCeo'
+import AdminTeam from './screen/AdminTeam'
+import InvestorTeam from './screen/InvestorTeam'
 
-interface Props {
-    
-}
 
-const Team: React.FC<Props> = () => {
+const Team = () => {
     return (
         <div>
-            team
+           <TeamTop/>
+           <TeamCeo/>
+           <InvestorTeam/>
+           <AdminTeam/>
         </div>
     )
 }

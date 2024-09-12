@@ -1,10 +1,9 @@
 import { Image, Text, Overlay,  Button, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import IMG from '@/asset/start.png'
+
 const Started = () => {
     const navigate = useNavigate();
-   
-   
     return (
       <div style={{ height: '40vh', position:'relative',marginTop:50}}>
         <div

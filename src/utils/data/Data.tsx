@@ -1,6 +1,6 @@
 import IMG1 from '@/asset/hero_image 1.png'
 import IMG2 from '@/asset/hero_image 2.png'
-import IMG3 from '@/asset/hero_image 3.png'
+import IMG3 from '@/asset/logobg.png'
 import Icon1 from '@/asset/icon1.png'
 import Icon2 from '@/asset/icon2.png'
 import Icon3 from '@/asset/icon3.png'
@@ -12,6 +12,10 @@ import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 interface NavbarItem {
     name: string;
     path: string;
+}
+interface ServiceItem {
+   mini: string;
+   icon: React.ReactNode;
 }
 interface TestimoniaItem{
    name:string;
@@ -50,59 +54,48 @@ export const NavData: NavbarItem[] = [
  {
     name: 'Home',
     path: '/',
-    
  },
  {
     name: 'About',
     path: '/about',
-    
  },
  {
     name: 'Investment',
     path: '/investment',
-    
  },
  {
     name: 'Our Team',
     path: '/team',
-
  },
  {
     name: 'Contact',
     path: '/contact',
-
  },
 ]
 export const SmNavData: NavbarItem[] = [
     {
        name: 'Home',
        path: '/',
-       
     },
     {
        name: 'About',
        path: '/about',
-       
     },
     {
        name: 'Investment',
        path: '/investment',
-       
     },
     {
        name: 'Our Team',
        path: '/team',
-   
     },
     {
        name: 'Contact',
        path: '/contact',
-   
     },
     {
         name: 'Login',
         path: '/login',
-    
      }
    ]
 
@@ -148,6 +141,36 @@ export const SmNavData: NavbarItem[] = [
       },
     ] 
 
+    export const serviceData: ServiceItem[] = [
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'Forex & Crypto Trading Strategies',         
+      },
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'Instatnt E-currency Deposit',         
+      },
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'Investment Portfolio',         
+      },
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'Crypto Loan',         
+      },
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'High Quality Trading Signals',         
+      },
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'Mt4, Mt5 | Auto | Copy-Trading',         
+      },
+      {        
+         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         mini: 'Crypto AI & Best ForexEA Robot (Software)',         
+      },
+    ]
     export const PlanData: PlanItem[] = [
       {
          name: 'BASIC PLAN',

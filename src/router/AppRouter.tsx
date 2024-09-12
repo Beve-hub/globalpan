@@ -17,6 +17,7 @@ import Login from '@/pages/auth/Login';
 import Register from '@/pages/auth/Register';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 import ResetPassword from '@/pages/auth/ResetPassword';
+import TeamSub from '@/pages/landingpage/team/screen/TeamSub';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: '/contact', element: <Contact /> },
       { path: '/investment', element: <Investment /> },
       { path: '/team', element: <Team /> },
+      { path: '/teamSub', element: <TeamSub /> },
     ],
   },
   {

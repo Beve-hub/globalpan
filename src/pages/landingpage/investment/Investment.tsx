@@ -1,13 +1,12 @@
-import React from 'react'
+import BodyInvest from "./screen/BodyInvest"
+import InvestmentTop from "./screen/InvestmentTop"
 
-interface Props {
-    
-}
 
-const Investment: React.FC<Props> = () => {
+const Investment = () => {
     return (
         <div>
-            investment
+            <InvestmentTop/>
+            <BodyInvest/>
         </div>
     )
 }
