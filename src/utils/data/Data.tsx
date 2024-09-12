@@ -8,10 +8,19 @@ import Test1 from '@/asset/andrew.png'
 import Test2 from '@/asset/andrew4.png'
 import Test3 from '@/asset/andrew2.png'
 import Test4 from '@/asset/andrew3.png'
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-interface NavbarItem {
+import { BiSolidDashboard } from "react-icons/bi";
+import { FaMoneyBills,FaCreditCard,FaGift  } from "react-icons/fa6";
+import { GiHistogram } from "react-icons/gi";
+import { IoIosCheckmarkCircleOutline, } from 'react-icons/io'
+ 
+interface SideBarItem {
     name: string;
     path: string;
+    icon: React.ReactNode;
+}
+interface NavbarItem {
+   name: string;
+   path: string;
 }
 interface ServiceItem {
    mini: string;
@@ -50,6 +59,35 @@ export interface HeroFontItem {
    description: string;
    image: string
 }
+export const SideBarData: SideBarItem[] = [
+   {
+      name: 'Dashboard',
+      path: '/dashboard',
+      icon: <BiSolidDashboard size={18} />,
+   },
+   {
+      name: 'Make Deposit',
+      path: '/invest',
+      icon: <FaGift size={18} />,
+   },
+   {
+      name: 'Withdraw',
+      path: '/withdraw',
+      icon: <FaMoneyBills size={18} />,
+   },
+   {
+      name: 'Analysis',
+      path: '/analysis',
+      icon: <GiHistogram size={18} />,
+   },
+   {
+      name: 'Transaction',
+      path: '/transaction',
+      icon: <FaCreditCard size={18} />,
+   },  
+
+  ]
+ 
 export const NavData: NavbarItem[] = [
  {
     name: 'Home',

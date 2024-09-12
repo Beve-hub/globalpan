@@ -49,9 +49,9 @@ const router = createBrowserRouter([
     element: <SpecialLayout/>,
     children: [
       { path: '/login', element: <Login /> },
-      { path: '/invest', element: <Register /> },
-      { path: '/withdraw', element: <ForgotPassword /> },
-      { path: '/analysis', element: <ResetPassword /> },
+      { path: '/register', element: <Register /> },
+      { path: '/forgot', element: <ForgotPassword /> },
+      { path: '/reset', element: <ResetPassword /> },
       
     ],
   },
