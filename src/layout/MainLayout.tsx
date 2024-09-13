@@ -17,7 +17,7 @@ const MainLayout = () => {
             {showNavbar && <Navbar/>}
             {showSidebar && <SideBar/>}
             <main>
-                <Outlet/>
+            {showNavbar && <Outlet />}
             </main>
             {showNavbar && <NavFooter/>}
             {showSidebar && <SideFooter/>}

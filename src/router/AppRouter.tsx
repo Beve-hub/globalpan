@@ -30,12 +30,6 @@ const router = createBrowserRouter([
       { path: '/investment', element: <Investment /> },
       { path: '/team', element: <Team /> },
       { path: '/teamSub', element: <TeamSub /> },
-    ],
-  },
-  {
-    path: '/',
-    element: <MainLayout/>,
-    children: [
       { path: '/dashboard', element: <Dashboard /> },
       { path: '/invest', element: <Invest /> },
       { path: '/withdraw', element: <Withdraw /> },
@@ -44,6 +38,7 @@ const router = createBrowserRouter([
       { path: '/settings', element: <Settings /> },
     ],
   },
+  
   {
     path: '/',
     element: <SpecialLayout/>,

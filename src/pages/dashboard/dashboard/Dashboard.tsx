@@ -1,4 +1,7 @@
+import { Container } from '@mantine/core'
 import React from 'react'
+import HeadDash from './screen/HeadDash'
+import BodyDash from './screen/BodyDash';
 
 interface Props {
     
@@ -6,9 +9,10 @@ interface Props {
 
 const Dashboard: React.FC<Props> = () => {
     return (
-        <div>
-            dashboard
-        </div>
+        <Container size="lg" my="md">
+            <HeadDash/>
+            <BodyDash/>
+        </Container>
     )
 }
 

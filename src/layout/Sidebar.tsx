@@ -59,10 +59,7 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
         <AppShellHeader withBorder={false} pt="md">
           <Group px="md">
             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <Group>
-             <Image src={Logo} alt="" width={50} height={50} />
-             
-            </Group>
+            <Image src={Logo} alt="" width={50} height={50} style={{marginLeft:40}}/>
             
           </Group>
         </AppShellHeader>
@@ -174,8 +171,7 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
                 }}
               >
                 <Group display="flex" mt="auto" style={{ width: "100%" }}>
-                  <a
-                    href="/settings"
+                <a
                     style={{
                       display: "flex",
                       gap: 10,
@@ -187,7 +183,25 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
                       alignItems: "center",
                     }}
                   >
-                    <FiSettings size={24} color="gray" />
+                    <FaRegCircleUser size={20} color="gray" />
+                    <Text fw="400" fz="16">
+                      User Name
+                    </Text>
+                  </a>
+                  <a
+                    href="/settings"
+                    style={{
+                      display: "flex",
+                      gap: 10,
+                      textDecoration: "none",
+                      justifyContent: "center",
+                      width: "100%",
+                      marginRight: 40,
+                      cursor: "pointer",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FiSettings size={20} color="gray" />
                     <Text fw="400" fz="16" color="#121212">
                       Settings
                     </Text>
@@ -200,12 +214,12 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
                       textDecoration: "none",
                       justifyContent: "center",
                       width: "100%",
-                      marginRight: 20,
+                      marginRight: 38,
                       cursor: "pointer",
                       alignItems: "center",
                     }}
                   >
-                    <FiLogOut size={24} color="gray" />
+                    <FiLogOut size={20} color="gray" />
                     <Text fw="400" fz="16" color="#121212">
                       Log Out
                     </Text>
