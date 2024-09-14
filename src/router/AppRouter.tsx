@@ -18,6 +18,8 @@ import Register from '@/pages/auth/Register';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 import ResetPassword from '@/pages/auth/ResetPassword';
 import TeamSub from '@/pages/landingpage/team/screen/TeamSub';
+import DepositSummary from '@/pages/dashboard/invest/screen/DepositSummary';
+import Payment from '@/pages/dashboard/invest/screen/Payment';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +49,8 @@ const router = createBrowserRouter([
       { path: '/register', element: <Register /> },
       { path: '/forgot', element: <ForgotPassword /> },
       { path: '/reset', element: <ResetPassword /> },
-      
+      { path: '/depositSummary', element: <DepositSummary /> },
+      { path: '/payment', element: <Payment /> },
     ],
   },
 ]);

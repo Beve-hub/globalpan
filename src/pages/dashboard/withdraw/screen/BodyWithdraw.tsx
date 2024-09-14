@@ -1,6 +1,6 @@
 import CustomInput from '@/utils/reusable/CustomInput';
 import React, { useState } from 'react';
-import { Box, Group, NativeSelect, Text } from '@mantine/core';
+import { Box, NativeSelect, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import CustomeButton from '@/utils/reusable/CustomButton';
 
@@ -9,8 +9,7 @@ const BodyWithdraw = () => {
     const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [coin, setCoin] = useState('');
-  const [description, setDescription] = useState('');
-  const [range, setRange] = useState('');
+
 
   const handleSubmit = () => {
     navigate('/dashboard');
@@ -20,27 +19,7 @@ const BodyWithdraw = () => {
     const selectedValue = event.currentTarget.value;
     setValue(selectedValue);
 
-    switch (selectedValue) {
-      case 'Basic Plan':
-        setRange('$100 - $2000');
-        setDescription('2% Daily');
-        break;
-      case 'Advance Plan':
-        setRange('$2001 - $5000');
-        setDescription('5% Daily');
-        break;
-      case 'Professional Plan':
-        setRange('$5001 - $10,000');
-        setDescription('7.5% Daily');
-        break;
-      case 'Premium Plan':
-        setRange('$10,000 - Unlimited');
-        setDescription('12.5% Daily');
-        break;
-      default:
-        setRange('');
-        setDescription('');
-    }
+    
   };
 
   return (
@@ -70,10 +49,7 @@ const BodyWithdraw = () => {
             onChange={handleChange}
             data={['Basic Plan', 'Advance Plan', 'Professional Plan', 'Premium Plan']}
           />
-          <Group style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Text>{range && <Text fz={12} fw={500} color='#5C5B5B'>{range}</Text>}</Text>
-            <Text>{description && <Text fz={12} fw={500} color='#5C5B5B'>{description}</Text>}</Text>
-          </Group>
+          
         </div>
         <NativeSelect
           label="Investment Plan"

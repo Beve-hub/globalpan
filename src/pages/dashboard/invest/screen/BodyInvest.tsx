@@ -12,7 +12,7 @@ const BodyInvest = () => {
   const [range, setRange] = useState('');
 
   const handleSubmit = () => {
-    navigate('/dashboard');
+    navigate('/depositSummary');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -60,7 +60,7 @@ const BodyInvest = () => {
       }}
     >
       <form style={{ width: '100%', display: 'grid', gap: 20 }}>
-        <Text fz={20} fw={500}>Make Deposit</Text>
+     
         
         <div>
           <NativeSelect

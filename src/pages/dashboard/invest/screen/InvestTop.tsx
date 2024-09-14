@@ -9,7 +9,7 @@ const InvestTop: React.FC<Props> = () => {
     return (
         <div>
             <Text fz={24} fw={500}>
-           Investment
+            Make Deposit
             </Text>
         </div>
     )
