@@ -1,10 +1,31 @@
 import { heroFont } from '@/utils/data/Data';
-import { Button, useMantineTheme } from '@mantine/core';
+import CustomButton from '@/utils/reusable/CustomButton';
+import Loader from '@/utils/reusable/Loader';
+import {  Group, useMantineTheme } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroScreen = () => {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const theme = useMantineTheme();
+  const [loading, setLoading] = useState(true); // State to manage loading
+
+  // Simulate loading state
+  useEffect(() => {
+      const timer = setTimeout(() => {
+          setLoading(false); // Hide loader after 2 seconds
+      }, 2000); // Adjust the duration as needed
+      return () => clearTimeout(timer); // Clean up the timer on component unmount
+  }, []);
+
+  const handleSubmit = () => {
+      setLoading(true);
+      setTimeout(() => {
+          navigate('/register');
+          setLoading(false);
+      }, 2000); // Simulate a loading delay of 2 seconds
+  };
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -14,6 +35,9 @@ const HeroScreen = () => {
     return () => clearInterval(slideInterval);
   }, [heroFont.length]);
 
+  if (loading) {
+    return <Loader />; // Show loader if loading state is true
+}
   return (
     <div
       style={{
@@ -69,6 +93,9 @@ const HeroScreen = () => {
               padding: "0 5%",
               width: "90%",
               maxWidth: "1000px",
+              display:'grid',
+              justifyContent:'center',
+              alignItems: 'center'
             }}
           >
             <h1
@@ -87,19 +114,16 @@ const HeroScreen = () => {
             >
               {item.description}
             </p>
-            <Button
-              style={{
-                padding: theme.breakpoints.xs ? "8px 16px" : "10px 20px",
-                fontSize: theme.breakpoints.xs ? "0.875rem" : "1rem", // Adjust font size for smaller screens
-                backgroundColor: "#1a73e8",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-                width: "auto",
-              }}
-            >
-              Get Started
-            </Button>
+            <Group justify='center'>
+            <CustomButton
+            label='Get Started'
+            size='md'
+            onClick={handleSubmit}
+            variant="filled"
+            color="#293991"             
+            />
+            </Group>
+            
           </div>
         </div>
       ))}

@@ -9,7 +9,7 @@ const AboutTop = () => {
     navigate('/');
   };
     return (
-      <div style={{ height: '30vh', position:'relative'}}>
+      <div style={{ height: '30vh', position:'relative',marginTop:90}}>
         <div
           style={{
             width: '100%',

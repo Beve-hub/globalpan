@@ -17,7 +17,7 @@ const Support = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#293991', minHeight: '60vh' }}>
+    <div style={{ backgroundColor: "#0055CC", minHeight: '60vh' }}>
       <Center style={{ height: '60vh' }}>
         <SimpleGrid
           cols={isSmallScreen ? 1 : 2}
@@ -50,7 +50,7 @@ const Support = () => {
                 label="Send Now"
                 onClick={handleLogin}
                 variant="filled"
-                color="#0055CC"
+                color='#293991'
                 radius="sm"
               />
             </SimpleGrid>

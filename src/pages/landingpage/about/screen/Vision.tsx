@@ -58,7 +58,8 @@ const styles = {
     justifyContent: 'center',
     width: '100%',
     height: '50vh',
-    marginTop: '70px',
+    marginTop: '120px',
+    marginBottom: '100px',
     position: 'relative',
   } as React.CSSProperties,
   containerSmall: {

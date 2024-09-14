@@ -10,7 +10,7 @@ const ContactTop = () => {
       navigate('/');
     };
       return (
-          <div style={{ height: '30vh', position:'relative'}}>
+          <div style={{marginTop:90, height: '30vh', position:'relative'}}>
             <div
               style={{
                 width: '100%',

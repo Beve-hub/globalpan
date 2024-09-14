@@ -5,13 +5,28 @@ import Logo from '@/asset/logo.png';
 import CustomInput from '@/utils/reusable/CustomInput';
 import CustomeButton from '@/utils/reusable/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Loader from '@/utils/reusable/Loader';
 
 const Login = () => {
     const navigate = useNavigate();
     const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Adjust the breakpoint as needed
+    const [loading, setLoading] = useState(true); // State to manage loading
+
+    // Simulate loading state
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false); // Hide loader after 2 seconds
+        }, 2000); // Adjust the duration as needed
+        return () => clearTimeout(timer); // Clean up the timer on component unmount
+    }, []);
 
     const handleSubmit = () => {
-        navigate('/dashboard');
+        setLoading(true);
+        setTimeout(() => {
+            navigate('/dashboard');
+            setLoading(false);
+        }, 2000); // Simulate a loading delay of 2 seconds
     };
     const handleForgot = () => {
         navigate('/forgot');
@@ -19,7 +34,9 @@ const Login = () => {
     const handleRegister = () => {
         navigate('/register');
     };
-
+    if (loading) {
+        return <Loader />; // Show loader if loading state is true
+    }
     return (
         <Center>
             <SimpleGrid cols={{ base: 1, sm: 1, lg: 2 }} spacing="xl">

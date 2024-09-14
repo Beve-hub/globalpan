@@ -14,21 +14,34 @@ import IMG from "@/asset/logo2.png";
 import { NavData, SmNavData } from "@/utils/data/Data";
 import CustomButton from "@/utils/reusable/CustomButton";
 import { useMediaQuery } from "@mantine/hooks";
+import Loader from "@/utils/reusable/Loader";
+import useBodyOverflow from "./useBodyOverflow";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false); // State for the drawer (mobile menu)
+  const [loading, setLoading] = useState(false); // State to manage loading
+  const [pendingPath, setPendingPath] = useState(""); // State to manage pending navigation path
   const isMobile = useMediaQuery("(max-width: 768px)"); // Adjust the breakpoint as needed
   const [scrolled, setScrolled] = useState(false); // State to track scroll position
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
+  useBodyOverflow(loading);
+  // Effect to handle delayed navigation when pendingPath changes
+  useEffect(() => {
+    if (pendingPath) {
+      setLoading(true);
+      const timer = setTimeout(() => {
+        navigate(pendingPath);
+        setLoading(false);
+        setPendingPath(""); // Reset pending path
+      }, 3000); // Simulate a loading delay of 5 seconds
+      return () => clearTimeout(timer); // Clean up timer on component unmount
+    }
+  }, [pendingPath, navigate]);
 
   // Effect to handle scroll event
   useEffect(() => {
     const handleScroll = () => {
-      // If the user has scrolled down more than 10px, set scrolled to true
       setScrolled(window.scrollY > 10);
     };
 
@@ -36,9 +49,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
+  const handleNavClick = (path: string) => {
+    if (path) {
+      setPendingPath(path);
+    }
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <Box
-      component="nav"     
+      component="nav"
       style={{
         position: "fixed", // Makes the navbar fixed at the top
         top: 0,
@@ -72,6 +96,10 @@ const Navbar = () => {
                   <NavLink
                     key={index}
                     to={item.path}
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent default navigation
+                      handleNavClick(item.path); // Handle custom navigation
+                    }}
                     style={({ isActive }) => ({
                       textDecoration: "none",
                       fontSize: "18px",
@@ -89,13 +117,13 @@ const Navbar = () => {
               <Group>
                 <CustomButton
                   label="Login"
-                  onClick={handleLogin}
+                  onClick={() => handleNavClick("/login")}
                   variant="filled"
                   color="#293991"
                 />
                 <CustomButton
                   label="Register"
-                  onClick={handleLogin}
+                  onClick={() => handleNavClick("/register")}
                   variant="outline"
                   color="#121212"
                 />
@@ -124,7 +152,10 @@ const Navbar = () => {
               <NavLink
                 key={index}
                 to={item.path}
-                onClick={() => setOpened(false)}
+                onClick={() => {
+                  setOpened(false);
+                  handleNavClick(item.path); // Handle custom navigation
+                }}
                 style={{
                   display: "block",
                   textAlign: "center",

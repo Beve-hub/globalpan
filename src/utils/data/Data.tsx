@@ -12,6 +12,7 @@ import { BiSolidDashboard } from "react-icons/bi";
 import { FaMoneyBills,FaCreditCard,FaGift  } from "react-icons/fa6";
 import { GiHistogram } from "react-icons/gi";
 import { IoIosCheckmarkCircleOutline, } from 'react-icons/io'
+import { FiSettings } from 'react-icons/fi'
  
 interface SideBarItem {
     name: string;
@@ -85,6 +86,11 @@ export const SideBarData: SideBarItem[] = [
       path: '/transaction',
       icon: <FaCreditCard size={18} />,
    },  
+   {
+      name: 'Settings',
+      path: '/settings',
+      icon: <FiSettings size={18} />,
+   }, 
 
   ]
  

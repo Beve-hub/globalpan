@@ -6,7 +6,7 @@ import Certificate from './screen/Certificate'
 
 const About = () => {
     return (
-        <div>
+        <div >
             <AboutTop/>
             <AboutMain/>
             <Vision/>

@@ -1,14 +1,13 @@
-import React from 'react'
+import { Container } from "@mantine/core"
+import SettingsTop from "./screen/SettingsTop"
+import BodySettings from "./screen/BodySettings"
 
-interface Props {
-    
-}
-
-const Settings: React.FC<Props> = () => {
+const Settings = () => {
     return (
-        <div>
-            setting
-        </div>
+        <Container size="lg" my="md">
+        <SettingsTop/>
+        <BodySettings/>
+    </Container>
     )
 }
 

@@ -19,6 +19,7 @@ import Invest from "@/pages/dashboard/invest/Invest";
 import Withdraw from "@/pages/dashboard/withdraw/Withdraw";
 import Analysis from "@/pages/dashboard/analysis/Analysis";
 import Transaction from "@/pages/dashboard/transactions/Transaction";
+import Settings from "@/pages/dashboard/settings/Settings";
   
   interface Props {}
   
@@ -41,6 +42,8 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
           return <Analysis/>;
         case '/transaction':
           return <Transaction/>;
+          case '/settings':
+            return <Settings/>;
         default:
           return <div>Select a section</div>;
       }
@@ -75,12 +78,12 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
                display: "flex",
                justifyContent: "flex-start", // Centers content horizontally
                alignItems: "center", // Centers content vertically
-               fontSize: "16px",
+               fontSize: "18px",
                fontWeight: 500,
                cursor: "pointer",
                backgroundColor: activePath === item.path ? "#293991" : "transparent",
                color: activePath === item.path ? "white" : "#333",
-               padding: "6px 30px",
+               padding: "10px 30px",
                borderRadius: "0px 30px 30px 0",
                transition: "background-color 0.3s ease, color 0.3s ease",
                textDecoration: "none",
@@ -188,24 +191,7 @@ import Transaction from "@/pages/dashboard/transactions/Transaction";
                       User Name
                     </Text>
                   </a>
-                  <a
-                    href="/settings"
-                    style={{
-                      display: "flex",
-                      gap: 10,
-                      textDecoration: "none",
-                      justifyContent: "center",
-                      width: "100%",
-                      marginRight: 40,
-                      cursor: "pointer",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FiSettings size={20} color="gray" />
-                    <Text fw="400" fz="16" color="#121212">
-                      Settings
-                    </Text>
-                  </a>
+                 
                   <a
                     href="/professionalLogin"
                     style={{
