@@ -8,11 +8,42 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
 
+
+interface Errors {
+    email?: string;
+    password?: string;
+}
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Login = () => {
     const navigate = useNavigate();
     const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Adjust the breakpoint as needed
     const [loading, setLoading] = useState(true); // State to manage loading
 
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [errors, setErrors] = useState<Errors>({});
+
+    const validate = (): boolean => {
+        const errors: Errors = {};
+        let isValid = true;
+
+        if (!formData.email || !emailRegex.test(formData.email)) {
+            errors.email = 'Please enter a valid email address';
+            isValid = false;
+        }
+
+        if (!formData.password) {
+            errors.password = 'Please enter your password';
+            isValid = false;
+        }
+
+        setErrors(errors);
+        return isValid;
+    };
     // Simulate loading state
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -22,17 +53,33 @@ const Login = () => {
     }, []);
 
     const handleSubmit = () => {
-        setLoading(true);
+        if (validate()) {
+            setLoading(true);
         setTimeout(() => {
-            navigate('/dashboard');
+            const success = true;
+            if (success) {
+                navigate('/dashboard'); // Redirect to dashboard page if login is successful
+            } else {
+                setErrors({password: 'Invalid email or password'})// Show error message if login fails
+            }
+            
             setLoading(false);
         }, 2000); // Simulate a loading delay of 2 seconds
+        }        
     };
     const handleForgot = () => {
         navigate('/forgot');
     };
     const handleRegister = () => {
         navigate('/register');
+    };
+    // Handle input changes
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
     if (loading) {
         return <Loader />; // Show loader if loading state is true
@@ -80,8 +127,24 @@ const Login = () => {
                                 </UnstyledButton>
                             </Text>
                         </div>
-                        <CustomInput type="text" label='Email' placeholder='example@email.com' required />
-                        <CustomInput type="password" label='Password' placeholder='********' required />
+                        <CustomInput 
+                        type="text" 
+                        label='Email' 
+                        placeholder='example@email.com'
+                        value={formData.email}
+                        onChange={handleInputChange} // Attach onChange handler
+                        required
+                        error={errors.email} />
+
+                        <CustomInput
+                        type="password"
+                        label='Password'
+                        placeholder='********'
+                        value={formData.password}
+                        onChange={handleInputChange} // Attach onChange handler
+                        required
+                        error={errors.password} />
+                        
                         <Box mb={30} style={{display: 'flex', justifyContent:'space-between'}}>
                             <Group>
                                 <Checkbox

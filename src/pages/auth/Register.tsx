@@ -1,5 +1,6 @@
-import { Center, Image, SimpleGrid, Box,  Text,  UnstyledButton } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks'; // Import useMediaQuery
+
+import { Center, Image, SimpleGrid, Box, Text, UnstyledButton } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks'; 
 import IMG from '@/asset/hero_image 3.png';
 import Logo from '@/asset/logo.png';
 import CustomInput from '@/utils/reusable/CustomInput';
@@ -7,8 +8,9 @@ import CustomeButton from '@/utils/reusable/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
+import { account } from '@/apprite/Config';
 
-
+// Define your errors interface
 interface Errors {
     name?: string;
     email?: string;
@@ -16,14 +18,14 @@ interface Errors {
     confirmPassword?: string;
 }
 
+// Regex patterns for validation
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const nameRegex = /^[A-Za-z\s]+$/;
 
-
 const Register = () => {
     const navigate = useNavigate();
-    const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Adjust the breakpoint as needed
+    const isSmallScreen = useMediaQuery('(max-width: 768px)'); 
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
@@ -31,44 +33,44 @@ const Register = () => {
         phoneNumber: '',     
         password: '',
         confirmPassword: '',
-      });
+    });
 
-      const [errors, setErrors] = useState<Errors>({});
+    const [errors, setErrors] = useState<Errors>({});
+    const [serverError, setServerError] = useState('');
 
-  
-      const validate = (): boolean => {
-          const errors: Errors = {};
-          let isValid = true;
-  
-          if (!formData.name || !nameRegex.test(formData.name)) {
-              errors.name = 'Please enter a valid name';
-              isValid = false;
-          }
-  
-          if (!formData.email || !emailRegex.test(formData.email)) {
-              errors.email = 'Please enter a valid email address';
-              isValid = false;
-          }  
-        
-          if (!formData.password || !passwordRegex.test(formData.password)) {
-              errors.password = 'Password must be at least 8 characters long and include at least one letter and one number';
-              isValid = false;
-          }
-  
-          if (formData.password !== formData.confirmPassword) {
-              errors.confirmPassword = 'Passwords do not match';
-              isValid = false;
-          }
-  
-          setErrors(errors);
-          return isValid;
-      };
-      
+    const validate = (): boolean => {
+        const errors: Errors = {};
+        let isValid = true;
+
+        if (!formData.name || !nameRegex.test(formData.name)) {
+            errors.name = 'Please enter a valid name';
+            isValid = false;
+        }
+
+        if (!formData.email || !emailRegex.test(formData.email)) {
+            errors.email = 'Please enter a valid email address';
+            isValid = false;
+        }
+
+        if (!formData.password || !passwordRegex.test(formData.password)) {
+            errors.password = 'Password must be at least 8 characters long and include at least one letter and one number';
+            isValid = false;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            errors.confirmPassword = 'Passwords do not match';
+            isValid = false;
+        }
+
+        setErrors(errors);
+        return isValid;
+    };
+
     useEffect(() => {
         const timer = setTimeout(() => {
-            setLoading(false); // Hide loader after 2 seconds
-        }, 2000); // Adjust the duration as needed
-        return () => clearTimeout(timer); // Clean up the timer on component unmount
+            setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
     }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,23 +81,41 @@ const Register = () => {
         }));
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (validate()) {
-            setLoading(true);
-            setTimeout(() => {
-                navigate('/verification');
-                setLoading(false);
-            }, 2000);
+            setLoading(true);  
+              await register();          
+        } else {
+            setServerError('Failed to register. Please try again later.');
         }
     };
-   
+
+    const register = async() => {
+        try {
+            const {name,email,password} = formData;
+            const res = await account.create('unique()',email,password,name)
+            console.log(res)
+          
+            await account.createEmailToken('unique()', email);
+                       
+            navigate('/verification')            
+        } catch (error) {
+            setServerError('Failed to register. Please try again later.'); 
+           console.log(error) 
+        } finally {
+            setLoading(false);
+        }
+
+    }
+
     const handleRegister = () => {
         navigate('/login');
     };
 
     if (loading) {
-        return <Loader />; // Show loader if loading state is true
+        return <Loader />;
     }
+
     return (
         <Center>
             <SimpleGrid cols={{ base: 1, sm: 1, lg: 2 }} spacing="xl">
@@ -114,14 +134,14 @@ const Register = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: '80vh', // Ensure the container takes up full height
+                        height: '80vh',
                     }}
                 >
                     <div style={{
                         display: 'grid',
                         gap: '10px',
                         width: '100%',
-                        maxWidth: '400px', // Restrict form width
+                        maxWidth: '400px',
                         padding: '20px',
                         marginTop: '14rem'
                     }}>
@@ -129,77 +149,77 @@ const Register = () => {
                             width: '5rem',
                             height: '5rem',
                         }} />
-                        <div style={{marginBottom:10}}>
+                        <div style={{ marginBottom: 10 }}>
                             <Text fz={24} fw={700}>
                                 Create Account
                             </Text>
                             <Text fz={16}>
                                 Already have an account?
-                                <UnstyledButton onClick={handleRegister} style={{color:'#293991',textDecoration: 'underline', fontSize:16, marginLeft:10 }}>
+                                <UnstyledButton onClick={handleRegister} style={{ color: '#293991', textDecoration: 'underline', fontSize: 16, marginLeft: 10 }}>
                                     Sign In
                                 </UnstyledButton>
                             </Text>
                         </div>
                         <SimpleGrid cols={{ base: 1, sm: 1, lg: 1 }} mb={10}>
-                        <CustomInput
-    type="text"
-    label="Full Name"
-    name="name" // Add the name attribute
-    placeholder="John Doe"
-    value={formData.name}
-    onChange={handleInputChange}
-    required
-    error={errors.name}
-/>
-<CustomInput
-    type="text"
-    label="Email"
-    name="email" // Add the name attribute
-    placeholder="example@email.com"
-    value={formData.email}
-    onChange={handleInputChange}
-    required
-    error={errors.email}
-/>
-<CustomInput
-    type="password"
-    label="Password"
-    name="password" // Add the name attribute
-    placeholder="********"
-    value={formData.password}
-    onChange={handleInputChange}
-    required
-    error={errors.password}
-/>
-<CustomInput
-    type="password"
-    label="Confirm Password"
-    name="confirmPassword" // Add the name attribute
-    placeholder="********"
-    value={formData.confirmPassword}
-    onChange={handleInputChange}
-    required
-    error={errors.confirmPassword}
-/>
-
-                        </SimpleGrid>                      
+                            <CustomInput
+                                type="text"
+                                label="Full Name"
+                                name="name"
+                                placeholder="John Doe"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                required
+                                error={errors.name}
+                            />
+                            <CustomInput
+                                type="text"
+                                label="Email"
+                                name="email"
+                                placeholder="example@email.com"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                                error={errors.email}
+                            />
+                            <CustomInput
+                                type="password"
+                                label="Password"
+                                name="password"
+                                placeholder="********"
+                                value={formData.password}
+                                onChange={handleInputChange}
+                                required
+                                error={errors.password}
+                            />
+                            <CustomInput
+                                type="password"
+                                label="Confirm Password"
+                                name="confirmPassword"
+                                placeholder="********"
+                                value={formData.confirmPassword}
+                                onChange={handleInputChange}
+                                required
+                                error={errors.confirmPassword}
+                            />
+                        </SimpleGrid>
+                        {serverError && <Text color="red" size="sm">{serverError}</Text>}
                         <CustomeButton
                             label="Submit"
                             onClick={handleSubmit}
-                            variant="filled"  // Or 'outline', 'light', 'default', etc.
-                            color="#293991"  // You can use any color supported by Mantine
-                            size="md"  // Options: 'xs', 'sm', 'md', 'lg', 'xl'
-                            fullWidth // Set to true to make the button full width
-                            radius="md"                            
+                            variant="filled"
+                            color="#293991"
+                            size="md"
+                            fullWidth
+                            radius="md"
                         />
                         <Text fz={14} fw={300}>
-                            By creating an account, you agree to the <span style={{color:'#293991', fontWeight:'500'}}>privacy policy</span> and to receive economic and marketing communications from pan global trade. You can remove yourself from the mailing list at anytime.
-                            </Text>
+                            By creating an account, you agree to the <span style={{ color: '#293991', fontWeight: '500' }}>privacy policy</span> and to receive economic and marketing communications from pan global trade. You can remove yourself from the mailing list at any time.
+                        </Text>
                     </div>
                 </Box>
             </SimpleGrid>
         </Center>
     );
-}
+};
 
-export default Register
+export default Register;
