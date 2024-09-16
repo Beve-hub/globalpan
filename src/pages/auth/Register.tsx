@@ -9,11 +9,61 @@ import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
 
 
+interface Errors {
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+}
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const nameRegex = /^[A-Za-z\s]+$/;
+
+
 const Register = () => {
     const navigate = useNavigate();
     const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Adjust the breakpoint as needed
     const [loading, setLoading] = useState(true);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phoneNumber: '',     
+        password: '',
+        confirmPassword: '',
+      });
 
+      const [errors, setErrors] = useState<Errors>({});
+
+  
+      const validate = (): boolean => {
+          const errors: Errors = {};
+          let isValid = true;
+  
+          if (!formData.name || !nameRegex.test(formData.name)) {
+              errors.name = 'Please enter a valid name';
+              isValid = false;
+          }
+  
+          if (!formData.email || !emailRegex.test(formData.email)) {
+              errors.email = 'Please enter a valid email address';
+              isValid = false;
+          }  
+        
+          if (!formData.password || !passwordRegex.test(formData.password)) {
+              errors.password = 'Password must be at least 8 characters long and include at least one letter and one number';
+              isValid = false;
+          }
+  
+          if (formData.password !== formData.confirmPassword) {
+              errors.confirmPassword = 'Passwords do not match';
+              isValid = false;
+          }
+  
+          setErrors(errors);
+          return isValid;
+      };
+      
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false); // Hide loader after 2 seconds
@@ -21,12 +71,22 @@ const Register = () => {
         return () => clearTimeout(timer); // Clean up the timer on component unmount
     }, []);
 
-     const handleSubmit = () => {
-        setLoading(true);
-        setTimeout(() => {
-            navigate('/dashboard');
-            setLoading(false);
-        }, 2000); // Simulate a loading delay of 2 seconds
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = () => {
+        if (validate()) {
+            setLoading(true);
+            setTimeout(() => {
+                navigate('/verification');
+                setLoading(false);
+            }, 2000);
+        }
     };
    
     const handleRegister = () => {
@@ -80,17 +140,49 @@ const Register = () => {
                                 </UnstyledButton>
                             </Text>
                         </div>
-                        <SimpleGrid  cols={{ base: 1, sm: 1, lg: 2 }} mb={10}>
-                        <CustomInput type="text" label='Full Name' placeholder='john Doe' required />
-                        <CustomInput type="text" label='Email' placeholder='example@email.com' required />
-                        <CustomInput type="numeric" label='Phone Number' placeholder='+1(234)456789' required />
-                        <CustomInput type="country" label='Country' placeholder='example@email.com' required />
-                        <CustomInput type="numeric" label='Zip Code' placeholder='example@email.com' required />
-                        <CustomInput type="text" label='Address' placeholder='example@email.com' required />
-                        <CustomInput type="password" label='Password' placeholder='********' required />
-                        <CustomInput type="password" label='Confirm Password' placeholder='********' required />
-                        
-                        </SimpleGrid>                       
+                        <SimpleGrid cols={{ base: 1, sm: 1, lg: 1 }} mb={10}>
+                        <CustomInput
+    type="text"
+    label="Full Name"
+    name="name" // Add the name attribute
+    placeholder="John Doe"
+    value={formData.name}
+    onChange={handleInputChange}
+    required
+    error={errors.name}
+/>
+<CustomInput
+    type="text"
+    label="Email"
+    name="email" // Add the name attribute
+    placeholder="example@email.com"
+    value={formData.email}
+    onChange={handleInputChange}
+    required
+    error={errors.email}
+/>
+<CustomInput
+    type="password"
+    label="Password"
+    name="password" // Add the name attribute
+    placeholder="********"
+    value={formData.password}
+    onChange={handleInputChange}
+    required
+    error={errors.password}
+/>
+<CustomInput
+    type="password"
+    label="Confirm Password"
+    name="confirmPassword" // Add the name attribute
+    placeholder="********"
+    value={formData.confirmPassword}
+    onChange={handleInputChange}
+    required
+    error={errors.confirmPassword}
+/>
+
+                        </SimpleGrid>                      
                         <CustomeButton
                             label="Submit"
                             onClick={handleSubmit}
