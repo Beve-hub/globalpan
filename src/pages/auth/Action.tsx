@@ -57,7 +57,7 @@ const Action = () => {
             // Ensure user is logged in after email verification
             onAuthStateChanged(auth, (user) => {
               if (user) {
-                navigate('/profileDetails');  // Navigate to profile page
+                navigate('/profile');  // Navigate to profile page
               } else {
                 navigate('/login');  // Navigate to login if user is not authenticated
                 notifications.show({

@@ -18,7 +18,7 @@ const phoneRegex = /^[0-9]{10,11}$/;
 const addressRegex = /^[A-Za-z0-9\s,.'-]{3,}$/;
 const zipcodeRegex = /^[0-9]{5,6}$/;
 
-const ProfileDetails = () => {
+const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -184,4 +184,4 @@ const ProfileDetails = () => {
   );
 };
 
-export default ProfileDetails;
+export default Profile;

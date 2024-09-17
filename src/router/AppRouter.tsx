@@ -21,7 +21,7 @@ import TeamSub from '@/pages/landingpage/team/screen/TeamSub';
 import DepositSummary from '@/pages/dashboard/invest/screen/DepositSummary';
 import Payment from '@/pages/dashboard/invest/screen/Payment';
 import Verification from '@/pages/auth/Verification';
-import ProfileDetails from '@/pages/auth/ProfileDetails';
+import ProfileDetails from '@/pages/auth/Profile';
 import Recovery from '@/pages/auth/Recover';
 import Action from '@/pages/auth/Action';
 import { AuthProvider } from '@/layout/AuthProvider';
