@@ -57,7 +57,7 @@ const router = createBrowserRouter([
       { path: '/depositSummary', element: <DepositSummary /> },
       { path: '/payment', element: <Payment /> },
       { path: '/verification', element: <Verification /> },
-      { path: '/profileDetails', element: <ProfileDetails /> },
+      { path: '/profileDetails', element: <ProfileDetails /> },      
       { path: '/recover', element: <Recovery /> },
       { path: '/action', element: <Action /> },
     ],

@@ -50,6 +50,7 @@ const Action = () => {
               // Listen for auth state change to ensure user is authenticated before navigating
               onAuthStateChanged(auth, (user) => {
                 if (user) {
+                  navigate('/profileDetails');
                   notifications.show({
                     title: 'Success',
                     message: 'Email verified successfully.',
@@ -57,7 +58,7 @@ const Action = () => {
                     position: 'top-right',
                   });
                   console.log('User authenticated, navigating to profileDetails...');
-                  navigate('/profileDetails');
+                  
                 } else {
                   notifications.show({
                     title: 'Error Alert',
