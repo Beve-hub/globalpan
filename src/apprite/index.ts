@@ -1,5 +1,0 @@
-export const endponit_url = 'https://cloud.appwrite.io/v1'
-export const project_ID  = '66e5cd4b0013ce5b7e89'
-export const database_ID = '66e5d2580004800e072c'
-export const collection_ID = '66e5d288001b54a9be02'
-export const bucket_ID ='66e5d611000dce2c5776'

@@ -22,6 +22,9 @@ import DepositSummary from '@/pages/dashboard/invest/screen/DepositSummary';
 import Payment from '@/pages/dashboard/invest/screen/Payment';
 import Verification from '@/pages/auth/Verification';
 import ProfileDetails from '@/pages/auth/ProfileDetails';
+import Recovery from '@/pages/auth/Recover';
+import Action from '@/pages/auth/Action';
+import { AuthProvider } from '@/layout/AuthProvider';
 
 const router = createBrowserRouter([
   {
@@ -55,10 +58,16 @@ const router = createBrowserRouter([
       { path: '/payment', element: <Payment /> },
       { path: '/verification', element: <Verification /> },
       { path: '/profileDetails', element: <ProfileDetails /> },
+      { path: '/recover', element: <Recovery /> },
+      { path: '/action', element: <Action /> },
     ],
   },
 ]);
 
 export function Router() {
-  return (<RouterProvider router={router} />);
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }

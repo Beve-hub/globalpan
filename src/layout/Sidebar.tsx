@@ -6,10 +6,11 @@ import {
     Group,
     Image,
     Text,
+    UnstyledButton,
   } from "@mantine/core";
   import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-  import { useState } from "react";
-  import { NavLink } from "react-router-dom";
+  import { useEffect, useState } from "react";
+  import { NavLink, useLocation, useNavigate } from "react-router-dom";
   import Logo from "@/asset/logo2.png";
   import { SideBarData } from "@/utils/data/Data";
   import { FaRegCircleUser } from "react-icons/fa6";
@@ -20,15 +21,48 @@ import Withdraw from "@/pages/dashboard/withdraw/Withdraw";
 import Analysis from "@/pages/dashboard/analysis/Analysis";
 import Transaction from "@/pages/dashboard/transactions/Transaction";
 import Settings from "@/pages/dashboard/settings/Settings";
-  
+import { useAuth } from '@/layout/AuthProvider';  
+import { firestore } from "@/firebase";
+import { doc, getDoc  } from "firebase/firestore";
+
   interface Props {}
   
   const SideBar: React.FC<Props> = () => {
+    const navigate = useNavigate();
     const [opened, { toggle }] = useDisclosure(false);
     const [activePath, setActivePath] = useState(SideBarData[0].path); // Initialize with the first path
     const isSmallScreen = useMediaQuery("(max-width: 768px)");
     const isSmall = useMediaQuery("(min-width: 768px)");
+    const { logout } = useAuth();
+    const [name, setName] = useState<string>(() => {        
+        return localStorage.getItem('name') || '';
+    });
+    
+    const { state } = useLocation();
+    console.log('users', state);  
+    const userId = state?.userId || '';
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {                
+                const userDocRef = doc(firestore, 'users', userId);
+                console.log('userId', userId);
+                const snapshot = await getDoc(userDocRef);
+                if (snapshot.exists()) {
+                    console.log('userdetails', snapshot.data());
+                    const userDetails = snapshot.data();
+                    setName(userDetails?.firstName);                    
+                    localStorage.setItem('name', userDetails?.name || '');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, [userId]);
+
   
+   
     
     const renderContent = () => {
       switch (activePath) {
@@ -47,6 +81,15 @@ import Settings from "@/pages/dashboard/settings/Settings";
         default:
           return <div>Select a section</div>;
       }
+    };
+
+
+
+    const handleClick = () => {
+      localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('firstName'); // Remove firstName from localStorage on logout
+        logout();
+      navigate('/login')
     };
 
     return (
@@ -111,7 +154,7 @@ import Settings from "@/pages/dashboard/settings/Settings";
                       display: "flex",
                       gap: 10,
                       textDecoration: "none",
-                      justifyContent: "center",
+                      justifyContent: "flex-start",
                       width: "100%",
                       marginRight: 20,
                       cursor: "pointer",
@@ -120,7 +163,7 @@ import Settings from "@/pages/dashboard/settings/Settings";
                   >
                     <FaRegCircleUser size={24} color="gray" />
                     <Text fw="400" fz="16">
-                      User Name
+                    {name}
                     </Text>
                   </a>
                   <a
@@ -141,8 +184,9 @@ import Settings from "@/pages/dashboard/settings/Settings";
                       Settings
                     </Text>
                   </a>
-                  <a
-                    href="/professionalLogin"
+                  <UnstyledButton
+                 
+                  onClick={handleClick}
                     style={{
                       display: "flex",
                       gap: 10,
@@ -158,7 +202,7 @@ import Settings from "@/pages/dashboard/settings/Settings";
                     <Text fw="400" fz="16" color="#121212">
                       Log Out
                     </Text>
-                  </a>
+                  </UnstyledButton>
                 </Group>
               </Box>
             )}
@@ -174,12 +218,12 @@ import Settings from "@/pages/dashboard/settings/Settings";
                 }}
               >
                 <Group display="flex" mt="auto" style={{ width: "100%" }}>
-                <a
+                <Text
                     style={{
                       display: "flex",
                       gap: 10,
                       textDecoration: "none",
-                      justifyContent: "center",
+                      justifyContent: "flex-start",
                       width: "100%",
                       marginRight: 20,
                       cursor: "pointer",
@@ -188,28 +232,28 @@ import Settings from "@/pages/dashboard/settings/Settings";
                   >
                     <FaRegCircleUser size={20} color="gray" />
                     <Text fw="400" fz="16">
-                      User Name
+                    {name}
                     </Text>
-                  </a>
-                 
-                  <a
-                    href="/professionalLogin"
-                    style={{
-                      display: "flex",
-                      gap: 10,
-                      textDecoration: "none",
-                      justifyContent: "center",
-                      width: "100%",
-                      marginRight: 38,
-                      cursor: "pointer",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FiLogOut size={20} color="gray" />
-                    <Text fw="400" fz="16" color="#121212">
-                      Log Out
-                    </Text>
-                  </a>
+                  </Text>
+
+                  <UnstyledButton                 
+                 onClick={handleClick}
+                   style={{
+                     display: "flex",
+                     gap: 10,
+                     textDecoration: "none",
+                     justifyContent: "center",
+                     width: "100%",
+                     marginRight: 50,
+                     cursor: "pointer",
+                     alignItems: "center",
+                   }}
+                 >
+                   <FiLogOut size={24} color="gray" />
+                   <Text fw="400" fz="16" color="#121212">
+                     Log Out
+                   </Text>
+                 </UnstyledButton>
                 </Group>
               </Box>
             )}

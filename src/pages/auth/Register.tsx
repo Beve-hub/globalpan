@@ -8,7 +8,10 @@ import CustomeButton from '@/utils/reusable/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
-import { account } from '@/apprite/Config';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
+import { auth, firestore } from '@/firebase';
+import { notifications } from '@mantine/notifications';
 
 // Define your errors interface
 interface Errors {
@@ -20,8 +23,11 @@ interface Errors {
 
 // Regex patterns for validation
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
 const nameRegex = /^[A-Za-z\s]+$/;
+
+
+
 
 const Register = () => {
     const navigate = useNavigate();
@@ -29,14 +35,15 @@ const Register = () => {
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
-        phoneNumber: '',     
+        email: '',            
         password: '',
         confirmPassword: '',
     });
 
     const [errors, setErrors] = useState<Errors>({});
     const [serverError, setServerError] = useState('');
+
+    
 
     const validate = (): boolean => {
         const errors: Errors = {};
@@ -83,30 +90,60 @@ const Register = () => {
 
     const handleSubmit = async () => {
         if (validate()) {
-            setLoading(true);  
-              await register();          
-        } else {
-            setServerError('Failed to register. Please try again later.');
+            setLoading(true);
+            try {
+                await register(); // Await the registration process.
+                
+                // Notify user on successful registration and email verification
+                notifications.show({
+                    title: `Registration Successful `,
+                    message: `A verification email has been sent to your email address. Please check your inbox.`,
+                    color: '#299165',
+                    position:'top-right',
+                });
+                
+            } catch (error) {
+                setServerError('Failed to register. Please try again later.');
+                notifications.show({
+                    title: 'Registration Failed',
+                    message: 'Something went wrong. Please try again later.',
+                    color: 'red',
+                    position:'top-right',
+                });
+            } finally {
+                setLoading(false); // Ensure the loading state is reset after the process.
+            }
         }
     };
-
-    const register = async() => {
+    
+    
+    const register = async () => {
         try {
-            const {name,email,password} = formData;
-            const res = await account.create('unique()',email,password,name)
-            console.log(res)
-          
-            await account.createEmailToken('unique()', email);
-                       
-            navigate('/verification')            
+            const { email, password } = formData;
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            if (user) {
+                await sendEmailVerification(user);
+                sessionStorage.setItem("userId", user.uid);
+    
+                // Save user info in Firestore
+                const userDocRef = doc(firestore, 'users', user.uid);
+                await setDoc(userDocRef, {
+                    name: formData.name,
+                    email,
+                    password
+                });
+    
+                // Navigate to verification page after successful registration
+                navigate('/login');
+            }
         } catch (error) {
-            setServerError('Failed to register. Please try again later.'); 
-           console.log(error) 
-        } finally {
-            setLoading(false);
+            setServerError('Failed to register. Please try again later.');
+            console.error(error);
         }
-
-    }
+    };
+    
 
     const handleRegister = () => {
         navigate('/login');
