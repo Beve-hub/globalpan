@@ -22,7 +22,6 @@ const Action = () => {
   const [errors, setErrors] = useState<Errors>({});
 
   useEffect(() => {
-    // Simulate some asynchronous operation
     setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -42,12 +41,28 @@ const Action = () => {
     const handleAction = async () => {
       try {
         if (mode === 'resetPassword') {
-          // Verify the password reset code is valid
           await checkActionCode(auth, oobCode);
         } else if (mode === 'verifyEmail') {
-          // Apply the email verification code
-          await applyActionCode(auth, oobCode);
-          navigate('/profileDetails');
+          await applyActionCode(auth, oobCode)
+            .then(() => {
+              notifications.show({
+                title: 'Success',
+                message: 'Email verified successfully.',
+                color: 'green',
+                position: 'top-right',
+              });
+              console.log('Navigating to profileDetails...');
+              navigate('/profileDetails');
+            })
+            .catch((error) => {
+              console.error('Verification failed', error);
+              notifications.show({
+                title: 'Error Alert',
+                message: 'Failed to verify email. Please try again.',
+                color: 'red',
+                position: 'top-right',
+              });
+            });
         } else {
           notifications.show({
             title: `Error Alert `,
@@ -67,7 +82,7 @@ const Action = () => {
     };
 
     handleAction();
-  }, [mode, oobCode]);
+  }, [mode, oobCode, navigate]);
 
   const validate = (): boolean => {
     const errors: Errors = {};
@@ -127,6 +142,7 @@ const Action = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="w-screen h-screen  bg-[--text-extra] grid justify-center items-center">
       {mode === 'resetPassword' && (
@@ -166,7 +182,7 @@ const Action = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="confirm">Confirm New assword *</label>
+                        <label htmlFor="confirm">Confirm New Password *</label>
                         <input
                           id="confirm"
                           name="confirm"
@@ -200,7 +216,9 @@ const Action = () => {
       )}
 
       {mode === 'verifyEmail' && (
-        <div className="flex justify-center items-center">{loading ? <Loader /> : ''}</div>
+        <div className="flex justify-center items-center">
+          {loading ? <Loader /> : ''}
+        </div>
       )}
     </div>
   );
