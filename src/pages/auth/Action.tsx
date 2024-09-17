@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { applyActionCode, checkActionCode, confirmPasswordReset } from 'firebase/auth';
+import { applyActionCode, checkActionCode, confirmPasswordReset, onAuthStateChanged } from 'firebase/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import { auth } from '@/firebase';
@@ -30,7 +30,7 @@ const Action = () => {
   useEffect(() => {
     if (!mode || !oobCode) {
       notifications.show({
-        title: `Error Alert `,
+        title: `Error Alert`,
         message: `Invalid request.`,
         color: 'red',
         position: 'top-right',
@@ -43,16 +43,31 @@ const Action = () => {
         if (mode === 'resetPassword') {
           await checkActionCode(auth, oobCode);
         } else if (mode === 'verifyEmail') {
+          setLoading(true);  // Show loader while handling verification
+          
           await applyActionCode(auth, oobCode)
             .then(() => {
-              notifications.show({
-                title: 'Success',
-                message: 'Email verified successfully.',
-                color: 'green',
-                position: 'top-right',
+              // Listen for auth state change to ensure user is authenticated before navigating
+              onAuthStateChanged(auth, (user) => {
+                if (user) {
+                  notifications.show({
+                    title: 'Success',
+                    message: 'Email verified successfully.',
+                    color: 'green',
+                    position: 'top-right',
+                  });
+                  console.log('User authenticated, navigating to profileDetails...');
+                  navigate('/profileDetails');
+                } else {
+                  notifications.show({
+                    title: 'Error Alert',
+                    message: 'Authentication failed. Please login again.',
+                    color: 'red',
+                    position: 'top-right',
+                  });
+                  navigate('/login'); // Fallback to login if not authenticated
+                }
               });
-              console.log('Navigating to profileDetails...');
-              navigate('/profileDetails');
             })
             .catch((error) => {
               console.error('Verification failed', error);
@@ -62,10 +77,11 @@ const Action = () => {
                 color: 'red',
                 position: 'top-right',
               });
-            });
+            })
+            .finally(() => setLoading(false));  // Hide loader after process is done
         } else {
           notifications.show({
-            title: `Error Alert `,
+            title: `Error Alert`,
             message: `Invalid mode.`,
             color: 'red',
             position: 'top-right',
@@ -73,7 +89,7 @@ const Action = () => {
         }
       } catch (error) {
         notifications.show({
-          title: `Error Alert `,
+          title: `Error Alert`,
           message: `Invalid request.`,
           color: 'red',
           position: 'top-right',
@@ -124,7 +140,7 @@ const Action = () => {
         navigate('/login');
       } else {
         notifications.show({
-          title: `Error Alert `,
+          title: `Error Alert`,
           message: `Invalid or missing oobCode.`,
           color: 'red',
           position: 'top-right',
@@ -133,7 +149,7 @@ const Action = () => {
     } catch (error) {
       console.error('Error resetting password:', error);
       notifications.show({
-        title: `Error Alert `,
+        title: `Error Alert`,
         message: `An error occurred while resetting the password. Please try again.`,
         color: 'red',
         position: 'top-right',
