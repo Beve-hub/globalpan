@@ -44,59 +44,60 @@ const Action = () => {
           await checkActionCode(auth, oobCode);
         } else if (mode === 'verifyEmail') {
           setLoading(true);  // Show loader while handling verification
-          
-          await applyActionCode(auth, oobCode)
-            .then(() => {
-              // Listen for auth state change to ensure user is authenticated before navigating
-              onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  navigate('/profileDetails');
-                  notifications.show({
-                    title: 'Success',
-                    message: 'Email verified successfully.',
-                    color: 'green',
-                    position: 'top-right',
-                  });
-                  console.log('User authenticated, navigating to profileDetails...');
-                  
-                } else {
-                  notifications.show({
-                    title: 'Error Alert',
-                    message: 'Authentication failed. Please login again.',
-                    color: 'red',
-                    position: 'top-right',
-                  });
-                  navigate('/login'); // Fallback to login if not authenticated
-                }
-              });
-            })
-            .catch((error) => {
-              console.error('Verification failed', error);
-              notifications.show({
-                title: 'Error Alert',
-                message: 'Failed to verify email. Please try again.',
-                color: 'red',
-                position: 'top-right',
-              });
-            })
-            .finally(() => setLoading(false));  // Hide loader after process is done
+    
+          try {
+            await applyActionCode(auth, oobCode);
+            notifications.show({
+              title: 'Success',
+              message: 'Email verified successfully.',
+              color: 'green',
+              position: 'top-right',
+            });
+    
+            // Ensure user is logged in after email verification
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                navigate('/profileDetails');  // Navigate to profile page
+              } else {
+                navigate('/login');  // Navigate to login if user is not authenticated
+                notifications.show({
+                  title: 'Error Alert',
+                  message: 'Authentication failed. Please login again.',
+                  color: 'red',
+                  position: 'top-right',
+                });
+              }
+            });
+          } catch (error) {
+            notifications.show({
+              title: 'Error Alert',
+              message: 'Failed to verify email. Please try again.',
+              color: 'red',
+              position: 'top-right',
+            });
+            console.error('Verification failed', error);
+          } finally {
+            setLoading(false);  // Hide loader after process is done
+          }
         } else {
           notifications.show({
-            title: `Error Alert`,
-            message: `Invalid mode.`,
+            title: 'Error Alert',
+            message: 'Invalid mode.',
             color: 'red',
             position: 'top-right',
           });
         }
       } catch (error) {
         notifications.show({
-          title: `Error Alert`,
-          message: `Invalid request.`,
+          title: 'Error Alert',
+          message: 'Invalid request.',
           color: 'red',
           position: 'top-right',
         });
+        console.error('Error:', error);
       }
     };
+    
 
     handleAction();
   }, [mode, oobCode, navigate]);
