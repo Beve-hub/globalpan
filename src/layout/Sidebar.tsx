@@ -26,9 +26,8 @@ import { useAuth } from '@/layout/AuthProvider';
 import { firestore } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
-interface Props {}
 
-const SideBar: React.FC<Props> = () => {
+const SideBar = () => {
   const navigate = useNavigate();
   const [opened, { toggle }] = useDisclosure(false);
   const [activePath, setActivePath] = useState(SideBarData[0].path); // Initialize with the first path

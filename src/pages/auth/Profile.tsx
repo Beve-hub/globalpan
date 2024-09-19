@@ -1,4 +1,4 @@
-import { Box, Center, Image, Text, SimpleGrid } from '@mantine/core';
+import { Box, Center, Image, Text, SimpleGrid, Select, SelectProps } from '@mantine/core';
 import Logo from '@/asset/logo.png';
 import CustomInput from '@/utils/reusable/CustomInput';
 import CustomeButton from '@/utils/reusable/CustomButton';
@@ -10,11 +10,14 @@ import { useAuth } from '@/layout/AuthProvider';
 import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
 import { notifications } from '@mantine/notifications';
 
+
+
 interface Errors {
   address?: string;
   phoneNumber?: string;
   zip?: string;
   country?: string;
+  role?: string;
 }
 
 const phoneRegex = /^\+?[0-9\s()-]{10,15}$/;
@@ -29,15 +32,13 @@ const Profile = () => {
     country: '',
     phoneNumber: '',
     zip: '',
+    role: '',
   });
   const [errors, setErrors] = useState<Errors>({});
-  const {user} = useAuth();
+  const { user } = useAuth();
   const { state } = useLocation();
 
-    console.log('users', state);  
-    const userId = state?.userId || '';
-    console.log('User ID:', userId);
-
+  const userId = state?.userId || '';
 
   const validate = (): boolean => {
     const errors: Errors = {};
@@ -50,6 +51,10 @@ const Profile = () => {
 
     if (!formData.country) {
       errors.country = 'Please select a country';
+      isValid = false;
+    }
+    if (!formData.role) {
+      errors.role = 'Please select a role';
       isValid = false;
     }
 
@@ -83,13 +88,16 @@ const Profile = () => {
   };
 
 
+  const handleRoleChange: SelectProps['onChange'] = (value) => {
+    setFormData({ ...formData, role: value || '' });
+  };
+
   const handleSubmit = async () => {
     if (validate() && user) {
       setLoading(true);
       try {
         const db = getFirestore();
         const userDocRef = doc(db, 'users', userId);
-        console.log('doc', userDocRef)
         // Check if the document exists
         const docSnap = await getDoc(userDocRef);
   
@@ -99,6 +107,7 @@ const Profile = () => {
             country: formData.country,
             phoneNumber: formData.phoneNumber,
             zip: formData.zip,
+            role: formData.role,
           });
           
           notifications.show({
@@ -125,8 +134,7 @@ const Profile = () => {
       }
     }
   };
-  
-  
+
   if (loading) {
     return <Loader />; // Show loader if loading state is true
   }
@@ -171,7 +179,7 @@ const Profile = () => {
               </Text>
             </div>
             <SimpleGrid cols={{ base: 1, sm: 1, lg: 1 }} mb={10}>
-            <CustomInput
+              <CustomInput
                 type="tel"
                 label="Phone Number"
                 name="phoneNumber"
@@ -191,7 +199,7 @@ const Profile = () => {
                 required
                 error={errors.address}
               />
-               <CustomInput
+              <CustomInput
                 type="numeric"
                 label="Zip Code"
                 name="zip"
@@ -201,19 +209,26 @@ const Profile = () => {
                 value={formData.zip}
                 onChange={handleInputChange}
               />
-              <div >
+              <div>
+                <Select
+                  label="Your role"
+                  name="role"
+                  placeholder="Pick value"
+                  error={errors.role}
+                  value={formData.role}
+                  data={['investor', 'others']}
+                  onChange={handleRoleChange}
+                />
                 <Text fz={14} fw={500}>Country <span style={{color:'#CC0000'}}>*</span></Text>
-              <ReactFlagsSelect
+                <ReactFlagsSelect
                 selected={formData.country}
                 onSelect={handleCountrySelect}
                 searchable
                 searchPlaceholder="Search countries"
                 placeholder="Select Country"
               />
-              {errors.country && <Text color="red">{errors.country}</Text>}
+                {errors.country && <Text color="red">{errors.country}</Text>}
               </div>
-             
-             
             </SimpleGrid>
             <CustomeButton
               label="Submit"

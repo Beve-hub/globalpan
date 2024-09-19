@@ -1,7 +1,8 @@
 // AuthProvider.tsx
 import React, { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-
+import { getAuth, onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
+import { doc, deleteDoc } from "firebase/firestore";
+import { firestore } from '@/firebase'; // Adjust the import according to your setup
 
 interface User {
     uid: string;
@@ -12,6 +13,7 @@ interface AuthContextType {
     isLoggedIn: boolean;
     user: User | null;
     logout: () => Promise<void>;
+    deleteAccount: () => Promise<void>; // Add deleteAccount function to context
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,18 +34,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const auth = getAuth();
     const [user, setUser] = useState<User | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-   
 
     const logout = async () => {
         try {
             await signOut(auth);
             setIsLoggedIn(false);
-            setUser(null); 
+            setUser(null);
             console.log('Logged out');
-            
         } catch (error) {
             console.error('Failed to sign out', error);
         }
+    };
+
+    const deleteAccount = async () => {
+        if (user) {
+
+        try {
+            // Delete user document from Firestore
+            await deleteDoc(doc(firestore, 'users', user.uid));
+
+            // Delete user from Firebase Auth
+            await deleteUser(auth.currentUser!);
+
+            // Sign out after deletion
+            await logout();
+            
+            console.log('Account deleted successfully');
+        } catch (error) {
+            console.error('Failed to delete account', error);
+        }
+      }
     };
 
     useEffect(() => {
@@ -61,7 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [auth]);
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, user, logout }}>
+        <AuthContext.Provider value={{ isLoggedIn, user, logout, deleteAccount }}>
             {children}
         </AuthContext.Provider>
     );
