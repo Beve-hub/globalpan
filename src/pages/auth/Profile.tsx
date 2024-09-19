@@ -2,10 +2,13 @@ import { Box, Center, Image, Text, SimpleGrid } from '@mantine/core';
 import Logo from '@/asset/logo.png';
 import CustomInput from '@/utils/reusable/CustomInput';
 import CustomeButton from '@/utils/reusable/CustomButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
 import ReactFlagsSelect from 'react-flags-select';
+import { useAuth } from '@/layout/AuthProvider';  
+import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
+import { notifications } from '@mantine/notifications';
 
 interface Errors {
   address?: string;
@@ -14,7 +17,7 @@ interface Errors {
   country?: string;
 }
 
-const phoneRegex = /^[0-9]{10,11}$/;
+const phoneRegex = /^\+?[0-9\s()-]{10,15}$/;
 const addressRegex = /^[A-Za-z0-9\s,.'-]{3,}$/;
 const zipcodeRegex = /^[0-9]{5,6}$/;
 
@@ -28,6 +31,13 @@ const Profile = () => {
     zip: '',
   });
   const [errors, setErrors] = useState<Errors>({});
+  const {user} = useAuth();
+  const { state } = useLocation();
+
+    console.log('users', state);  
+    const userId = state?.userId || '';
+    console.log('User ID:', userId);
+
 
   const validate = (): boolean => {
     const errors: Errors = {};
@@ -72,16 +82,51 @@ const Profile = () => {
     setFormData({ ...formData, country: countryCode });
   };
 
-  const handleSubmit = () => {
-    if (validate()) {
+
+  const handleSubmit = async () => {
+    if (validate() && user) {
       setLoading(true);
-      setTimeout(() => {
-        navigate('/verification');
+      try {
+        const db = getFirestore();
+        const userDocRef = doc(db, 'users', userId);
+        console.log('doc', userDocRef)
+        // Check if the document exists
+        const docSnap = await getDoc(userDocRef);
+  
+        if (docSnap.exists()) {
+          await updateDoc(userDocRef, {
+            address: formData.address,
+            country: formData.country,
+            phoneNumber: formData.phoneNumber,
+            zip: formData.zip,
+          });
+          
+          notifications.show({
+            title: 'Profile Updated',
+            message: 'Your profile has been successfully updated.',
+            color: 'green',
+            position: 'top-right',
+          });
+        } else {
+          throw new Error('User document does not exist');
+        }
+  
         setLoading(false);
-      }, 2000);
+        navigate('/dashboard');
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        setLoading(false);
+        notifications.show({
+          title: 'Update Failed',
+          message: 'There was an issue updating your profile. Please try again later.',
+          color: 'red',
+          position: 'top-right',
+        });
+      }
     }
   };
-
+  
+  
   if (loading) {
     return <Loader />; // Show loader if loading state is true
   }
@@ -95,10 +140,10 @@ const Profile = () => {
             justifyContent: 'center',
             backgroundColor:'#FCFCFC',
             alignItems: 'center',
-            height: '80vh',
+            height: '90vh',
             boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)',
             borderRadius: '10px',
-            
+            padding:20
           }}
         >
           <Center
@@ -126,6 +171,16 @@ const Profile = () => {
               </Text>
             </div>
             <SimpleGrid cols={{ base: 1, sm: 1, lg: 1 }} mb={10}>
+            <CustomInput
+                type="tel"
+                label="Phone Number"
+                name="phoneNumber"
+                placeholder="+1 (234) 456378"
+                required
+                error={errors.phoneNumber}
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+              />
               <CustomInput
                 type="text"
                 label="Resident Address"
@@ -135,6 +190,16 @@ const Profile = () => {
                 onChange={handleInputChange}
                 required
                 error={errors.address}
+              />
+               <CustomInput
+                type="numeric"
+                label="Zip Code"
+                name="zip"
+                placeholder="209102"
+                required
+                error={errors.zip}
+                value={formData.zip}
+                onChange={handleInputChange}
               />
               <div >
                 <Text fz={14} fw={500}>Country <span style={{color:'#CC0000'}}>*</span></Text>
@@ -147,26 +212,8 @@ const Profile = () => {
               />
               {errors.country && <Text color="red">{errors.country}</Text>}
               </div>
-              <CustomInput
-                type="numeric"
-                label="Phone Number"
-                name="phoneNumber"
-                placeholder="+1(234)456378"
-                required
-                error={errors.phoneNumber}
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-              />
-              <CustomInput
-                type="numeric"
-                label="Zip Code"
-                name="zip"
-                placeholder="209102"
-                required
-                error={errors.zip}
-                value={formData.zip}
-                onChange={handleInputChange}
-              />
+             
+             
             </SimpleGrid>
             <CustomeButton
               label="Submit"

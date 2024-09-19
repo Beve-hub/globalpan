@@ -8502,6 +8502,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"intl-tel-input@npm:^24.5.0":
+  version: 24.5.0
+  resolution: "intl-tel-input@npm:24.5.0"
+  checksum: 10c0/997c59b55f1929e91ff680423eaa3944f6e761ec1cb9b6e9bd75e3638be06b2b9ed8edb94fd1713e0c910966002a18c5270c07d65a9177f9cf5dca4d1f50e9b5
+  languageName: node
+  linkType: hard
+
 "invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
@@ -10086,6 +10093,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.35.0"
     firebase: "npm:^10.13.1"
     identity-obj-proxy: "npm:^3.0.0"
+    intl-tel-input: "npm:^24.5.0"
     jsdom: "npm:^25.0.0"
     postcss: "npm:^8.4.43"
     postcss-preset-mantine: "npm:1.17.0"
