@@ -1,45 +1,170 @@
 import CustomInput from '@/utils/reusable/CustomInput';
 import React, { useState } from 'react';
-import { Box, Group, NativeSelect, Text } from '@mantine/core';
+import { Box, Group, NativeSelect, Paper,Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import CustomeButton from '@/utils/reusable/CustomButton';
+import { ref, push } from 'firebase/database';
+import { database } from '@/firebase';
+import { Oval } from 'react-loader-spinner';
+import { notifications } from '@mantine/notifications';
 
-const BodyInvest = () => {
+// Define types for form data and error object
+type FormData = {
+  range: string;
+  plan: string;
+  amount: string;
+  description: string;
+  coin: string;
+};
+
+type FormErrors = Record<string, string>;
+
+const BodyInvest = ({ ...props }) => {
   const navigate = useNavigate();
-  const [value, setValue] = useState('');
-  const [coin, setCoin] = useState('');
-  const [description, setDescription] = useState('');
-  const [range, setRange] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [formData, setFormData] = useState<FormData>({
+    range: '',
+    plan: '',
+    amount: '',
+    description: '',
+    coin: '',
+  });
 
-  const handleSubmit = () => {
-    navigate('/depositSummary');
+  const validate = (): boolean => {
+    const validationErrors: FormErrors = {};
+    let isValid = true;
+
+    if (!formData.plan) {
+      validationErrors.plan = 'Please select an investment plan';
+      isValid = false;
+    }
+    if (!formData.coin) {
+      validationErrors.coin = 'Please select a payment method';
+      isValid = false;
+    }
+    if (!formData.amount) {
+      validationErrors.amount = 'Please input an amount';
+      isValid = false;
+    }
+
+    setErrors(validationErrors);
+    return isValid;
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.currentTarget.value;
-    setValue(selectedValue);
-
-    switch (selectedValue) {
-      case 'Basic Plan':
-        setRange('$100 - $2000');
-        setDescription('2% Daily');
-        break;
-      case 'Advance Plan':
-        setRange('$2001 - $5000');
-        setDescription('5% Daily');
-        break;
-      case 'Professional Plan':
-        setRange('$5001 - $10,000');
-        setDescription('7.5% Daily');
-        break;
-      case 'Premium Plan':
-        setRange('$10,000 - Unlimited');
-        setDescription('12.5% Daily');
-        break;
-      default:
-        setRange('');
-        setDescription('');
+  const handleSubmit = async () => {
+    if (validate()) {  // Ensure that validation passes before setting loading
+      setLoading(true);
+      try {
+        await Pricing();
+        notifications.show({
+          title: 'Investment Successful',
+          message: 'Your investment has been successfully processed.',
+          color: '#299165',
+          position: 'top-right',
+        });
+      } catch (error) {
+        setErrors({ submit: 'Failed to submit. Please try again later.' });
+        notifications.show({
+          title: 'Investment Failed',
+          message: 'Something went wrong. Please try again later.',
+          color: 'red',
+          position: 'top-right',
+        });
+      } finally {
+        setLoading(false);
+      }
     }
+  };
+  
+  
+
+  const Pricing = async () => {
+    const userId = sessionStorage.getItem('userId');
+    const status = 'pending';
+    const seriaId = Math.floor(Math.random() * 1000000);
+    const currentDate = new Date().toISOString();
+  
+    try {
+      const userRef = ref(database, 'DepositData');
+      const response = await push(userRef, {
+        ...formData,
+        seriaId,
+        userId,
+        payment: 'Deposit',
+        method: formData.coin,
+        date: currentDate,
+        status,
+      });
+      console.log('Firebase response:', response);
+  
+      setFormData({
+        range: '',
+        plan: '',
+        amount: '',
+        description: '',
+        coin: '',
+      });
+      navigate('/depositSummary', { state: { ...formData } });
+    } catch (error) {
+      console.error('Error saving to Firebase:', error);
+      throw new Error('Failed to save data.');
+    }
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (name === 'plan') {
+      switch (value) {
+        case 'Basic Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$100 - $2000',
+            description: '2% Daily',
+          }));
+          break;
+        case 'Advance Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$2001 - $5000',
+            description: '5% Daily',
+          }));
+          break;
+        case 'Professional Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$5001 - $10,000',
+            description: '7.5% Daily',
+          }));
+          break;
+        case 'Premium Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$10,000 - Unlimited',
+            description: '12.5% Daily',
+          }));
+          break;
+        default:
+          setFormData((prev) => ({
+            ...prev,
+            range: '',
+            description: '',
+          }));
+      }
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -60,37 +185,62 @@ const BodyInvest = () => {
       }}
     >
       <form style={{ width: '100%', display: 'grid', gap: 20 }}>
-     
-        
+        <Paper radius="md" p="md" withBorder {...props}>
         <div>
           <NativeSelect
             label="Investment Plan"
-            value={value}
-            onChange={handleChange}
-            data={['Basic Plan', 'Advance Plan', 'Professional Plan', 'Premium Plan']}
+            name="plan"
+            value={formData.plan}
+            onChange={handleSelectChange}
+            data={['','Basic Plan', 'Advance Plan', 'Professional Plan', 'Premium Plan']}
+            error={errors.plan}
           />
           <Group style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Text>{range && <Text fz={12} fw={500} color='#5C5B5B'>{range}</Text>}</Text>
-            <Text>{description && <Text fz={12} fw={500} color='#5C5B5B'>{description}</Text>}</Text>
+            {formData.range && (
+              <Text fz={12} fw={500} color="#5C5B5B">
+                {formData.range}
+              </Text>
+            )}
+            {formData.description && (
+              <Text fz={12} fw={500} color="#5C5B5B">
+                {formData.description}
+              </Text>
+            )}
           </Group>
         </div>
 
-        <CustomInput type="numeric" label="Amount" placeholder="$0.00" />
-        <NativeSelect
-          label="Investment Plan"
-          value={coin}
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setCoin(event.currentTarget.value)}
-          data={['BTC', 'ETH', 'XRP', 'USDT']}
+            <div style={{marginBottom:20}}>
+            <CustomInput
+          type="numeric"
+          label="Amount"
+          placeholder="$0.00"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          error={errors.amount}
         />
+        <NativeSelect
+          label="Payment Method"
+          name="coin"
+          value={formData.coin}
+          onChange={handleSelectChange}
+          data={['','BTC', 'ETH', 'XRP', 'USDT']}
+          error={errors.coin}
+        />
+            </div>
+       
         <CustomeButton
-          label="Invest"
+          label={loading ? <Oval height={30} width={30} color="#293991" /> : 'invest'}
           onClick={handleSubmit}
           variant="filled"
           color="#293991"
           size="md"
           fullWidth
           radius="md"
+          disabled={loading}
         />
+        </Paper>        
+        
       </form>
     </Box>
   );

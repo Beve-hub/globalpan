@@ -25,6 +25,9 @@ import ProfileDetails from '@/pages/auth/Profile';
 import Recovery from '@/pages/auth/Recover';
 import Action from '@/pages/auth/Action';
 import { AuthProvider } from '@/layout/AuthProvider';
+import Admin from '@/pages/admin/Admin';
+import WithdrawSummary from '@/pages/dashboard/withdraw/screen/WithdrawSummary';
+import WithdrawPin from '@/pages/dashboard/withdraw/screen/WithdrawPin';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +46,7 @@ const router = createBrowserRouter([
       { path: '/analysis', element: <Analysis /> },
       { path: '/transaction', element: <Transaction /> },
       { path: '/settings', element: <Settings /> },
+      { path: '/admin', element: <Admin /> },
     ],
   },
   
@@ -55,6 +59,8 @@ const router = createBrowserRouter([
       { path: '/forgot', element: <ForgotPassword /> },
       { path: '/reset', element: <ResetPassword /> },
       { path: '/depositSummary', element: <DepositSummary /> },
+      { path: '/withdrawSummary', element: <WithdrawSummary /> },
+      { path: '/withdrawPin', element: <WithdrawPin /> },
       { path: '/payment', element: <Payment /> },
       { path: '/verification', element: <Verification /> },
       { path: '/profile', element: <ProfileDetails /> },      

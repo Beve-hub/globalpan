@@ -210,7 +210,7 @@ const Profile = () => {
                 onChange={handleInputChange}
               />
               <div>
-                <Select
+              <Select
                   label="Your role"
                   name="role"
                   placeholder="Pick value"
@@ -219,6 +219,8 @@ const Profile = () => {
                   data={['investor', 'others']}
                   onChange={handleRoleChange}
                 />
+              </div>
+              <div>                
                 <Text fz={14} fw={500}>Country <span style={{color:'#CC0000'}}>*</span></Text>
                 <ReactFlagsSelect
                 selected={formData.country}

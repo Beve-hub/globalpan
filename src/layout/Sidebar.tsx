@@ -25,6 +25,7 @@ import Settings from "@/pages/dashboard/settings/Settings";
 import { useAuth } from '@/layout/AuthProvider';
 import { firestore } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import Admin from "@/pages/admin/Admin";
 
 
 const SideBar = () => {
@@ -36,6 +37,9 @@ const SideBar = () => {
   const { logout } = useAuth();
   const [name, setName] = useState<string>(() => {
     return localStorage.getItem('name') || '';
+  });
+  const [role, setRole] = useState<string>(() => {
+    return localStorage.getItem('role') || '';
   });
 
   const { state } = useLocation();
@@ -75,12 +79,38 @@ const SideBar = () => {
     fetchData();
   }, [userId]);
 
+  useEffect(() => {
+    const fetchPersonalInfo = async () => {
+      const userId = sessionStorage.getItem('userId');
+      if (userId) {
+        const userDocRef = doc(firestore, 'users', userId);
+        const snapshot = await getDoc(userDocRef);
+        if (snapshot.exists()) {
+          const userDetails = snapshot.data();
+          console.log('userDetails', userDetails);
+
+          if (userDetails) {
+            setName(userDetails.name || '');
+            setRole(userDetails.role || '');           
+          }
+        } else {
+          console.log('No such document!');
+        }
+      }
+    };
+
+    fetchPersonalInfo();
+  }, [userId]);
+  
+
   const renderContent = () => {
     switch (activePath) {
       case '/dashboard':
         return <Dashboard />;
+
       case '/invest':
         return <Invest />;
+
       case '/withdraw':
         return <Withdraw />;
       case '/analysis':
@@ -89,17 +119,28 @@ const SideBar = () => {
         return <Transaction />;
       case '/settings':
         return <Settings />;
+        case '/admin':
+        return <Admin />;
       default:
         return <div>Select a section</div>;
     }
   };
 
+   // Filter sidebar data based on user role
+   const filteredSideBarData = SideBarData.filter(item => {
+    if (role === 'investor' && item.name === 'Admin') {
+      return false; // Hide admin for investors
+    }
+    return true; // Show other items
+  });
   const handleClick = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('firstName'); // Remove firstName from localStorage on logout
     logout();
     navigate('/login');
   };
+
+
 
   return (
     <AppShell
@@ -120,7 +161,7 @@ const SideBar = () => {
 
       <AppShell.Navbar pt="40">
         <Group>
-        {SideBarData.map((item, index) => (
+        {filteredSideBarData.map((item, index) => (
   <NavLink
     key={index}
     to={item.path}
@@ -220,12 +261,12 @@ const SideBar = () => {
                 position: "absolute",
                 bottom: 40,
                 width: "80%",
-                borderTop: "1px solid #ccc",
-                marginLeft: 30,
+                borderTop: "1px solid #ccc",                
                 padding: 20,
               }}
             >
               <Center display="grid" mt="auto" style={{ width: "100%", gap: 20 }}>
+              
                 <Text
                   style={{
                     display: "flex",

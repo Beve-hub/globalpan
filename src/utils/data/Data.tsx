@@ -13,7 +13,8 @@ import { FaMoneyBills,FaCreditCard,FaGift  } from "react-icons/fa6";
 import { GiHistogram } from "react-icons/gi";
 import { IoIosCheckmarkCircleOutline, } from 'react-icons/io'
 import { FiSettings } from 'react-icons/fi'
- 
+import { RiShieldUserFill } from "react-icons/ri";
+
 interface SideBarItem {
     name: string;
     path: string;
@@ -90,8 +91,12 @@ export const SideBarData: SideBarItem[] = [
       name: 'Settings',
       path: '/settings',
       icon: <FiSettings size={18} />,
+   },
+   {
+      name: 'Admin',
+      path: '/admin',
+      icon: <RiShieldUserFill size={18} />,
    }, 
-
   ]
  
 export const NavData: NavbarItem[] = [

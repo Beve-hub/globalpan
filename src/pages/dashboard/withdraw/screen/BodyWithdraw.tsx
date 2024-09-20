@@ -1,25 +1,169 @@
 import CustomInput from '@/utils/reusable/CustomInput';
 import React, { useState } from 'react';
-import { Box, NativeSelect, Text } from '@mantine/core';
+import { Box, NativeSelect, Paper} from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import CustomeButton from '@/utils/reusable/CustomButton';
+import { notifications } from '@mantine/notifications';
+import { Oval } from 'react-loader-spinner';
+import { ref, push } from 'firebase/database';
+import { database } from '@/firebase';
 
+// Define types for form data and error object
+type FormData = {
+  range: string;
+  plan: string;
+  amount: string;
+  description: string;
+  coin: string;
+  network: string; 
+};
 
-const BodyWithdraw = () => {
-    const navigate = useNavigate();
-  const [value, setValue] = useState('');
-  const [coin, setCoin] = useState('');
+type FormErrors = Record<string, string>;
 
+const BodyWithdraw = ({ ...props }) => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [formData, setFormData] = useState<FormData>({
+    range: '',
+    plan: '',
+    amount: '',
+    description: '',
+    coin: '',
+    network: '',
+  });
 
-  const handleSubmit = () => {
-    navigate('/dashboard');
+  const validate = (): boolean => {
+    const validationErrors: FormErrors = {};
+    let isValid = true;
+
+    if (!formData.plan) {
+      validationErrors.plan = 'Please select an investment plan';
+      isValid = false;
+    }
+    if (!formData.coin) {
+      validationErrors.coin = 'Please select a payment method';
+      isValid = false;
+    }
+    if (!formData.amount) {
+      validationErrors.amount = 'Please input an amount';
+      isValid = false;
+    }
+
+    setErrors(validationErrors);
+    return isValid;
+  };
+  const handleSubmit = async () => {
+    if (validate()) {  // Ensure that validation passes before setting loading
+      setLoading(true);
+      try {
+        await Pricing();
+        notifications.show({
+          title: 'Investment Successful',
+          message: 'Your investment has been successfully processed.',
+          color: '#299165',
+          position: 'top-right',
+        });
+      } catch (error) {
+        setErrors({ submit: 'Failed to submit. Please try again later.' });
+        notifications.show({
+          title: 'Investment Failed',
+          message: 'Something went wrong. Please try again later.',
+          color: 'red',
+          position: 'top-right',
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+  const Pricing = async () => {
+    const userId = sessionStorage.getItem('userId');
+    const status = 'pending';
+    const seriaId = Math.floor(Math.random() * 1000000);
+    const currentDate = new Date().toISOString();
+  
+    try {
+      const userRef = ref(database, 'WithdrawData');
+      const response = await push(userRef, {
+        ...formData,
+        seriaId,
+        userId,
+        payment: 'Deposit',
+        method: formData.coin,
+        date: currentDate,
+        status,
+      });
+      console.log('Firebase response:', response);
+  
+      setFormData({
+        range: '',
+        plan: '',
+        amount: '',
+        description: '',
+        coin: '',
+        network:'',
+      });
+      navigate('/WithdrawSummary', { state: { ...formData } });
+    } catch (error) {
+      console.error('Error saving to Firebase:', error);
+      throw new Error('Failed to save data.');
+    }
+  };
+  
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (name === 'plan') {
+      switch (value) {
+        case 'Basic Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$100 - $2000',
+            description: '2% Daily',
+          }));
+          break;
+        case 'Advance Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$2001 - $5000',
+            description: '5% Daily',
+          }));
+          break;
+        case 'Professional Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$5001 - $10,000',
+            description: '7.5% Daily',
+          }));
+          break;
+        case 'Premium Plan':
+          setFormData((prev) => ({
+            ...prev,
+            range: '$10,000 - Unlimited',
+            description: '12.5% Daily',
+          }));
+          break;
+        default:
+          setFormData((prev) => ({
+            ...prev,
+            range: '',
+            description: '',
+          }));
+      }
+    }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.currentTarget.value;
-    setValue(selectedValue);
-
-    
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -40,33 +184,58 @@ const BodyWithdraw = () => {
       }}
     >
       <form style={{ width: '100%', display: 'grid', gap: 20 }}>
-        <Text fz={20} fw={500}>Make Withdrawal</Text>
-        <CustomInput type="numeric" label="Amount" placeholder="$0.00" />
-        <div>
+       
+        <Paper radius="md" p="md" withBorder {...props}>
+          <div style={{marginBottom:20}}>
+          <CustomInput
+          type="numeric"
+          label="Amount"
+          placeholder="$0.00"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          error={errors.amount}
+        />
+         <div>
           <NativeSelect
             label="Investment Plan"
-            value={value}
-            onChange={handleChange}
-            data={['Basic Plan', 'Advance Plan', 'Professional Plan', 'Premium Plan']}
+            name="plan"
+            value={formData.plan}
+            onChange={handleSelectChange}
+            data={['','Basic Plan', 'Advance Plan', 'Professional Plan', 'Premium Plan']}
+            error={errors.plan}
           />
           
         </div>
         <NativeSelect
-          label="Investment Plan"
-          value={coin}
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setCoin(event.currentTarget.value)}
-          data={['BTC', 'ETH', 'XRP', 'USDT']}
+          label="Payment Method"
+          name="coin"
+          value={formData.coin}
+          onChange={handleSelectChange}
+          data={['','BTC', 'ETH', 'XRP', 'USDT']}
+          error={errors.coin}
         />
-        <CustomInput type="password" label="Transaction Pin" placeholder="******" />
+        <NativeSelect
+          label="Choose Network"
+          name="network"
+          value={formData.network}
+          onChange={handleSelectChange}
+          data={['','TRC20', 'ERC20', 'BITCOIN', 'TON','BEP20']}
+          error={errors.network}
+        />
+          </div>
         <CustomeButton
-          label="Invest"
+          label={loading ? <Oval height={30} width={30} color="#293991" /> : 'invest'}
           onClick={handleSubmit}
           variant="filled"
           color="#293991"
           size="md"
           fullWidth
           radius="md"
+          disabled={loading}
         />
+        </Paper>
+      
       </form>
     </Box>
   );
