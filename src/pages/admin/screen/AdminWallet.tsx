@@ -1,5 +1,5 @@
 import CustomButton from '@/utils/reusable/CustomButton';
-import {Text, Modal, TextInput, Button, Table, ActionIcon, Box } from '@mantine/core';
+import {Text, Modal, TextInput,NativeSelect, Button, Table, ActionIcon, Box } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -32,6 +32,13 @@ const AdminWallet: React.FC = () => {
         const { name, value } = e.target;
         setFormValues((prev) => ({ ...prev, [name]: value }));
     };
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
 
     const validate = (): boolean => {
         const validationErrors: FormErrors = {};
@@ -174,9 +181,9 @@ const AdminWallet: React.FC = () => {
 
       const row = storedWallets.map((wallet) => (
         <Table.Tr key={wallet.key}>
-          <Table.Td style={{ textAlign: 'center' }}>{wallet.address}</Table.Td>
+          <Table.Td style={{ textAlign: 'center' }}>{wallet.crypto}</Table.Td>          
           <Table.Td style={{ textAlign: 'center' }}>{wallet.network}</Table.Td>
-          <Table.Td style={{ textAlign: 'center' }}>{wallet.crypto}</Table.Td>
+          <Table.Td style={{ textAlign: 'center' }}>{wallet.address}</Table.Td>
           <Table.Td style={{ textAlign: 'center' }}>
             <ActionIcon variant="transparent" onClick={() => handleDelete(wallet.key)}>
               <RiDeleteBin6Line color="red" />
@@ -193,37 +200,39 @@ const AdminWallet: React.FC = () => {
             </Box>
 
             <Modal opened={opened} onClose={() => setOpened(false)} title="Add Wallet">
-                <TextInput
+            <NativeSelect
+                    label="Crypto Wallet"
+                    name="crypto"
+                    value={formValues.crypto}
+                    onChange={handleSelectChange}
+                    data={['','BTC', 'ETH', 'XRP', 'USDT']}
+                    error={errors.crypto}
+                />               
+                <NativeSelect
+                    label="Network"
+                    name="network"
+                    value={formValues.network}
+                    onChange={handleSelectChange}
+                    data={['','Bitcoin','ERC20', 'TRC20', 'BEP20', 'TON']}
+                    error={errors.network}
+                />
+                 <TextInput
                     label="Wallet Address"
                     name="address"
                     value={formValues.address}
                     onChange={handleChange}
                     error={errors.address}
-                />
-                <TextInput
-                    label="Network"
-                    name="network"
-                    value={formValues.network}
-                    onChange={handleChange}
-                    error={errors.network}
-                />
-                <TextInput
-                    label="Crypto Wallet"
-                    name="crypto"
-                    value={formValues.crypto}
-                    onChange={handleChange}
-                    error={errors.crypto}
-                />
-                <Button onClick={handleSubmit}>Submit</Button>
+                />                
+                <Button my={20} color='#293991' onClick={handleSubmit}>Submit</Button>
             </Modal>
             <Table.ScrollContainer minWidth={800}>
             <Table style={{border:'1px solid #12121230', borderRadius:50 }}>
                     <Table.Thead style={{backgroundColor:"#293991", height:40}}>
                         <Table.Tr>
-                            <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Wallet</Table.Th>
-                            <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Network</Table.Th>
-                            <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Crypto</Table.Th>
-                            <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Action</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Crypto</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Network</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Wallet</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Action</Table.Th>
                         </Table.Tr>
                     </Table.Thead>
                     <tbody>

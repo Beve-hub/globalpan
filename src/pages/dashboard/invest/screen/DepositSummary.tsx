@@ -23,8 +23,11 @@ const DepositSummary = ({ ...props }) => {
 
   const handleSubmit = () => {
     setStoredData((prevData) => [...prevData]);
-    navigate('/payment');
+    
+    // Navigate to Payment and pass coin and amount
+    navigate('/payment', { state: { coin: storedData[0]?.wallet, amount: storedData[0]?.amount } });
   };
+  
 
   const handleInvest = () => {
     navigate('/invest');
