@@ -6,7 +6,7 @@ import CustomeButton from '@/utils/reusable/CustomButton';
 import { ref, push } from 'firebase/database';
 import { database } from '@/firebase';
 import { Oval } from 'react-loader-spinner';
-import { notifications } from '@mantine/notifications';
+
 
 // Define types for form data and error object
 type FormData = {
@@ -57,20 +57,10 @@ const BodyInvest = ({ ...props }) => {
       setLoading(true);
       try {
         await Pricing();
-        notifications.show({
-          title: 'Investment Successful',
-          message: 'Your investment has been successfully processed.',
-          color: '#299165',
-          position: 'top-right',
-        });
+       
       } catch (error) {
         setErrors({ submit: 'Failed to submit. Please try again later.' });
-        notifications.show({
-          title: 'Investment Failed',
-          message: 'Something went wrong. Please try again later.',
-          color: 'red',
-          position: 'top-right',
-        });
+     
       } finally {
         setLoading(false);
       }
@@ -124,7 +114,7 @@ const BodyInvest = ({ ...props }) => {
         case 'Basic Plan':
           setFormData((prev) => ({
             ...prev,
-            range: '$100 - $2000',
+            range: '$200 - $2000',
             description: '2% Daily',
           }));
           break;

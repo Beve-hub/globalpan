@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Box, NativeSelect, Paper} from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import CustomeButton from '@/utils/reusable/CustomButton';
-import { notifications } from '@mantine/notifications';
 import { Oval } from 'react-loader-spinner';
 import { ref, push } from 'firebase/database';
 import { database } from '@/firebase';
@@ -58,20 +57,10 @@ const BodyWithdraw = ({ ...props }) => {
       setLoading(true);
       try {
         await Pricing();
-        notifications.show({
-          title: 'Investment Successful',
-          message: 'Your investment has been successfully processed.',
-          color: '#299165',
-          position: 'top-right',
-        });
+       
       } catch (error) {
         setErrors({ submit: 'Failed to submit. Please try again later.' });
-        notifications.show({
-          title: 'Investment Failed',
-          message: 'Something went wrong. Please try again later.',
-          color: 'red',
-          position: 'top-right',
-        });
+       
       } finally {
         setLoading(false);
       }
@@ -89,7 +78,7 @@ const BodyWithdraw = ({ ...props }) => {
         ...formData,
         seriaId,
         userId,
-        payment: 'Deposit',
+        payment: 'Withdraw',
         method: formData.coin,
         date: currentDate,
         status,

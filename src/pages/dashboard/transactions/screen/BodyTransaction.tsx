@@ -1,14 +1,14 @@
 import React from 'react'
 import TransactionTable from './TransactionTable'
-import { Center } from '@mantine/core'
+
 
 
 
 const BodyTransaction = () => {
     return (
-        <Center  >
+        <div  >
             <TransactionTable/>
-        </Center>
+        </div>
     )
 }
 

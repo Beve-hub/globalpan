@@ -1,69 +1,143 @@
-import { Table, Box, ScrollArea, Pagination,} from '@mantine/core';
-import { useState } from 'react';
+import { Text, Table, Pagination } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
+
+import { ref, get, } from 'firebase/database';
+import { database } from '@/firebase';
 
 
-  
+interface Wallet {
+  seriaId: string;
+  amount: string;
+  payment: string;
+  method: string;
+  date: string;
+  status: string;
+}
 
-const data = [
-  { seriaId: 'pgt22345', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22346', amount: '300', payment: 'Withdrawal', method: 'ETH', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22347', amount: '2000', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22348', amount: '3000', payment: 'Withdrawal', method: 'ETH', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  { seriaId: 'pgt22349', amount: '200', payment: 'Deposit', method: 'BTC', date: '20/02/1998', status: 'pending' },
-  ];
+interface WalletWithKey extends Wallet {
+  key: string;
+}
 
 const BodyPro = () => {
   const [activePage, setActivePage] = useState(1);
   const rowsPerPage = 10;
-  const paginationData = data.slice((activePage - 1) * rowsPerPage, activePage * rowsPerPage);
+  const [storedWallets, setStoredWallets] = useState<WalletWithKey[]>([]);
+  const [status, setStatus] = useState<{ [key: string]: string | null }>({});
 
-    const rows = paginationData.map((element) => (
-        <Table.Tr key={element.seriaId}>
-          <Table.Td  fz="14" >{element.seriaId}</Table.Td>
-          <Table.Td fz="16">{element.amount}</Table.Td>
-          <Table.Td fz="16">{element.payment}</Table.Td>
-          <Table.Td fz="16">{element.method}</Table.Td>
-          <Table.Td fz="16">{element.date}</Table.Td>
-          <Table.Td fz="16">{element.status}</Table.Td>
-        </Table.Tr>
-      ));
-    return (
-      <div>
-        <Box my="80" style={{    
-            maxWidth:'100%',
-            height: 'auto',            
-            borderRadius: '1rem',
-            padding: '1rem 2rem',
-          }}>
-            <ScrollArea  >
-            <Table miw={800} >
-          <Table.Thead  >
-            <Table.Tr mb='sm'>
-              <Table.Th fz="18">SeriaId</Table.Th>
-              <Table.Th fz="18">Amount</Table.Th>
-              <Table.Th fz="18">Payment</Table.Th>
-              <Table.Th fz="18">Method</Table.Th>
-              <Table.Th fz="18">Date</Table.Th>              
-              <Table.Th fz="18">Status</Table.Th>
+
+  const paginationData = storedWallets.slice((activePage - 1) * rowsPerPage, activePage * rowsPerPage);
+
+  useEffect(() => {
+    const fetchWallet = async () => {
+      try {
+        const depositRef = ref(database, 'DepositData');
+        const depositSnapshot = await get(depositRef);
+        const withdrawRef = ref(database, 'WithdrawData');
+        const withdrawSnapshot = await get(withdrawRef);
+
+        const depositData: WalletWithKey[] = [];
+        const withdrawData: WalletWithKey[] = [];
+
+        if (depositSnapshot.exists()) {
+          depositSnapshot.forEach((childSnapshot) => {
+            const data = childSnapshot.val();
+            depositData.push({
+              key: childSnapshot.key,
+              seriaId: data.seriaId,
+              amount: data.amount,
+              payment: data.payment,
+              method: data.method,
+              date: data.date,
+              status: data.status || 'Pending', // Default to 'Pending'
+            });
+          });
+        }
+
+        if (withdrawSnapshot.exists()) {
+          withdrawSnapshot.forEach((childSnapshot) => {
+            const data = childSnapshot.val();
+            withdrawData.push({
+              key: childSnapshot.key,
+              seriaId: data.seriaId,
+              amount: data.amount,
+              payment: data.payment,
+              method: data.method,
+              date: data.date,
+              status: data.status || 'Pending', // Default to 'Pending'
+            });
+          });
+        }
+
+        const allTransactions = [...withdrawData, ...depositData];
+        setStoredWallets(allTransactions);
+
+        // Initialize status state with 'Pending' if it's undefined
+        const initialStatus = allTransactions.reduce((acc, wallet) => {
+          acc[wallet.key] = wallet.status || 'Pending';
+          return acc;
+        }, {} as { [key: string]: string | null });
+
+        setStatus(initialStatus);
+      
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchWallet();
+  }, [storedWallets, status]);
+
+ 
+
+  const rows = paginationData.map((wallet, index) => (
+    <Table.Tr key={index} style={{ textAlign: 'center' }}>
+      <Table.Td>NCT{wallet.seriaId}</Table.Td>
+      <Table.Td>${wallet.amount}</Table.Td>
+      <Table.Td>{wallet.payment}</Table.Td>
+      <Table.Td>{wallet.method}</Table.Td>
+      <Table.Td>
+        {new Date(wallet.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })}
+      </Table.Td>
+      <Table.Td>
+        <Text color={wallet.status === 'Successful' ? 'green' : 'red'}>
+          {wallet.status}
+        </Text>
+      </Table.Td>     
+    </Table.Tr>
+  ));
+
+  // Render the table with centered thead and tbody content
+  return (
+    <div>
+      
+      <Table.ScrollContainer minWidth={800} my={40}>
+        <Table style={{ border: '1px solid #12121230', borderRadius: 50, textAlign: 'center' }}>
+          <Table.Thead style={{ backgroundColor: '#293991', height: 40, textAlign: 'center' }}>
+            <Table.Tr>
+              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Seria ID</Table.Th>
+              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Amount</Table.Th>
+              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Payment</Table.Th>
+              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Method</Table.Th>
+              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Date</Table.Th>
+              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Status</Table.Th>             
             </Table.Tr>
           </Table.Thead>
-          <Table.Tbody fz="18" mt="lg">{rows}</Table.Tbody>
+          <Table.Tbody style={{ textAlign: 'center' }}>{rows}</Table.Tbody>
         </Table>
-        </ScrollArea>
         <Pagination
+        my={20}
           onChange={setActivePage}
-          total={Math.ceil(data.length / rowsPerPage)}
+          total={Math.ceil(storedWallets.length / rowsPerPage)}
           color='#293991'
-      />      
-        </Box>
-        </div>  
-    )
+        />
+      </Table.ScrollContainer>
+    </div>
+  );
 }
 
 export default BodyPro

@@ -11,8 +11,7 @@ import Test4 from '@/asset/andrew3.png'
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaMoneyBills,FaCreditCard,FaGift  } from "react-icons/fa6";
 import { GiHistogram } from "react-icons/gi";
-import { IoIosCheckmarkCircleOutline, } from 'react-icons/io'
-import { FiSettings } from 'react-icons/fi'
+import { IoIosCheckmarkCircleOutline, IoMdSettings } from 'react-icons/io'
 import { RiShieldUserFill } from "react-icons/ri";
 
 interface SideBarItem {
@@ -90,7 +89,7 @@ export const SideBarData: SideBarItem[] = [
    {
       name: 'Settings',
       path: '/settings',
-      icon: <FiSettings size={18} />,
+      icon: <IoMdSettings  size={18} />,
    },
    {
       name: 'Admin',
