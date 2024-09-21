@@ -29,6 +29,7 @@ const BodyPro = () => {
 
   useEffect(() => {
     const fetchWallet = async () => {
+      const userId = sessionStorage.getItem('userId');
       try {
         const depositRef = ref(database, 'DepositData');
         const depositSnapshot = await get(depositRef);
@@ -41,21 +42,25 @@ const BodyPro = () => {
         if (depositSnapshot.exists()) {
           depositSnapshot.forEach((childSnapshot) => {
             const data = childSnapshot.val();
-            depositData.push({
-              key: childSnapshot.key,
-              seriaId: data.seriaId,
-              amount: data.amount,
-              payment: data.payment,
-              method: data.method,
-              date: data.date,
-              status: data.status || 'Pending', // Default to 'Pending'
-            });
+            if (data.userId === userId){
+              depositData.push({
+                key: childSnapshot.key,
+                seriaId: data.seriaId,
+                amount: data.amount,
+                payment: data.payment,
+                method: data.method,
+                date: data.date,
+                status: data.status || 'Pending', // Default to 'Pending'
+              });
+            }
+           
           });
         }
 
         if (withdrawSnapshot.exists()) {
           withdrawSnapshot.forEach((childSnapshot) => {
             const data = childSnapshot.val();
+            if (data.userId === userId){
             withdrawData.push({
               key: childSnapshot.key,
               seriaId: data.seriaId,
@@ -65,6 +70,7 @@ const BodyPro = () => {
               date: data.date,
               status: data.status || 'Pending', // Default to 'Pending'
             });
+          }
           });
         }
 
