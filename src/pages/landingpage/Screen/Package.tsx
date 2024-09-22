@@ -1,4 +1,5 @@
 import { PlanData } from '@/utils/data/Data';
+import { Color } from '@/utils/reusable/Theme';
 import { Box, Button, Card, Group, SimpleGrid, Text } from '@mantine/core';
 import React from 'react';
 
@@ -22,7 +23,7 @@ const Package: React.FC<Props> = () => {
         }}
       >
         <Text style={{ fontWeight: 'bold', fontSize: 30 }}>Our Packages</Text>
-        <Text style={{ color: '#121212' }}>
+        <Text style={{ color: Color.BLACK }}>
           Below are our professional package plan to help maximize your portfolio
           in a standard manner.
         </Text>
@@ -47,7 +48,7 @@ const Package: React.FC<Props> = () => {
               transition: 'transform 0.3s, background-color 0.3s',
               '&:hover': {
                 transform: 'scale(1.05)',
-                backgroundColor: '#0055CC20', // Light blue background on hover
+                backgroundColor: Color.INFO_COLOR, // Light blue background on hover
               },
             }}
           >
@@ -77,7 +78,7 @@ const Package: React.FC<Props> = () => {
                 </Text>
                 <Group
                   style={{
-                    backgroundColor: '#0055CC20',
+                    backgroundColor: Color.INFO_COLOR,
                     justifyContent: 'center',
                     borderRadius: 30,
                     padding: 5,
@@ -88,7 +89,7 @@ const Package: React.FC<Props> = () => {
                     style={{
                       fontWeight: 'bold',
                       fontSize: 16,
-                      color: '#293991',
+                      color: Color.PRIMARY,
                     }}
                   >
                     {item.range}
@@ -111,7 +112,7 @@ const Package: React.FC<Props> = () => {
                   style={{
                     fontSize: '18px',
                     fontWeight: 'normal',
-                    color: '#121212',
+                    color: Color.BLACK,
                     alignItems: 'center',
                     display: 'flex',
                     justifyContent: 'center',
@@ -125,7 +126,7 @@ const Package: React.FC<Props> = () => {
                   style={{
                     fontSize: '18px',
                     fontWeight: 'normal',
-                    color: '#121212',
+                    color: Color.BLACK,
                     alignItems: 'center',
                     display: 'flex',
                     justifyContent: 'center',
@@ -139,7 +140,7 @@ const Package: React.FC<Props> = () => {
                   style={{
                     fontSize: '18px',
                     fontWeight: 'normal',
-                    color: '#121212',
+                    color: Color.BLACK,
                     alignItems: 'center',
                     display: 'flex',
                     justifyContent: 'center',
@@ -153,7 +154,7 @@ const Package: React.FC<Props> = () => {
                   style={{
                     fontSize: '18px',
                     fontWeight: 'normal',
-                    color: '#121212',
+                    color: Color.BLACK,
                     alignItems: 'center',
                     display: 'flex',
                     justifyContent: 'center',
@@ -166,7 +167,7 @@ const Package: React.FC<Props> = () => {
               </Group>
 
               <Group justify='center' mt={20}>
-                <Button style={{backgroundColor:'#293991', borderRadius:30}}>
+                <Button style={{backgroundColor:Color.PRIMARY, borderRadius:30}}>
                   Invest Now 
                 </Button>
               </Group>

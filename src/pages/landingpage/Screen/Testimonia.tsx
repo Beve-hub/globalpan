@@ -1,12 +1,13 @@
-import { Text } from '@mantine/core';
+import { Center, Text } from '@mantine/core';
 import React from 'react';
 import TestimonialSlider from './TestimonialSlider';
+import { Color } from '@/utils/reusable/Theme';
 
 interface Props {}
 
 const Testimonia: React.FC<Props> = () => {
   return (
-    <div
+    <Center
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -25,11 +26,11 @@ const Testimonia: React.FC<Props> = () => {
         <Text fz={{ base: 20, sm: 25 }} fw={700}>
           Testimonials
         </Text>
-        <Text fz={{ base: 16, sm: 20 }} fw={500} color="#293991" style={{alignItems:"center"}}>
+        <Text fz={{ base: 16, sm: 20 }} fw={500} color={Color.PRIMARY} style={{alignItems:"center"}}>
           What our Client say{' '}
           <span
               style={{
-                backgroundColor: '#293991',
+                backgroundColor: Color.PRIMARY,
                 width: '20rem',
                 height: '20px',
                 fontSize: 4,
@@ -40,7 +41,7 @@ const Testimonia: React.FC<Props> = () => {
         </Text>
       </div>
       <TestimonialSlider />
-    </div>
+    </Center>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Color } from '@/utils/reusable/Theme';
 import React, { useEffect, useRef } from 'react';
 
 const TradeView: React.FC = () => {
@@ -31,10 +32,10 @@ const TradeView: React.FC = () => {
     position: 'fixed',
     bottom: 30,
     right: '0',
-    width: '100rem',
+    width: '100%',
     height: '2rem',
     zIndex: 1000,
-    backgroundColor: 'white',
+    backgroundColor: Color.WHITE,
     padding: '10px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   };

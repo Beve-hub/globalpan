@@ -5,6 +5,7 @@ import { Center, SimpleGrid, Text } from '@mantine/core';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
+import { Color } from '@/utils/reusable/Theme';
 
 
 
@@ -17,7 +18,7 @@ const Support = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#0055CC", minHeight: '60vh' }}>
+    <div style={{ backgroundColor: Color.INFO_BG_COLOR, minHeight: '60vh' }}>
       <Center style={{ height: '60vh' }}>
         <SimpleGrid
           cols={isSmallScreen ? 1 : 2}
@@ -27,7 +28,7 @@ const Support = () => {
             <Text
               fz="30"
               fw={700}
-              color="#fff"
+              color={Color.WHITE}
               style={{ width: isSmallScreen ? '100%' : '30rem', textAlign: isSmallScreen ? 'center' : 'left' }}
             >
               Request Help from our support team
@@ -50,7 +51,7 @@ const Support = () => {
                 label="Send Now"
                 onClick={handleLogin}
                 variant="filled"
-                color='#293991'
+                color={Color.PRIMARY}
                 radius="sm"
               />
             </SimpleGrid>

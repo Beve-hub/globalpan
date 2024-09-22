@@ -1,4 +1,5 @@
 import { WithrawalTestData } from '@/utils/data/Data';
+import { Color } from '@/utils/reusable/Theme';
 import { Text } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 
@@ -36,7 +37,7 @@ const WidthrawalTrend: React.FC<Props> = () => {
             style={{
               width: '100%',
               height: 'auto',
-              backgroundColor: 'white',
+              backgroundColor: Color.WHITE,
               padding: '15px',
               borderRadius: '30rem 0rem 30rem 30rem',
               boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',

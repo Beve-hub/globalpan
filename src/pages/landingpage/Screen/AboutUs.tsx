@@ -3,6 +3,7 @@ import IMG from '@/asset/about.png';
 import { useMediaQuery } from '@mantine/hooks';
 import CustomButton from '@/utils/reusable/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { Color } from '@/utils/reusable/Theme';
 
 const AboutUs = () => {
     const navigate = useNavigate(); // Import the useNavigate hook from react-router-dom
@@ -39,11 +40,11 @@ const AboutUs = () => {
           <Text fw={700} fz={24} >
             ABOUT US
           </Text>
-          <Text my={10} fw={500} fz={20} style={{ color: '#293991' }}>
+          <Text my={10} fw={500} fz={20} style={{ color: Color.PRIMARY }}>
             Who is Pan Global?{' '}
             <span
               style={{
-                backgroundColor: '#293991',
+                backgroundColor: Color.PRIMARY,
                 width: '20rem',
                 height: '20px',
                 fontSize: 4,
@@ -61,10 +62,10 @@ const AboutUs = () => {
           defaultValue="gallery"
           styles={{
             tab: {
-                color: '#293991',
+                color: Color.PRIMARY,
             },
             tabLabel: {
-                color: '#293991',
+                color: Color.PRIMARY,
                 fontWeight: 500,
                 fontSize: '20px',               
             width:'10rem'
@@ -89,7 +90,7 @@ const AboutUs = () => {
                     label="Read More"
                     onClick={handleLogin}
                     variant="filled"
-                    color="#293991"
+                    color={Color.PRIMARY}
                     radius="xs"
                     fz="lg"
                     size='lg'

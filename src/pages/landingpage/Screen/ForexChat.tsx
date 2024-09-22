@@ -1,3 +1,4 @@
+import { Color } from '@/utils/reusable/Theme';
 import { Container, Text } from '@mantine/core';
 import React, { useEffect, useRef } from 'react';
 
@@ -30,15 +31,15 @@ const ForexChat = () => {
   }, []);
 
   return (
-    <div style={{ paddingTop: 70, marginTop: 40, backgroundColor: '#F2F2F2' }}>
+    <div style={{ paddingTop: 70, marginTop: 40, backgroundColor: Color.WHITE }}>
       <div style={{ display: 'grid', justifyContent: 'center', padding: '0 1rem' }}>
         <Text fw={700} fz={{ base: 18, sm: 20 }} style={{textAlign:'center'}}>
           Forex Market
         </Text>
-        <Text fw={700} fz={{ base: 22, sm: 26 }} style={{ color: '#293991', textAlign: 'center', margin: '10px 0' }}>
+        <Text fw={700} fz={{ base: 22, sm: 26 }} style={{ color: Color.PRIMARY, textAlign: 'center', margin: '10px 0' }}>
           Stay ahead of the curve
         </Text>
-        <Text fz={{ base: 15, sm: 17 }} style={{ display: 'block', margin: '0 auto', color: '#121212', textAlign: 'center' }}>
+        <Text fz={{ base: 15, sm: 17 }} style={{ display: 'block', margin: '0 auto', color: Color.BLACK, textAlign: 'center' }}>
           Follow the market trends and stay updated on the activities of the market.
         </Text>
       </div>
@@ -47,7 +48,7 @@ const ForexChat = () => {
           <div className="tradingview-widget-container__widget" style={{ width: '100%', height: '100%' }}> </div>
           <div className="tradingview-widget-copyright" style={{ textAlign: 'center', marginTop: '10px' }}>
             <a href="https://www.tradingview.com/" rel="noreferrer noopener" target="_blank">
-              <span className="blue-text">Track all markets on TradingView</span>
+              <span style={{color:Color.WHITE}}>Track all markets on TradingView</span>
             </a>
           </div>
         </div>

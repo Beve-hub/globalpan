@@ -1,6 +1,7 @@
 import { Image, Text, Overlay,  Button, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import IMG from '@/asset/start.png'
+import { Color } from '@/utils/reusable/Theme';
 
 const Started = () => {
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ const Started = () => {
             order={3}
             style={{
               fontWeight: 700,
-              color: 'white',
+              color: Color.WHITE,
               lineHeight: 1.2,
               fontSize: '28px',
               marginTop: 'var(--mantine-spacing-xs)',
@@ -77,7 +78,7 @@ const Started = () => {
           >
            Open account for free and start trading Now!
           </Text>
-          <Button variant="filled" color="#293991" onClick={() => navigate('/login')}>
+          <Button variant="filled" color={Color.PRIMARY} onClick={() => navigate('/login')}>
           Register Now
           </Button>
           </div>

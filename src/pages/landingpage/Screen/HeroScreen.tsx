@@ -1,6 +1,7 @@
 import { heroFont } from '@/utils/data/Data';
 import CustomButton from '@/utils/reusable/CustomButton';
 import Loader from '@/utils/reusable/Loader';
+import { Color } from '@/utils/reusable/Theme';
 import {  Center, Group, useMantineTheme } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -59,7 +60,7 @@ const HeroScreen = () => {
             backgroundImage: `url(${item.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            backgroundColor: '#121212',
+            backgroundColor: Color.BLACK,
             height: "100%",
             width: "100%",
             position: "absolute",
@@ -122,7 +123,7 @@ const HeroScreen = () => {
             size='md'
             onClick={handleSubmit}
             variant="filled"
-            color="#293991"             
+            color={Color.PRIMARY}            
             />
             </Group>
             

@@ -1,4 +1,5 @@
 import { CardData } from '@/utils/data/Data';
+import { Color } from '@/utils/reusable/Theme';
 import { Box, Center, Image, SimpleGrid, Text } from '@mantine/core';
 import React from 'react';
 
@@ -8,7 +9,7 @@ const CardSide: React.FC<Props> = () => {
   return (
     <div
       style={{
-        backgroundColor: '#121212',
+        backgroundColor: Color.BLACK,
         padding: '1rem', // Adding some padding for better responsiveness
       }}
     >
@@ -53,10 +54,10 @@ const CardSide: React.FC<Props> = () => {
                   }}
                 />
                 <Box style={{ textAlign: 'start', height: 'auto' }}>
-                  <Text style={{ fontWeight: 'bold', fontSize: '20px', color: '#fff' }}>
+                  <Text style={{ fontWeight: 'bold', fontSize: '20px', color: Color.WHITE }}>
                     {item.title}
                   </Text>
-                  <Text style={{ fontWeight: 'normal', color: '#fff',fontSize: '14px', width:'17rem'}}>
+                  <Text style={{ fontWeight: 'normal', color: Color.WHITE,fontSize: '14px', width:'17rem'}}>
                     {item.desc}
                   </Text>
                 </Box>
