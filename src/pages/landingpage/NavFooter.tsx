@@ -18,8 +18,8 @@ const data = [
   {
     title: 'Contact Us',
     links: [
-      { label: '+1(839) 253 6890', link: '#' },
-      { label: 'support@panglobal.com', link: '#' },
+      { label: '+447308657287', link: '#' },
+      { label: 'nexcelglob@gmail.com', link: '#' },
       { label: '106 New St, England B2 4JU United Kingdom', link: '#' },
    
     ],
