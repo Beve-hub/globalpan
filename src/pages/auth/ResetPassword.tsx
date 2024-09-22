@@ -1,10 +1,11 @@
-import { Center, Image, SimpleGrid, Box,  Text, } from '@mantine/core';
+import {Center, Image, Paper, Text, Title  } from '@mantine/core';
 import Logo from '@/asset/logo.png';
 import CustomInput from '@/utils/reusable/CustomInput';
 import CustomeButton from '@/utils/reusable/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
+import { Color } from '@/utils/reusable/Theme';
 
 
 const ResetPassword = () => {
@@ -31,37 +32,47 @@ const ResetPassword = () => {
         return <Loader />; // Show loader if loading state is true
     }
     return (
-        <Center>
-            <Box
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '80vh', // Ensure the container takes up full height
-                    }}
+        <Center  style={{
+            display: 'grid',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '40rem',
+            padding: '16px',
+          }}>
+            <div
+                  style={{
+                    display: 'grid',
+                    justifyContent: 'center',
+                    alignItems: 'center',              
+                  }}
                 >
-                    <div style={{
-                        display: 'grid',
-                        gap: '10px',
-                        width: '100%',
-                        maxWidth: '400px', // Restrict form width
-                        padding: '20px',
-                        marginTop: '14rem'
-                    }}>
+                    <div>
+                        <div>
                         <Image src={Logo} style={{
                             width: '5rem',
                             height: '5rem',
                         }} />
-                        <div style={{marginBottom:10}}>
-                            <Text fz={24} fw={700}>
-                                Create Account
-                            </Text>                           
                         </div>
-                        <SimpleGrid  cols={{ base: 1, sm: 1, lg: 2 }} mb={10}>
-                     <CustomInput type="password" label='NewPassword' placeholder='********' required />
-                        <CustomInput type="password" label='Confirm Password' placeholder='********' required />
                         
-                        </SimpleGrid>                       
+
+                        <div style={{ width: '25rem',  }}>
+                            <div>
+                            <Title  ta="center" fz={24} >
+                                Reset Password
+                            </Title>        
+                            <Text  c={Color.GRAY} fz="sm" ta="center">
+                               Let us help you recover your account.
+                             </Text> 
+                            </div>
+                                              
+                        </div>
+                        <Paper withBorder shadow='md' p={30} radius="md" mt='xl'>
+                        <div style={{marginBottom:20}}>
+                        <CustomInput type="password" label='NewPassword' placeholder='********' required />
+                        <CustomInput type="password" label='Confirm Password' placeholder='********' required />
+                            
+                        </div>
+                                       
                         <CustomeButton
                             label="Submit"
                             onClick={handleSubmit}
@@ -71,11 +82,9 @@ const ResetPassword = () => {
                             fullWidth // Set to true to make the button full width
                             radius="md"                            
                         />
-                        <Text fz={14} fw={300}>
-                            By creating an account, you agree to the <span style={{color:'#293991', fontWeight:'500'}}>privacy policy</span> and to receive economic and marketing communications from pan global trade. You can remove yourself from the mailing list at anytime.
-                            </Text>
+                        </Paper> 
                     </div>
-                </Box>
+                </div>
         </Center>
     );
 }

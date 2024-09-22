@@ -14,28 +14,23 @@ import IMG from "@/asset/logo2.png";
 import { NavData, SmNavData } from "@/utils/data/Data";
 import CustomButton from "@/utils/reusable/CustomButton";
 import { useMediaQuery } from "@mantine/hooks";
-import Loader from "@/utils/reusable/Loader";
 import useBodyOverflow from "./useBodyOverflow";
+import { Color } from "@/utils/reusable/Theme";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false); // State for the drawer (mobile menu)
-  const [loading, setLoading] = useState(false); // State to manage loading
   const [pendingPath, setPendingPath] = useState(""); // State to manage pending navigation path
-  const isMobile = useMediaQuery("(max-width: 768px)"); // Adjust the breakpoint as needed
+  const isMobile = useMediaQuery("(max-width: 1024px)"); // Adjust the breakpoint for medium (1024px) and small screens
   const [scrolled, setScrolled] = useState(false); // State to track scroll position
 
-  useBodyOverflow(loading);
+  useBodyOverflow(false); // No loading anymore, just pass false
+
   // Effect to handle delayed navigation when pendingPath changes
   useEffect(() => {
     if (pendingPath) {
-      setLoading(true);
-      const timer = setTimeout(() => {
-        navigate(pendingPath);
-        setLoading(false);
-        setPendingPath(""); // Reset pending path
-      }, 3000); // Simulate a loading delay of 5 seconds
-      return () => clearTimeout(timer); // Clean up timer on component unmount
+      navigate(pendingPath);
+      setPendingPath(""); // Reset pending path after navigation
     }
   }, [pendingPath, navigate]);
 
@@ -49,16 +44,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   const handleNavClick = (path: string) => {
     if (path) {
       setPendingPath(path);
     }
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <Box
@@ -68,7 +58,7 @@ const Navbar = () => {
         top: 0,
         left: 0,
         backdropFilter: scrolled ? "none" : "blur(10px)", // Apply blur effect initially
-        backgroundColor: scrolled ? "white" : "#fff", // Change background on scroll
+        backgroundColor: scrolled ? Color.WHITE : Color.TRANSPARENT_WHITE, // Change background on scroll
         width: "100%", // Ensures the navbar spans the full width of the viewport
         zIndex: 1000, // Higher z-index to stay on top of other content
         transition: "background-color 0.3s ease", // Smooth transition for background color change
@@ -76,7 +66,7 @@ const Navbar = () => {
       }}
     >
       <header>
-        <Flex justify="space-between" mx="70" align="center" px="md" py="sm">
+        <Flex justify="space-between" mx="30" align="center" px="sm" py="sm">
           {/* Logo Section */}
           <a>
             <Image src={IMG} alt="logo" height={70} width="auto" />
@@ -102,10 +92,10 @@ const Navbar = () => {
                     }}
                     style={({ isActive }) => ({
                       textDecoration: "none",
-                      fontSize: "18px",
+                      fontSize: "17px",
                       fontWeight: isActive ? "bold" : "normal",
-                      color: isActive ? "#293991" : "gray",
-                      gap: 20,
+                      color: isActive ? Color.PRIMARY : Color.GRAY,
+                      gap: 40,
                     })}
                   >
                     {item.name}
@@ -119,18 +109,18 @@ const Navbar = () => {
                   label="Login"
                   onClick={() => handleNavClick("/login")}
                   variant="filled"
-                  color="#293991"
+                  color= {Color.PRIMARY}
                 />
                 <CustomButton
                   label="Register"
                   onClick={() => handleNavClick("/register")}
                   variant="outline"
-                  color="#121212"
+                  color={Color.PRIMARY}
                 />
               </Group>
             </Flex>
           ) : (
-            // Burger Menu for Mobile
+            // Burger Menu for Medium and Small Screens
             <Burger
               opened={opened}
               onClick={() => setOpened((o) => !o)}
@@ -156,13 +146,19 @@ const Navbar = () => {
                   setOpened(false);
                   handleNavClick(item.path); // Handle custom navigation
                 }}
-                style={{
+
+                style={({ isActive }) => ({
+                  textDecoration: "none",
+                  fontSize: "17px",
+                  fontWeight: isActive ? "bold" : "normal",
+                  color: isActive ? Color.PRIMARY : Color.GRAY,
+                  gap: 40,
                   display: "block",
                   textAlign: "center",
                   padding: rem(10),
                   justifyContent: "flex-start",
-                  textDecoration: "none",
-                }}
+                })}
+                
               >
                 {item.name}
               </NavLink>

@@ -10,6 +10,7 @@ import Loader from '@/utils/reusable/Loader';
 import { auth } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { notifications } from '@mantine/notifications';
+import { Color } from '@/utils/reusable/Theme';
 
 
 interface Errors {
@@ -65,7 +66,7 @@ const Login = () => {
                 notifications.show({
                     title: `Login Successful `,
                     message: `Welcome onboard, we are happy to have you`,
-                    color: '#299165',
+                    color: Color.SUCCESS_COLOR,
                     position:'top-right',
                 });
             } catch (error) {
@@ -73,7 +74,7 @@ const Login = () => {
                 notifications.show({
                     title: 'Login Failed',
                     message: 'Something went wrong. Please try again later.',
-                    color: 'red',
+                    color: Color.ERROR_COLOR,
                     position:'top-right',
                 });
             } finally {
@@ -156,7 +157,7 @@ const Login = () => {
                             </Text>
                             <Text fz={18}>
                                 Don’t have an account?
-                                <UnstyledButton onClick={handleRegister} style={{color:'#293991',textDecoration: 'underline', fontSize:18, marginLeft:10 }}>
+                                <UnstyledButton onClick={handleRegister} style={{color:Color.PRIMARY,textDecoration: 'underline', fontSize:18, marginLeft:10 }}>
                                     Sign Up
                                 </UnstyledButton>
                             </Text>
@@ -191,14 +192,14 @@ const Login = () => {
                                     size="sm"
                                 />                            
                             </Group>
-                            <UnstyledButton onClick={handleForgot} style={{color:'#293991'}}>Forgot Password?</UnstyledButton>
+                            <UnstyledButton onClick={handleForgot} style={{color:Color.PRIMARY}}>Forgot Password?</UnstyledButton>
                         </Box>
                         {serverError && <Text color="red" size="sm">{serverError}</Text>}
                         <CustomeButton
                             label="Submit"
                             onClick={ handleSubmit}
                             variant="filled"
-                            color="#293991"
+                            color={Color.PRIMARY}
                             size="md"
                             fullWidth
                             radius="md"

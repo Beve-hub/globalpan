@@ -7,6 +7,7 @@ import CustomeButton from '@/utils/reusable/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '@/utils/reusable/Loader';
+import { Color } from './../../utils/reusable/Theme';
 
 
 const ForgotPassword = () => {
@@ -83,7 +84,7 @@ const ForgotPassword = () => {
                         label="Submit"
                         onClick={handleSubmit}
                         variant="filled"  // Or 'outline', 'light', 'default', etc.
-                        color="#293991"  // You can use any color supported by Mantine
+                        color= {Color.PRIMARY}  // You can use any color supported by Mantine
                         size="md"  // Options: 'xs', 'sm', 'md', 'lg', 'xl'
                         fullWidth // Set to true to make the button full width
                         radius="md"                            

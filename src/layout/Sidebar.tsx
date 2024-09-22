@@ -26,6 +26,7 @@ import { useAuth } from '@/layout/AuthProvider';
 import { firestore } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Admin from "@/pages/admin/Admin";
+import { Color } from "@/utils/reusable/Theme";
 
 
 const SideBar = () => {
@@ -178,7 +179,7 @@ const SideBar = () => {
         : "transparent",
       backgroundSize: activePath === item.path ? "100% 100%" : "0 100%",
       backgroundPosition: "left center",
-      color: activePath === item.path ? "white" : "#333",
+      color: activePath === item.path ? Color.WHITE : Color.GRAY,
       padding: "10px 30px",
       borderRadius: "0px 30px 30px 0",
       textDecoration: "none",
@@ -230,7 +231,7 @@ const SideBar = () => {
                   <Avatar radius="xl" color={getRandomColor()}>
                     {name ? name.substring(0, 2).toUpperCase() : "?"}
                   </Avatar>
-                  <Text fw="400" fz="16" color="black">
+                  <Text fw="400" fz="16" color={Color.BLACK}>
                     {name}
                   </Text>
                 </a>
@@ -248,7 +249,7 @@ const SideBar = () => {
                   }}
                 >
                   <FiLogOut size={20} />
-                  <Text fw="400" fz="16" color="black">
+                  <Text fw="400" fz="16" color={Color.BLACK}>
                     Log Out
                   </Text>
                 </UnstyledButton>
@@ -281,7 +282,7 @@ const SideBar = () => {
                   <Avatar radius="xl" color={getRandomColor()}>
                     {name ? name.substring(0, 2).toUpperCase() : "?"}
                   </Avatar>
-                  <Text fw="400" fz="16">
+                  <Text fw="400" fz="16" color={Color.BLACK}>
                     {name}
                   </Text>
                 </Text>
@@ -299,7 +300,7 @@ const SideBar = () => {
                   }}
                 >
                   <FiLogOut size={20} />
-                  <Text fw="400" fz="16" color="black">
+                  <Text fw="400" fz="16" color={Color.BLACK}>
                     Log Out
                   </Text>
                 </UnstyledButton>

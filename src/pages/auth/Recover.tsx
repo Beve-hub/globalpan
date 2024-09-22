@@ -7,6 +7,7 @@ import CustomButton from '@/utils/reusable/CustomButton';
 import { notifications } from '@mantine/notifications';
 import CustomInput from '@/utils/reusable/CustomInput';
 import { Center, Paper, Text, Title } from '@mantine/core';
+import { Color } from '@/utils/reusable/Theme';
 
 interface Errors {
   email?: string;
@@ -42,14 +43,14 @@ const Recovery = () => {
         notifications.show({
           title: `Recovery Link has been sent `,
           message: `Recovery link has been sent to your email`,
-          color: '#299165',
+          color: Color.SUCCESS_COLOR,
           position: 'top-right',
         });
       } else {
         notifications.show({
           title: 'Error',
           message: 'No user found',
-          color: 'red',
+          color: Color.ERROR_COLOR,
           position: 'top-right',
         });
       }
@@ -83,13 +84,13 @@ const Recovery = () => {
         <img src={logo} alt="Pan Global Logo" style={{ width: '64px', padding: '16px 0' }} />
         
       </div>
-        <div style={{ width: '25rem', backgroundColor: 'var(--text-extra)' }}>
+        <div style={{ width: '25rem',  }}>
           <div>
             <Title  ta="center" fz={24}            
             >
               Forgot Your Password?
             </Title>
-            <Text  c="dimmed" fz="sm" ta="center">
+            <Text  c={Color.GRAY} fz="sm" ta="center">
               Let us help you recover your account.
             </Text>
           </div>
@@ -110,7 +111,7 @@ const Recovery = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 {errors.email && (
-                  <span style={{ color: '#f30000', fontSize: '14px' }}>{errors.email}</span>
+                  <span style={{ color: Color.ERROR_COLOR, fontSize: '14px' }}>{errors.email}</span>
                 )}
               </div>
             
@@ -120,7 +121,7 @@ const Recovery = () => {
                 label={loading ? 'Submitting...' : 'Submit'}
                 onClick={handleSubmit}
                 variant="filled"
-                color="#293991"
+                color={Color.PRIMARY}
                 size="md"
                 fullWidth
                 radius="md"

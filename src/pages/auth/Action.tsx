@@ -4,7 +4,9 @@ import {  applyActionCode, checkActionCode,confirmPasswordReset} from "firebase/
 import { auth } from "@/firebase";
 import Loader from "@/utils/reusable/Loader";
 import { notifications } from '@mantine/notifications';
-
+import { Color } from './../../utils/reusable/Theme';
+import { Button } from "@mantine/core";
+import CustomInput from "@/utils/reusable/CustomInput";
 
 
 interface Errors {
@@ -157,12 +159,11 @@ const handleSubmit = async (e: React.FormEvent) => {
         <div className="grid gap-4">
           <div>
             <label htmlFor="password">New Password *</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              className="border-l-4 border-l-[--bg-color] block w-[20rem] px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="New Password"
+            <CustomInput
+               type="password"
+               label="Password"
+               name="password"
+               placeholder="********"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -170,15 +171,13 @@ const handleSubmit = async (e: React.FormEvent) => {
             {errors.password && <span className='text-[#f30000] text-sm'>{errors.password}</span>}
           </div>
 
-          <div>
-            <label htmlFor="confirm">Confirm New assword *</label>
-            <input
-              id="confirm"
-              name="confirm"
-              type="password"
-              className="border-l-4 border-l-[--bg-color] block w-[20rem] px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              required
-              placeholder="Confirm Password"
+          <div>           
+            <CustomInput
+               type="password"
+               label="Confrim Password"
+               name="password"
+               placeholder="********"
+              required             
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)} 
             />
@@ -187,11 +186,18 @@ const handleSubmit = async (e: React.FormEvent) => {
         </div>
 
         <div>
-          <button
+          <Button
             type="submit"
-            className="w-full text-[--text-extra] flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-[--button-color]">
+            style={{
+              background: Color.PRIMARY,
+              color: Color.WHITE,
+              padding: '5px 20px',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              border: 'none'
+            }}>
             Submit
-          </button>
+          </Button>
         </div>
       </form>
     </div>

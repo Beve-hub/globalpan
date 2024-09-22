@@ -9,6 +9,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import { useAuth } from '@/layout/AuthProvider';  
 import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
 import { notifications } from '@mantine/notifications';
+import { Color } from '@/utils/reusable/Theme';
 
 
 
@@ -113,7 +114,7 @@ const Profile = () => {
           notifications.show({
             title: 'Profile Updated',
             message: 'Your profile has been successfully updated.',
-            color: 'green',
+            color: Color.PRIMARY,
             position: 'top-right',
           });
         } else {
@@ -128,7 +129,7 @@ const Profile = () => {
         notifications.show({
           title: 'Update Failed',
           message: 'There was an issue updating your profile. Please try again later.',
-          color: 'red',
+          color: Color.ERROR_COLOR,
           position: 'top-right',
         });
       }
@@ -146,7 +147,7 @@ const Profile = () => {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            backgroundColor:'#FCFCFC',
+            backgroundColor:Color.WHITE,
             alignItems: 'center',
             height: '90vh',
             boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)',
@@ -174,7 +175,7 @@ const Profile = () => {
               <Text fz={24} fw={700}>
                 Complete your profile
               </Text>
-              <Text fz={16} color='#12121290' mb={20}>
+              <Text fz={16} color={Color.GRAY} mb={20}>
                 We will need more information to complete your profile
               </Text>
             </div>
@@ -211,9 +212,9 @@ const Profile = () => {
               />
               <div>
               <Select
-                  label="Your role"
+                  label="Role"
                   name="role"
-                  placeholder="Pick value"
+                  placeholder="Choose A Role"
                   error={errors.role}
                   value={formData.role}
                   data={['investor', 'others']}
@@ -221,7 +222,7 @@ const Profile = () => {
                 />
               </div>
               <div>                
-                <Text fz={14} fw={500}>Country <span style={{color:'#CC0000'}}>*</span></Text>
+                <Text fz={14} fw={500}>Country <span style={{color:Color.ERROR_COLOR}}>*</span></Text>
                 <ReactFlagsSelect
                 selected={formData.country}
                 onSelect={handleCountrySelect}
@@ -229,14 +230,14 @@ const Profile = () => {
                 searchPlaceholder="Search countries"
                 placeholder="Select Country"
               />
-                {errors.country && <Text color="red">{errors.country}</Text>}
+                {errors.country && <Text color={Color.ERROR_COLOR}>{errors.country}</Text>}
               </div>
             </SimpleGrid>
             <CustomeButton
               label="Submit"
               onClick={handleSubmit}
               variant="filled" // Or 'outline', 'light', 'default', etc.
-              color="#293991" // You can use any color supported by Mantine
+              color={Color.PRIMARY} // You can use any color supported by Mantine
               size="md" // Options: 'xs', 'sm', 'md', 'lg', 'xl'
               fullWidth // Set to true to make the button full width
               radius="md"

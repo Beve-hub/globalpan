@@ -12,6 +12,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/
 import { doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from '@/firebase';
 import { notifications } from '@mantine/notifications';
+import { Color } from '@/utils/reusable/Theme';
 
 // Define your errors interface
 interface Errors {
@@ -98,7 +99,7 @@ const Register = () => {
                 notifications.show({
                     title: `Registration Successful `,
                     message: `A verification email has been sent to your email address. Please check your inbox.`,
-                    color: '#299165',
+                    color: Color.SUCCESS_COLOR,
                     position:'top-right',
                 });
                 
@@ -107,7 +108,7 @@ const Register = () => {
                 notifications.show({
                     title: 'Registration Failed',
                     message: 'Something went wrong. Please try again later.',
-                    color: 'red',
+                    color: Color.ERROR_COLOR,
                     position:'top-right',
                 });
             } finally {
@@ -155,17 +156,8 @@ const Register = () => {
 
     return (
         <Center>
-            <SimpleGrid cols={{ base: 1, sm: 1, lg: 2 }} spacing="xl">
-                {!isSmallScreen && (
-                    <Box
-                        style={{                        
-                            width: '100%',
-                            height: '100vh',
-                        }}
-                    >
-                        <Image src={IMG} h="100vh" fit="cover" />
-                    </Box>
-                )}
+            <SimpleGrid cols={{ base: 1, sm: 1,md: 1, lg: 2 }} spacing="xl">
+               
                 <Box
                     style={{
                         display: 'flex',
@@ -192,7 +184,7 @@ const Register = () => {
                             </Text>
                             <Text fz={16}>
                                 Already have an account?
-                                <UnstyledButton onClick={handleRegister} style={{ color: '#293991', textDecoration: 'underline', fontSize: 16, marginLeft: 10 }}>
+                                <UnstyledButton onClick={handleRegister} style={{ color: Color.PRIMARY, textDecoration: 'underline', fontSize: 16, marginLeft: 10 }}>
                                     Sign In
                                 </UnstyledButton>
                             </Text>
@@ -244,16 +236,26 @@ const Register = () => {
                             label="Submit"
                             onClick={handleSubmit}
                             variant="filled"
-                            color="#293991"
+                            color={Color.PRIMARY}
                             size="md"
                             fullWidth
                             radius="md"
                         />
                         <Text fz={14} fw={300}>
-                            By creating an account, you agree to the <span style={{ color: '#293991', fontWeight: '500' }}>privacy policy</span> and to receive economic and marketing communications from pan global trade. You can remove yourself from the mailing list at any time.
+                            By creating an account, you agree to the <span style={{ color: Color.PRIMARY, fontWeight: '500' }}>privacy policy</span> and to receive economic and marketing communications from pan global trade. You can remove yourself from the mailing list at any time.
                         </Text>
                     </div>
                 </Box>
+                {!isSmallScreen  && (
+                    <Box
+                        style={{                        
+                            width: '100%',
+                            height: '100vh',
+                        }}
+                    >
+                        <Image src={IMG} h="100vh" fit="cover" />
+                    </Box>
+                )}
             </SimpleGrid>
         </Center>
     );

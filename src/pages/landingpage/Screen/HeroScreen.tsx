@@ -1,7 +1,7 @@
 import { heroFont } from '@/utils/data/Data';
 import CustomButton from '@/utils/reusable/CustomButton';
 import Loader from '@/utils/reusable/Loader';
-import {  Group, useMantineTheme } from '@mantine/core';
+import {  Center, Group, useMantineTheme } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -81,6 +81,7 @@ const HeroScreen = () => {
           />
 
           {/* Content */}
+          <Center h='60vh'>
           <div
             style={{
               position: "absolute",
@@ -92,6 +93,7 @@ const HeroScreen = () => {
               zIndex: 2,
               padding: "0 5%",
               width: "90%",
+              height: '20vh',
               maxWidth: "1000px",
               display:'grid',
               justifyContent:'center',
@@ -125,6 +127,8 @@ const HeroScreen = () => {
             </Group>
             
           </div>
+          </Center>
+          
         </div>
       ))}
     </div>
