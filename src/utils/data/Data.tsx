@@ -8,11 +8,13 @@ import Test1 from '@/asset/andrew.png'
 import Test2 from '@/asset/andrew4.png'
 import Test3 from '@/asset/andrew2.png'
 import Test4 from '@/asset/andrew3.png'
+import Test5 from '@/asset/andrew5.png'
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaMoneyBills,FaCreditCard,FaGift  } from "react-icons/fa6";
 import { GiHistogram } from "react-icons/gi";
 import { IoIosCheckmarkCircleOutline, IoMdSettings } from 'react-icons/io'
 import { RiShieldUserFill } from "react-icons/ri";
+import { Color } from '../reusable/Theme'
 
 interface SideBarItem {
     name: string;
@@ -191,31 +193,31 @@ export const SmNavData: NavbarItem[] = [
 
     export const serviceData: ServiceItem[] = [
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Forex & Crypto Trading Strategies',         
       },
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Instatnt E-currency Deposit',         
       },
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Investment Portfolio',         
       },
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Crypto Loan',         
       },
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'High Quality Trading Signals',         
       },
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Mt4, Mt5 | Auto | Copy-Trading',         
       },
       {        
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Crypto AI & Best ForexEA Robot (Software)',         
       },
     ]
@@ -224,7 +226,7 @@ export const SmNavData: NavbarItem[] = [
          name: 'BASIC PLAN',
          range: '$200 - $2000',
          profit: '2% Daily',
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Minimum 100 USD',
          max: 'Maximum 2000 USD',
          desc: 'instant Withdrawal',
@@ -234,7 +236,7 @@ export const SmNavData: NavbarItem[] = [
          name: 'ADVANCE PLAN',
          range: '$2001 - $4000',
          profit: '5% Daily',
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Minimum 2001 USD',
          max: 'Maximum 4000 USD',
          desc: 'instant Withdrawal',
@@ -244,7 +246,7 @@ export const SmNavData: NavbarItem[] = [
          name: 'PROFESSIONAL PLAN',
          range: '$4001 - $10,000',
          profit: '7.5% Daily',
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Minimum 4001 USD',
          max: 'Maximum 10,000 USD',
          desc: 'instant Withdrawal',
@@ -254,7 +256,7 @@ export const SmNavData: NavbarItem[] = [
          name: 'PREMIUM PLAN',
          range: '$10,001 - $unlimited',
          profit: '12.5% Daily',
-         icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
+         icon: <IoIosCheckmarkCircleOutline size={24} color={Color.PRIMARY}/>,
          mini: 'Minimum 100 USD',
          max: 'Maximum Unlimited',
          desc: 'instant Withdrawal',
@@ -264,24 +266,29 @@ export const SmNavData: NavbarItem[] = [
 
     export const TestimoniaData: TestimoniaItem[] = [
       {
-         name:'Andrew Ostein',
-         desc:'I have been using the Pan Crypto & Forex Trading Platform for over 1 year and have been absolutely thrilled with the results. I have been able to make massive profits while keeping my money safe.',
+         name:'Andrew O',
+         desc:'I have been using the nexcel global Crypto & Forex Trading Platform for over 1 year and have been absolutely thrilled with the results. I have been able to make massive profits while keeping my money safe.',
          image: Test1
       },
       {
-         name:'Andrew Ostein',
+         name:'Elena K',
          desc:'I Receive my account update today i’m excited by the out come. I’m kicking myself in the nut for not investing. Won’t be missing no opportunity again. ',
          image: Test2
       },
       {
-         name:'Andrew Ostein',
-         desc:'I have been using the Pan Crypto & Forex Trading Platform for over 1 year and have been absolutely thrilled with the results. I have been able to make massive profits while keeping my money safe.',
+         name:'James W',
+         desc:'I have been trading with nexcel global for over a year now, and I can honestly say it has been life-changing. Their platform is user-friendly, and the customer support team is always ready to help.',
          image: Test3
       },
       {
-         name:'Andrew Ostein',
-         desc:'I have been using the Pan Crypto & Forex Trading Platform for over 1 year and have been absolutely thrilled with the results. I have been able to make massive profits while keeping my money safe.',
+         name:'Sarah L',
+         desc:'I’ve been skeptical about crypto for years, but after joining nexcel global, my perspective changed completely. They offer excellent training materials and webinars that taught me how to manage risks effectively.',
          image: Test4
+      },
+      {
+         name:' Daniel T',
+         desc:'What sets nexcel global apart for me is their attention to detail and support for traders at all levels. They offer a wide range of assets, and their advanced charting tools have been key to improving my forex trading performance. ',
+         image: Test5
       }
     ]
     export const WithrawalTestData: WithrawalTestItem[] = [
