@@ -19,7 +19,8 @@ const ContactBody = () => {
         <Center style={{ height: '60vh' }}>
         <SimpleGrid
           cols={isSmallScreen ? 1 : 2}
-          spacing="md"         
+          spacing="md" 
+          px={20}        
         >
           <div>
           <div>
@@ -31,7 +32,7 @@ const ContactBody = () => {
                   </Text>
               </div>
           </div>
-          <form style={{ width: '100%' }}>
+          <form style={{ width: '100%', }}>
               
             <SimpleGrid cols={isSmallScreen ? 1 : 2} spacing="sm" >
               <CustomInput placeholder="Name" label="Name" />

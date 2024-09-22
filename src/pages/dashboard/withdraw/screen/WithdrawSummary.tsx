@@ -4,6 +4,7 @@ import CustomButton from '@/utils/reusable/CustomButton';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { FiChevronLeft } from 'react-icons/fi';
 import { useMediaQuery } from '@mantine/hooks';
+import { Color } from '@/utils/reusable/Theme';
 
 interface UserData {
   amount: string;
@@ -47,7 +48,7 @@ const WithdrawSummary = ({ ...props }) => {
           <div 
            style={{
             display: 'flex',
-            backgroundColor: '#12121210',
+            backgroundColor: Color.LIGHT_GRAY,
             padding: '0.5rem',
             borderRadius: 90,
           }}
@@ -100,7 +101,7 @@ const WithdrawSummary = ({ ...props }) => {
               label="Proceed"
               onClick={handleSubmit}
               variant="filled"
-              color="#293991"
+              color={Color.PRIMARY}
               size="md"
               fullWidth
               radius="md"

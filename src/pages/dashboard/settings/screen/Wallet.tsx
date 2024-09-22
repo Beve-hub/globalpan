@@ -8,6 +8,7 @@ import { auth,} from '@/firebase';
 import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { doc, getDoc, getFirestore,updateDoc } from 'firebase/firestore';  // For Firestore update
 import { notifications } from '@mantine/notifications';
+import { Color } from '@/utils/reusable/Theme';
 
 interface Errors {
     oldPassword?: string;
@@ -70,7 +71,7 @@ const Wallet = () => {
                 notifications.show({
                     title: 'Profile Updated',
                     message: 'Your profile has been successfully updated.',
-                    color: 'green',
+                    color: Color.SUCCESS_COLOR,
                     position: 'top-right',
                 });
             } catch (error) {
@@ -78,7 +79,7 @@ const Wallet = () => {
                 notifications.show({
                     title: 'Password Update Failed',
                     message: 'Something went wrong. Please try again later.',
-                    color: 'red',
+                    color: Color.ERROR_COLOR,
                     position: 'top-right',
                 });
             } finally {
@@ -132,7 +133,7 @@ const Wallet = () => {
 
     return (
         <div>
-            <div style={{ backgroundColor: '#0055CC10', height: 'auto', padding: 20 }}>
+            <div style={{ backgroundColor: Color.INFO_COLOR, height: 'auto', padding: 20 }}>
                 <Text fz={20} fw={600} mb={20}>
                     Change Password
                 </Text>
@@ -168,7 +169,7 @@ const Wallet = () => {
                         label={loading ? <Oval height="20" width="20" color="#4fa94d" ariaLabel="oval-loading" /> : 'Update Password'}
                         onClick={handleSubmit}
                         variant="filled"
-                        color="#293991"
+                        color={Color.PRIMARY}
                         size="md"
                         fullWidth
                         radius="md"

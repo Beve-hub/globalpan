@@ -7,6 +7,7 @@ import { useMediaQuery,useDisclosure } from '@mantine/hooks';
 
 import Gif from '@/asset/7efs.gif';
 import { useEffect } from 'react';
+import { Color } from '@/utils/reusable/Theme';
 
 
 const WithdrawPin = () => {
@@ -49,7 +50,7 @@ const WithdrawPin = () => {
         <div
           style={{
             display: 'flex',
-            backgroundColor: '#12121210',
+            backgroundColor: Color.LIGHT_GRAY,
             padding: '0.5rem',
             borderRadius: 90,
           }}
@@ -82,7 +83,7 @@ const WithdrawPin = () => {
             label="Proceed"
            onClick={open}
             variant="filled"
-            color="#293991"
+            color={Color.PRIMARY}
             size="md"
             fullWidth
             radius="md"
@@ -104,7 +105,7 @@ const WithdrawPin = () => {
                 navigate('/withdraw');  // Navigate to the invest page
               }}
               variant='filled'
-              color='#293991'
+              color={Color.PRIMARY}
               size='md'
               fullWidth
               radius='md'

@@ -5,6 +5,7 @@ import { GrTransaction } from "react-icons/gr";
 import { GiHistogram } from "react-icons/gi";
 import { ref, get } from 'firebase/database';
 import { database } from '@/firebase';
+import { Color } from './../../../../utils/reusable/Theme';
 
 interface UserData {
   amount: number;
@@ -88,7 +89,7 @@ const Board = () => {
       <Group
         style={{
           display: 'grid',
-          backgroundColor: "#293991",
+          backgroundColor: Color.PRIMARY,
           padding: '5px 30px ',
           height: '13rem',
           width: '16rem',
@@ -99,17 +100,17 @@ const Board = () => {
           style={{
             display: "flex",
             justifyContent: 'center',
-            background: '#ffff',
+            background: Color.WHITE,
             height: '2rem',
             width: '2rem',
             borderRadius: 5,
           }}
         >
-          <FaWallet size={20} color="#293991" />
+          <FaWallet size={20} color={Color.PRIMARY}/>
         </Group>
         <div style={{ display: 'grid' }}>
-          <Text fz={18} color="#ffff">Balance</Text>
-          <Text fz={30} fw={700} color="#ffff">${(totalDeposit - totalWithdraw) <= 0 ? 0 : (totalDeposit - totalWithdraw)}.00</Text>
+          <Text fz={18} color={Color.WHITE}>Balance</Text>
+          <Text fz={30} fw={700} color={Color.WHITE}>${(totalDeposit - totalWithdraw) <= 0 ? 0 : (totalDeposit - totalWithdraw)}.00</Text>
         </div>
       </Group>
 
@@ -127,24 +128,24 @@ const Board = () => {
           style={{
             display: "flex",
             justifyContent: 'center',
-            background: '#293991',
+            background: Color.PRIMARY,
             height: '2rem',
             width: '2rem',
             borderRadius: 5,
           }}
         >
-          <GrTransaction size={20} color="#ffff" />
+          <GrTransaction size={20} color={Color.WHITE} />
         </Group>
         <div style={{ display: 'grid' }}>
-          <Text fz={18} color="#121212">Active Deposit</Text>
-          <Text fz={30} fw={700} color="#121212">${totalDeposit <= 0 ? 0 : totalDeposit}.00</Text>
+          <Text fz={18} color={Color.BLACK}>Active Deposit</Text>
+          <Text fz={30} fw={700} color={Color.BLACK}>${totalDeposit <= 0 ? 0 : totalDeposit}.00</Text>
         </div>
       </Group>
 
       <Group
         style={{
           display: 'grid',
-          backgroundColor: "#0055CC20",
+          backgroundColor:Color.INFO_COLOR,
           padding: '5px 30px ',
           height: '13rem',
           width: '16rem',
@@ -155,24 +156,24 @@ const Board = () => {
           style={{
             display: "flex",
             justifyContent: 'center',
-            background: '#293991',
+            background: Color.PRIMARY,
             height: '2rem',
             width: '2rem',
             borderRadius: 5,
           }}
         >
-          <GiHistogram size={20} color="#ffff" />
+          <GiHistogram size={20} color={Color.WHITE} />
         </Group>
         <div style={{ display: 'grid' }}>
-          <Text fz={18} color="#121212">Profit</Text>
-          <Text fz={30} fw={700} color="#121212">${profit <= 0 ? 0 : profit.toFixed(2)}</Text>
+          <Text fz={18} color={Color.BLACK}>Profit</Text>
+          <Text fz={30} fw={700} color={Color.BLACK}>${profit <= 0 ? 0 : profit.toFixed(2)}.00</Text>
         </div>
       </Group>
 
       <Group
         style={{
           display: 'grid',
-          backgroundColor: "#0055CC20",
+          backgroundColor: Color.INFO_COLOR,
           padding: '5px 30px ',
           height: '13rem',
           width: '16rem',
@@ -183,17 +184,17 @@ const Board = () => {
           style={{
             display: "flex",
             justifyContent: 'center',
-            background: '#293991',
+            background: Color.PRIMARY,
             height: '2rem',
             width: '2rem',
             borderRadius: 5,
           }}
         >
-          <FaCoins size={20} color="#ffff" />
+          <FaCoins size={20} color={Color.WHITE} />
         </Group>
         <div style={{ display: 'grid' }}>
-          <Text fz={18} color="#121212">Referrals Bonus</Text>
-          <Text fz={30} fw={700} color="#121212">$0.00</Text>
+          <Text fz={18} color={Color.BLACK}>Referrals Bonus</Text>
+          <Text fz={30} fw={700} color={Color.BLACK}>$0.00</Text>
         </div>
       </Group>
     </SimpleGrid>

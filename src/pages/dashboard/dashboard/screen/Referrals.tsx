@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Text, Button, CopyButton, TextInput,  Box } from '@mantine/core';
+import { Color } from '@/utils/reusable/Theme';
 
 const Referrals = () => {
     const [referralLink, ] = useState<string>('https://panglobal.com/referral/username');
 
     return (
-        <Box style={{ backgroundColor: '#0055CC15', padding: '1rem', borderRadius: 10, width: '100%' }}>
+        <Box style={{ backgroundColor: Color.INFO_COLOR, padding: '1rem', borderRadius: 10, width: '100%' }}>
             <Text fz={20} fw={600} >Referral Link</Text>
             <div style={{
                 display: 'flex',
@@ -26,7 +27,7 @@ const Referrals = () => {
                         <CopyButton value={referralLink}>
                             {({ copied, copy }) => (
                                 <Button
-                                    color={copied ? 'teal' : '#293991'}
+                                    color={copied ? 'teal' : Color.PRIMARY}
                                     onClick={copy}
                                     style={{ width: '5rem' }} // Set button width to 5rem
                                 >

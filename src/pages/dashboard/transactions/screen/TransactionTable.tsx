@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { ref, get, } from 'firebase/database';
 import { database } from '@/firebase';
+import { Color } from '@/utils/reusable/Theme';
 
 
 interface Wallet {
@@ -110,7 +111,11 @@ const BodyPro = () => {
         })}
       </Table.Td>
       <Table.Td>
-        <Text color={wallet.status === 'Successful' ? 'green' : 'red'}>
+        <Text color={
+          wallet.status === 'Successful'
+           ? 'green'
+            : 'red'
+            }>
           {wallet.status}
         </Text>
       </Table.Td>     
@@ -123,14 +128,14 @@ const BodyPro = () => {
       
       <Table.ScrollContainer minWidth={800} my={40}>
         <Table style={{ border: '1px solid #12121230', borderRadius: 50, textAlign: 'center' }}>
-          <Table.Thead style={{ backgroundColor: '#293991', height: 40, textAlign: 'center' }}>
+          <Table.Thead style={{ backgroundColor: Color.PRIMARY, height: 40, textAlign: 'center' }}>
             <Table.Tr>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Seria ID</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Amount</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Payment</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Method</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Date</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Status</Table.Th>             
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Seria ID</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Amount</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Payment</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Method</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Date</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Status</Table.Th>             
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody style={{ textAlign: 'center' }}>{rows}</Table.Tbody>
@@ -139,7 +144,7 @@ const BodyPro = () => {
         my={20}
           onChange={setActivePage}
           total={Math.ceil(storedWallets.length / rowsPerPage)}
-          color='#293991'
+          color={Color.PRIMARY}
         />
       </Table.ScrollContainer>
     </div>

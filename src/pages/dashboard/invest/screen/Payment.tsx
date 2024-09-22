@@ -8,6 +8,7 @@ import { useDisclosure } from '@mantine/hooks';
 import Gif from '@/asset/7efs.gif';
 import { ref, get } from 'firebase/database';
 import { database } from '@/firebase';
+import { Color } from '@/utils/reusable/Theme';
 
 interface Wallet {
   address: string;
@@ -69,7 +70,7 @@ const Payment = ({ ...props }) => {
     <div>
       {/* Back Button */}
       <UnstyledButton onClick={handleInvest} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '10rem', marginTop: '2rem', gap: 10 }}>
-        <div style={{ display: 'flex', backgroundColor: '#12121210', padding: '0.5rem', borderRadius: 90 }}>
+        <div style={{ display: 'flex', backgroundColor: Color.LIGHT_GRAY, padding: '0.5rem', borderRadius: 90 }}>
           <FiChevronLeft size={20} />
         </div>
         <Text fz={18}>Back</Text>
@@ -129,7 +130,7 @@ const Payment = ({ ...props }) => {
           )}
 
           {/* Button to confirm payment */}
-          <CustomButton label='Click when payment is completed' onClick={open} variant='filled' color='#293991' size='md' fullWidth radius='md' />
+          <CustomButton label='Click when payment is completed' onClick={open} variant='filled' color={Color.PRIMARY} size='md' fullWidth radius='md' />
         </Paper>
 
         {/* Modal for payment success */}
@@ -142,7 +143,7 @@ const Payment = ({ ...props }) => {
               <Image src={Gif} />
             </Group>
 
-            <CustomButton label='Go Back' onClick={close} variant='filled' color='#293991' size='md' fullWidth radius='md' />
+            <CustomButton label='Go Back' onClick={close} variant='filled' color={Color.PRIMARY} size='md' fullWidth radius='md' />
           </div>
         </Modal>
       </Center>

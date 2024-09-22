@@ -1,7 +1,9 @@
 import CustomButton from '@/utils/reusable/CustomButton'
-import { Box, Text } from '@mantine/core'
+import { Color } from '@/utils/reusable/Theme'
+import { Box, Button, Text } from '@mantine/core'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
 
 interface Props {
     
@@ -12,8 +14,11 @@ const Action: React.FC<Props> = () => {
     const handleDeposit = () => {
      navigate('/invest')
     }
+    const handleWithdraw = () => {
+        navigate('/withdraw')
+       }
     return (
-        <Box style={{backgroundColor:'#0055CC15',padding: '1rem',borderRadius:10}}>
+        <Box style={{backgroundColor:Color.INFO_COLOR, padding: '1rem',borderRadius:10}}>
             <Text fz={20} fw={600}>Quick Action</Text>
             <div style={{
                 display: 'flex',
@@ -27,13 +32,13 @@ const Action: React.FC<Props> = () => {
              label="Make Deposit"
              onClick={handleDeposit}
              variant="filled"
-             color="#293991"  fullWidth />
+             color={Color.PRIMARY}  
+             fullWidth />
 
-            <CustomButton
-             label="Withdrawal"
-             onClick={handleDeposit}
+            <Button             
+             onClick={handleWithdraw}
              variant="filled"
-             color="#121212"  fullWidth /> 
+             color={Color.BLACK}  fullWidth >Withdrawal</Button> 
             </div>
                  
         </Box>

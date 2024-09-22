@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { firestore } from '@/firebase'; // Assuming you have set up Firebase and Firestore
+import { Color } from '@/utils/reusable/Theme';
 
 const Personal = () => {
   const { state } = useLocation();
@@ -42,30 +43,30 @@ const Personal = () => {
   }, [userId]);
 
   return (
-    <div style={{ backgroundColor: '#0055CC10', height: 'auto', padding: 20 }}>
+    <div style={{ backgroundColor: Color.INFO_COLOR, height: 'auto', padding: 20 }}>
       <Text fz={20} fw={600} mb={20}>
         Personal Information
       </Text>
       <div>
         <div>
           <Text my={10}>Full Name</Text>
-          <Text color='#12121260' style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{name}</Text>
+          <Text color={Color.DARK_GRAY} style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{name}</Text>
         </div>
         <div>
           <Text my={10}>Phone Number</Text>
-          <Text color='#12121260' style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{phoneNumber}</Text>
+          <Text color={Color.DARK_GRAY} style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{phoneNumber}</Text>
         </div>
         <div>
           <Text my={10}>Address</Text>
-          <Text color='#12121260' style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{address}</Text>
+          <Text color={Color.DARK_GRAY} style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{address}</Text>
         </div>
         <div>
           <Text my={10}>Zip Code</Text>
-          <Text color='#12121260' style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{zipCode}</Text>
+          <Text color={Color.DARK_GRAY} style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{zipCode}</Text>
         </div>
         <div>
           <Text my={10}>Country</Text>
-          <Text  color='#12121260'style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{country}</Text>
+          <Text  color={Color.DARK_GRAY}style={{border:'1px solid #12121240', padding:'5px 5px 10px 15px', borderRadius:5, backgroundColor:'#F4F6FF'}}>{country}</Text>
         </div>
       </div>
     </div>

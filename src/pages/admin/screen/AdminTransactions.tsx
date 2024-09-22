@@ -6,6 +6,7 @@ import { database } from '@/firebase';
 import { FaCircleCheck } from 'react-icons/fa6';
 import { MdDeleteForever } from 'react-icons/md';
 import { RxDragHandleDots2 } from 'react-icons/rx';
+import { Color } from '@/utils/reusable/Theme';
 
 interface Wallet {
   seriaId: string;
@@ -97,7 +98,11 @@ const AdminTransactions = () => {
       i === index ? { ...w, status: 'Successful' } : w
     );
     setStoredWallets(updatedWallets);
-    notifications.show({ message: 'Transaction accepted', color: 'green' });
+    notifications.show({
+       message: 'Transaction accepted', 
+       color: Color.SUCCESS_COLOR,
+       position:'top-right', });
+       
     setShowActions(showActions.map((_, i) => (i === index ? false : _))); // Hide actions after accept
 
     // Update the correct Firebase path based on the type of transaction
@@ -112,7 +117,7 @@ const AdminTransactions = () => {
       i === index ? { ...w, status: 'Failed' } : w
     );
     setStoredWallets(updatedWallets);
-    notifications.show({ message: 'Transaction declined', color: 'red' });
+    notifications.show({ message: 'Transaction declined', color: Color.ERROR_COLOR,position:'top-right', });
     setShowActions(showActions.map((_, i) => (i === index ? false : _))); // Hide actions after decline
 
     // Update the correct Firebase path based on the type of transaction
@@ -134,7 +139,7 @@ const AdminTransactions = () => {
         })}
       </Table.Td>
       <Table.Td>
-        <Text color={wallet.status === 'Successful' ? 'green' : 'red'}>
+        <Text color={wallet.status === 'Successful' ? Color.SUCCESS_COLOR : Color.ERROR_COLOR}>
           {wallet.status}
         </Text>
       </Table.Td>
@@ -146,19 +151,19 @@ const AdminTransactions = () => {
           withinPortal
         >
           <Menu.Target>
-            <ActionIcon variant="subtle" color="gray">
+            <ActionIcon variant="subtle" color={Color.GRAY}>
               <RxDragHandleDots2 />
             </ActionIcon>
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item
-              leftSection={<FaCircleCheck color="green" />}
+              leftSection={<FaCircleCheck color={Color.SUCCESS_COLOR} />}
               onClick={() => handleAccept(index)}
             >
               Accept
             </Menu.Item>
             <Menu.Item
-              leftSection={<MdDeleteForever color='red' />}
+              leftSection={<MdDeleteForever color={Color.ERROR_COLOR} />}
               onClick={() => handleDecline(index)}
             >
               Decline
@@ -179,15 +184,15 @@ const AdminTransactions = () => {
       </Box>
       <Table.ScrollContainer minWidth={800}>
         <Table style={{ border: '1px solid #12121230', borderRadius: 50, textAlign: 'center' }}>
-          <Table.Thead style={{ backgroundColor: '#293991', height: 40, textAlign: 'center' }}>
+          <Table.Thead style={{ backgroundColor: Color.PRIMARY, height: 40, textAlign: 'center' }}>
             <Table.Tr>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Seria ID</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Amount</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Payment</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Method</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Date</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Status</Table.Th>
-              <Table.Th style={{ color: 'white', fontSize: '16px', textAlign: 'center' }}>Actions</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Seria ID</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Amount</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Payment</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Method</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Date</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Status</Table.Th>
+              <Table.Th style={{ color: Color.WHITE, fontSize: '16px', textAlign: 'center' }}>Actions</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody style={{ textAlign: 'center' }}>{rows}</Table.Tbody>
@@ -196,7 +201,7 @@ const AdminTransactions = () => {
         my={20}
           onChange={setActivePage}
           total={Math.ceil(storedWallets.length / rowsPerPage)}
-          color='#293991'
+          color={Color.PRIMARY}
         />
       </Table.ScrollContainer>
     </div>

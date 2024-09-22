@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { firestore } from '@/firebase';
 import { useAuth } from '@/layout/AuthProvider';
 import { notifications } from '@mantine/notifications';
+import { Color } from '@/utils/reusable/Theme';
 
 const Profile = () => {
   const { state } = useLocation();
@@ -92,7 +93,7 @@ const getRandomColor = () => {
       notifications.show({
         title: `Account Successfully Deleted `,
         message: `Account successfully deleted`,
-        color: '#299165',
+        color: Color.SUCCESS_COLOR,
         position:'top-right',
     });
       
@@ -102,7 +103,7 @@ const getRandomColor = () => {
       notifications.show({
         title: 'Failed Attempt',
         message: 'Failed to delete account',
-        color: 'red',
+        color: Color.ERROR_COLOR,
         position:'top-right',
     });
      
@@ -111,7 +112,7 @@ const getRandomColor = () => {
 
   return (
     <div style={{
-      backgroundColor: '#0055CC15',
+      backgroundColor: Color.INFO_COLOR,
       height: 'auto',
       padding: '2rem',
       borderRadius: 10,
@@ -136,7 +137,7 @@ const getRandomColor = () => {
           <div style={{ position: 'relative', display: 'inline-block' }}>
             <div
               style={{
-                backgroundColor: '#ffff',
+                backgroundColor: Color.WHITE,
                 padding: 10,
                 borderRadius: 10,
                 cursor: 'pointer',
@@ -153,9 +154,9 @@ const getRandomColor = () => {
 
           </div>
           <div style={{ textAlign: isSmallScreen ? 'center' : 'left' }}>
-            <Text style={{ fontSize: 20, fontWeight: 700, color: '#121212' }}>{name}</Text>
-            <Text style={{ fontSize: 14, fontWeight: 500, color: '#121212' }}>{role}</Text>
-            <Text style={{ fontSize: 14, color: '#12121280' }}>{email}</Text>
+            <Text style={{ fontSize: 20, fontWeight: 700, color: Color.BLACK }}>{name}</Text>
+            <Text style={{ fontSize: 14, fontWeight: 500, color: Color.BLACK }}>{role}</Text>
+            <Text style={{ fontSize: 14, color: Color.GRAY }}>{email}</Text>
           </div>
         </Group>
         <Group>
@@ -163,7 +164,7 @@ const getRandomColor = () => {
             label='Delete Account'
             onClick={() => setModalOpen(true)} // Open modal on click
             variant="filled"
-            color="#CC0000"
+            color={Color.ERROR_COLOR}
             size="md"
             radius="md"
           />

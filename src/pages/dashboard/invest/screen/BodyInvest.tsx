@@ -6,6 +6,7 @@ import CustomeButton from '@/utils/reusable/CustomButton';
 import { ref, push } from 'firebase/database';
 import { database } from '@/firebase';
 import { Oval } from 'react-loader-spinner';
+import { Color } from '@/utils/reusable/Theme';
 
 
 // Define types for form data and error object
@@ -187,12 +188,12 @@ const BodyInvest = ({ ...props }) => {
           />
           <Group style={{ display: 'flex', justifyContent: 'space-between' }}>
             {formData.range && (
-              <Text fz={12} fw={500} color="#5C5B5B">
+              <Text fz={12} fw={500} color={Color.GRAY}>
                 {formData.range}
               </Text>
             )}
             {formData.description && (
-              <Text fz={12} fw={500} color="#5C5B5B">
+              <Text fz={12} fw={500} color={Color.GRAY}>
                 {formData.description}
               </Text>
             )}
@@ -223,7 +224,7 @@ const BodyInvest = ({ ...props }) => {
           label={loading ? <Oval height={30} width={30} color="#293991" /> : 'invest'}
           onClick={handleSubmit}
           variant="filled"
-          color="#293991"
+          color={Color.PRIMARY}
           size="md"
           fullWidth
           radius="md"

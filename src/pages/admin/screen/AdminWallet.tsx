@@ -5,6 +5,7 @@ import { notifications } from '@mantine/notifications';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { ref, push, get } from 'firebase/database';
 import { database } from '@/firebase';
+import { Color } from '@/utils/reusable/Theme';
 
 interface Wallet {
     address: string;
@@ -104,7 +105,7 @@ const AdminWallet: React.FC = () => {
             notifications.show({
               title: 'Wallet Added',
               message: 'Wallet Address has been added to your wallet',
-              color: '#299165',
+              color: Color.SUCCESS_COLOR,
               position: 'top-right',
             });
           } catch (error) {
@@ -119,7 +120,7 @@ const AdminWallet: React.FC = () => {
           notifications.show({
             title: 'Wallet Limit Exceeded',
             message: 'You cannot add more than 5 wallets',
-            color: 'red',
+            color: Color.ERROR_COLOR,
             position: 'top-right',
           });
         }
@@ -163,14 +164,14 @@ const AdminWallet: React.FC = () => {
             notifications.show({
               title: 'Details removed',
               message: 'Wallet data has been successfully removed.',
-              color: 'green',
+              color: Color.SUCCESS_COLOR,
               position: 'top-right',
             });
           } else {
             notifications.show({
               title: 'Update Failed',
               message: 'There was an issue removing the wallet. Please try again later.',
-              color: 'red',
+              color: Color.ERROR_COLOR,
               position: 'top-right',
             });
           }
@@ -196,7 +197,7 @@ const AdminWallet: React.FC = () => {
         <div>
             <Box my={30} style={{display:'flex',justifyContent:'space-between'}}>
                 <Text fz={20} fw={500}>Add wallet</Text>
-                <CustomButton label='Add Wallet' onClick={() => setOpened(true)} color='#293991'/>
+                <CustomButton label='Add Wallet' onClick={() => setOpened(true)} color={Color.PRIMARY}/>
             </Box>
 
             <Modal opened={opened} onClose={() => setOpened(false)} title="Add Wallet">
@@ -223,16 +224,16 @@ const AdminWallet: React.FC = () => {
                     onChange={handleChange}
                     error={errors.address}
                 />                
-                <Button my={20} color='#293991' onClick={handleSubmit}>Submit</Button>
+                <Button my={20} color={Color.PRIMARY} onClick={handleSubmit}>Submit</Button>
             </Modal>
             <Table.ScrollContainer minWidth={800}>
             <Table style={{border:'1px solid #12121230', borderRadius:50 }}>
-                    <Table.Thead style={{backgroundColor:"#293991", height:40}}>
+                    <Table.Thead style={{backgroundColor:Color.PRIMARY, height:40}}>
                         <Table.Tr>
-                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Crypto</Table.Th>
-                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Network</Table.Th>
-                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Wallet</Table.Th>
-                        <Table.Th style={{ textAlign: 'center',color:'white', fontSize:'16px' }}>Action</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:Color.WHITE, fontSize:'16px' }}>Crypto</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:Color.WHITE, fontSize:'16px' }}>Network</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:Color.WHITE, fontSize:'16px' }}>Wallet</Table.Th>
+                        <Table.Th style={{ textAlign: 'center',color:Color.WHITE, fontSize:'16px' }}>Action</Table.Th>
                         </Table.Tr>
                     </Table.Thead>
                     <tbody>

@@ -23,7 +23,7 @@ const Bitcoin: React.FC<CoinGeckoWidgetProps> = ({ locale = 'en', outlined = tru
     return (
       <div
         dangerouslySetInnerHTML={{
-          __html: `<gecko-coin-price-chart-widget locale="${locale}" outlined="${outlined}" initial-currency="${initialCurrency}"></gecko-coin-price-chart-widget>`,
+          __html: `<gecko-coin-price-chart-widget locale="${locale}" outlined="${outlined}" initial-currency="${initialCurrency}" style={{color: Color.WHITE}}></gecko-coin-price-chart-widget>`,
         }}
       />
     );

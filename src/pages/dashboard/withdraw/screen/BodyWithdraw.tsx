@@ -6,6 +6,7 @@ import CustomeButton from '@/utils/reusable/CustomButton';
 import { Oval } from 'react-loader-spinner';
 import { ref, push } from 'firebase/database';
 import { database } from '@/firebase';
+import { Color } from '@/utils/reusable/Theme';
 
 // Define types for form data and error object
 type FormData = {
@@ -217,7 +218,7 @@ const BodyWithdraw = ({ ...props }) => {
           label={loading ? <Oval height={30} width={30} color="#293991" /> : 'invest'}
           onClick={handleSubmit}
           variant="filled"
-          color="#293991"
+          color={Color.PRIMARY}
           size="md"
           fullWidth
           radius="md"

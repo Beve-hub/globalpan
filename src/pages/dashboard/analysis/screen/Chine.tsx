@@ -1,3 +1,4 @@
+import { Color } from '@/utils/reusable/Theme';
 import React, { useEffect, useRef } from 'react';
 
 const Chine = () => {
@@ -46,7 +47,7 @@ const Chine = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span className="blue-text">Track all markets on TradingView</span>
+            <span style={{color:Color.WHITE}}>Track all markets on TradingView</span>
           </a>
         </div>
       </div>
