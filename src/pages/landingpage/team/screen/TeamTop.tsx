@@ -1,6 +1,7 @@
 import { Image,  Overlay, Title, UnstyledButton, Group } from '@mantine/core';
 import IMG from '@/asset/top.png'
 import { useNavigate } from 'react-router-dom';
+import { Color } from '@/utils/reusable/Theme';
 
 const TeamTop = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const TeamTop = () => {
           />
           <div
             style={{           
-              color: 'white',
+              color: Color.WHITE,
               width: '80%',
               maxWidth: '600px',
               padding: '0 1rem',
@@ -59,7 +60,7 @@ const TeamTop = () => {
               order={3}
               style={{
                 fontWeight: 700,
-                color: 'white',
+                color: Color.WHITE,
                 lineHeight: 1.2,
                 fontSize: '28px',
                 marginTop: 'var(--mantine-spacing-xs)',
@@ -70,7 +71,7 @@ const TeamTop = () => {
             </Title>   
             <Group
               style={{
-                color: 'white',             
+                color: Color.WHITE,             
                 fontWeight: 400,
                 cursor: 'default',
                 marginTop: '1rem',
@@ -81,7 +82,7 @@ const TeamTop = () => {
             >
              <UnstyledButton onClick={handleHome} style={{cursor: 'pointer', fontSize:18}}>Home</UnstyledButton>  /  
                 <UnstyledButton style={{
-              color: '#0055CC',             
+              color: Color.INFO_BG_COLOR,             
                 cursor: 'default',
                 fontSize:18}}>Our Team</UnstyledButton>
             </Group>

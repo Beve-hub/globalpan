@@ -2,6 +2,7 @@ import { Box, Image, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import vision from '@/asset/misson.png';
 import mision from '@/asset/vision.png';
+import { Color } from '@/utils/reusable/Theme';
 
 const Vision = () => {
   // Use media query hook to create responsive breakpoints
@@ -91,7 +92,7 @@ const styles = {
   } as React.CSSProperties,
   card: {
     padding: '30px',
-    backgroundColor: '#0055CC10',
+    backgroundColor: Color.INFO_COLOR ,
     borderRadius: '8px',
     width: '30rem',
     textAlign: 'start',

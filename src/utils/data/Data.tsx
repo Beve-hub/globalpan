@@ -222,7 +222,7 @@ export const SmNavData: NavbarItem[] = [
     export const PlanData: PlanItem[] = [
       {
          name: 'BASIC PLAN',
-         range: '$100 - $2000',
+         range: '$200 - $2000',
          profit: '2% Daily',
          icon: <IoIosCheckmarkCircleOutline size={24} color='#293991'/>,
          mini: 'Minimum 100 USD',

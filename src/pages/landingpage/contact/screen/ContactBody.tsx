@@ -5,6 +5,7 @@ import { Center, SimpleGrid, Text } from '@mantine/core';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
+import { Color } from '@/utils/reusable/Theme';
 
 const ContactBody = () => {
     const navigate = useNavigate();
@@ -22,10 +23,10 @@ const ContactBody = () => {
         >
           <div>
           <div>
-                  <Text fz={24} fw={700}>
+                  <Text fz={28} fw={700}>
                       Contact Us
                   </Text>
-                  <Text my={20} style={{ width: isSmallScreen ? '100%' : '30rem', textAlign: isSmallScreen ? 'center' : 'left' }}>
+                  <Text my={20} c={Color.DARK_GRAY} style={{ width: isSmallScreen ? '100%' : '30rem', textAlign: isSmallScreen ? 'center' : 'left',fontSize:isSmallScreen ? '14px' : '18px' }}>
                   Please supply your contact information and message in the form below. One of our team members will contact as soon as possible.
                   </Text>
               </div>
@@ -49,7 +50,7 @@ const ContactBody = () => {
                 label="Send Now"
                 onClick={handleLogin}
                 variant="filled"
-                color="#0055CC"
+                color={Color.PRIMARY}
                 radius="sm"
               />
             </SimpleGrid>

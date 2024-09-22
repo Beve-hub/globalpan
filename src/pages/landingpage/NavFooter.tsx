@@ -74,9 +74,9 @@ const NavFooter = () => {
                 <Text size="md" color="dimmed" style={{ width:'100%',maxWidth: '16rem', flexWrap: 'wrap' }}>
                 Sign up to our weekly newsletter to get the latest updates.
                 </Text>
-                <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-                  <input type="text" placeholder="Enter your email" style={{ padding: '5px 10px', borderRadius: '5px', backgroundColor: 'Color.WHITE', border: 'none' }} />
-                  <Button size="sm" color={Color.PRIMARY} variant="filled">
+                <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:20}}>
+                  <input type="text" placeholder="Enter your email" style={{ padding: '5px 10px', borderRadius: '5px 0 0 5px', backgroundColor: Color.LIGHT_GRAY, border: 'none' }} />
+                  <Button size="sm" color={Color.PRIMARY} variant="filled" style={{borderRadius:'0 5px 5px 0'}}>
                     <MdEmail size={24}/>
                   </Button>
                 </form>              
@@ -90,21 +90,21 @@ const NavFooter = () => {
       align="center"
       direction="row"
       wrap="wrap" style={{ marginTop: 'var(--mantine-spacing-xl)', paddingTop: 'var(--mantine-spacing-xl)',  borderTop: '1px solid var(--mantine-color-gray-2)' }}>
-       <Text color="dimmed" size="sm">
+       <Text color={Color.GRAY} size="md">
           © 2020 mantine.dev. All rights reserved.
         </Text>
 
         <Group >
-          <ActionIcon size="lg" color="gray" variant="subtle">
+          <ActionIcon size="lg" color={Color.GRAY} variant="subtle">
             <FaFacebookF size={24} />
           </ActionIcon>
-          <ActionIcon size="lg" color="gray" variant="subtle">
+          <ActionIcon size="lg" color={Color.GRAY} variant="subtle">
             <FaXTwitter size={24} />
           </ActionIcon>
-          <ActionIcon size="lg" color="gray" variant="subtle">
+          <ActionIcon size="lg" color={Color.GRAY} variant="subtle">
             <FaYoutube size={24} />
           </ActionIcon>
-          <ActionIcon size="lg" color="gray" variant="subtle">
+          <ActionIcon size="lg" color={Color.GRAY} variant="subtle">
             <AiFillInstagram size={24} />
           </ActionIcon>
         </Group>

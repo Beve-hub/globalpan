@@ -1,6 +1,7 @@
 import { Image, Overlay,UnstyledButton, Title, Group } from '@mantine/core';
 import IMG from '@/asset/top.png'
 import { useNavigate } from 'react-router-dom';
+import { Color } from '@/utils/reusable/Theme';
 
 const AboutTop = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const AboutTop = () => {
         />
         <div
           style={{           
-            color: 'white',
+            color: Color.WHITE,
             width: '80%',
             maxWidth: '600px',
             padding: '0 1rem',
@@ -67,14 +68,14 @@ const AboutTop = () => {
             }}
           >
           About <span style={{
-            color: '#0055CC',             
+            color: Color.INFO_BG_COLOR,             
               cursor: 'default',
               marginTop: '1rem',
               marginBottom: '1rem',}}>Us</span> 
           </Title>   
           <Group 
             style={{
-              color: 'white',             
+              color: Color.WHITE,             
               fontWeight: 400,
               cursor: 'default',
               marginTop: '1rem',
@@ -85,7 +86,7 @@ const AboutTop = () => {
           >
            <UnstyledButton onClick={handleHome} style={{cursor: 'pointer', fontSize:18}}>Home</UnstyledButton>  /  
               <UnstyledButton style={{
-            color: '#0055CC',             
+            color: Color.INFO_BG_COLOR,             
               cursor: 'default',
               fontSize:18}}>About</UnstyledButton>
           </Group>

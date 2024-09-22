@@ -1,6 +1,7 @@
 import { Image,  Overlay, Title, UnstyledButton, Group } from '@mantine/core';
 import IMG from '@/asset/top.png'
 import { useNavigate } from 'react-router-dom';
+import { Color } from '@/utils/reusable/Theme';
 
 
 const InvestmentTop = () => {
@@ -42,7 +43,7 @@ const InvestmentTop = () => {
           />
           <div
             style={{           
-              color: 'white',
+              color: Color.WHITE,
               width: '80%',
               maxWidth: '600px',
               padding: '0 1rem',
@@ -71,7 +72,7 @@ const InvestmentTop = () => {
             </Title>   
             <Group
               style={{
-                color: 'white',             
+                color: Color.WHITE,             
                 fontWeight: 400,
                 cursor: 'default',
                 marginTop: '1rem',
@@ -81,7 +82,7 @@ const InvestmentTop = () => {
             >
              <UnstyledButton onClick={handleHome} style={{cursor: 'pointer', fontSize:18}}>Home</UnstyledButton>  /  
                 <UnstyledButton style={{
-              color: '#0055CC',             
+              color: Color.INFO_BG_COLOR,             
                 cursor: 'default',
                 fontSize:18}}>Investment</UnstyledButton>
             </Group>

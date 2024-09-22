@@ -1,4 +1,5 @@
 import { InvestBar } from '@/utils/data/TeamData'
+import { Color } from '@/utils/reusable/Theme';
 import { Center, Image, SimpleGrid, Text, UnstyledButton } from '@mantine/core'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +21,7 @@ const InvestorTeam = () => {
     }
     return (
         <Center my={50} style={{display:'grid', justifyContent:'Center', alignItems:'center',}}>
-           <Text  my={50} fw={700} fz={30} color='#293991' style={{display:'grid', justifyContent:'Center', alignItems:'center',textAlign:'center'}}>Investors Team</Text>
+           <Text  my={50} fw={700} fz={30} color={Color.PRIMARY} style={{display:'grid', justifyContent:'Center', alignItems:'center',textAlign:'center'}}>Investors Team</Text>
            <SimpleGrid
             cols={{ base: 1, sm: 1, lg: 3}}
             spacing="lg">

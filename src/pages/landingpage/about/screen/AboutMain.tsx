@@ -2,6 +2,7 @@ import { Box, Center, Group, Image, SimpleGrid,  Text } from '@mantine/core';
 import IMG from '@/asset/about1.png';
 import { useMediaQuery } from '@mantine/hooks';
 import { serviceData } from '@/utils/data/Data';
+import { Color } from '@/utils/reusable/Theme';
 
 
 const AboutMain = () => {
@@ -23,11 +24,11 @@ const AboutMain = () => {
                 display:"grid",
                 justifyContent: 'center',
                 alignItems:'center',   
-                color: '#293991'            
+                color: Color.PRIMARY            
             }}>
                About  Pan Global
             </Text>
-            <Text  fw={700} fz={30} style={{ color: '#121212' }}>
+            <Text  fw={700} fz={30} style={{ color: Color.PRIMARY }}>
                 We Are Helping People get Success
             </Text>
             </Box>
@@ -54,11 +55,11 @@ const AboutMain = () => {
   
         <div>
           <div>      
-          <Text fw={700} fz={24} my={10} color='#293991' >
+          <Text fw={700} fz={24} my={10} color={Color.PRIMARY } >
            What we do at Pan Global{' '}
             <span
               style={{
-                backgroundColor: '#293991',
+                backgroundColor: Color.PRIMARY ,
                 width: '10rem',
                 height: '20px',
                 fontSize: 4,

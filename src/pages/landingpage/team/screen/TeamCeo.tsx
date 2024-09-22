@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Box, Center, Image, SimpleGrid, Text, Button } from '@mantine/core';
 import IMG from '@/asset/real ceo.png';
 import { useMediaQuery } from '@mantine/hooks';
+import { Color } from '@/utils/reusable/Theme';
 
 const TeamCeo = () => {
   const [isExpanded, setIsExpanded] = useState(false); // State to control "Read More"
@@ -32,12 +33,12 @@ const TeamCeo = () => {
             display: 'grid',
             justifyContent: 'center',
             alignItems: 'center',
-            color: '#293991',
+            color: Color.PRIMARY,
           }}
         >
           Our Staff Profiles
         </Text>
-        <Text fw={700} fz={30} style={{ color: '#121212' }}>
+        <Text fw={700} fz={30} style={{ color:  Color.BLACK }}>
           GET TO KNOW OUR TEAM OF EXPERTS
         </Text>
       </Box>
@@ -57,14 +58,14 @@ const TeamCeo = () => {
         )}
 
         <div>
-          <Text fw={700} fz={24} my={10} color="#293991">
+          <Text fw={700} fz={24} my={10} color={ Color.PRIMARY}>
             Our CEO
           </Text>
           <Text fz={17}>
-            Edward Campbell is an Australian American-born businessman, investor, and the founder of Optimums Exchange. With years of experience in the investment industry, Edward has gained a reputation as a knowledgeable and successful investor. His dedication and commitment to the industry led him to establish Pan Global, an investment company that provides cutting-edge trading solutions to clients around the world.
+            Edward Campbell is an English American-born businessman, investor, and the founder of Nexcel Global. With years of experience in the investment industry, Edward has gained a reputation as a knowledgeable and successful investor. His dedication and commitment to the industry led him to establish Pan Global, an investment company that provides cutting-edge trading solutions to clients around the world.
             <br />
             <br />
-            Under his leadership, Optimums Exchange has become a trusted name in the investment world, known for its innovative strategies and exceptional customer service. He has assembled a team of experts who share his vision for excellence, and together they continue to push the boundaries of what is possible in the world of finance.
+            Under his leadership, Nexcel Global has become a trusted name in the investment world, known for its innovative strategies and exceptional customer service. He has assembled a team of experts who share his vision for excellence, and together they continue to push the boundaries of what is possible in the world of finance.
             <br />
             <br />
             {isExpanded && (
@@ -81,7 +82,7 @@ const TeamCeo = () => {
               onClick={handleReadMoreToggle}
               variant="outline"
               mt={10}
-              style={{ color: '#293991', borderColor: '#293991' }}
+              style={{ color: Color.PRIMARY, borderColor: Color.PRIMARY }}
             >
               Read More
             </Button>
@@ -90,7 +91,7 @@ const TeamCeo = () => {
               onClick={handleReadMoreToggle}
               variant="outline"
               mt={10}
-              style={{ color: '#293991', borderColor: '#293991' }}
+              style={{ color: Color.PRIMARY, borderColor: Color.PRIMARY }}
             >
               Read Less
             </Button>
