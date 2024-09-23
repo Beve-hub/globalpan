@@ -2,7 +2,7 @@ import { heroFont } from '@/utils/data/Data';
 import CustomButton from '@/utils/reusable/CustomButton';
 import Loader from '@/utils/reusable/Loader';
 import { Color } from '@/utils/reusable/Theme';
-import {  Center, Group, useMantineTheme } from '@mantine/core';
+import {  Center, Group, Title, useMantineTheme } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -101,14 +101,14 @@ const HeroScreen = () => {
               alignItems: 'center'
             }}
           >
-            <h1
+            <Title
               style={{
-                fontSize: theme.breakpoints.xs ? "2.5rem" : theme.breakpoints.sm ? "3rem" : "4rem", // More refined responsive font size
+                fontSize: theme.breakpoints.xs ? "2rem" : theme.breakpoints.sm ? "3rem" : "4rem", // More refined responsive font size
                 marginBottom: "1rem",
               }}
             >
               {item.title}
-            </h1>
+            </Title>
             <p
               style={{
                 fontSize: theme.breakpoints.xs ? "1rem" : theme.breakpoints.sm ? "2.5rem" : "3rem", // More refined responsive font size

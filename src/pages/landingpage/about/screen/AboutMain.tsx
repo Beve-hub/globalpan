@@ -28,14 +28,14 @@ const AboutMain = () => {
             }}>
                About  Nexcel Global
             </Text>
-            <Text  fw={700} fz={30} style={{ color: Color.PRIMARY }}>
+            <Text  fw={isMobile ? 600 : 700 } fz={isMobile ? 20 : 30 }  style={{ color: Color.PRIMARY }}>
                 We Are Helping People get Success
             </Text>
             </Box>
             
             <SimpleGrid
         cols={{ base: 1, sm: 1, lg: 2 }}        
-        mx="70"
+        mx={isMobile ? 30 : 70}
         mt={50}
       >
         <div>

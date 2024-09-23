@@ -17,7 +17,7 @@ const AboutUs = () => {
     <SimpleGrid
       cols={{ base: 1, sm: 1, lg: 2 }}
       spacing={{ base: 10, sm: 'xl' }}
-      mx="70"
+      mx={isMobile ? 35 : 70}
       mt={50}
     >
       <div>
@@ -41,7 +41,7 @@ const AboutUs = () => {
             ABOUT US
           </Text>
           <Text my={10} fw={500} fz={20} style={{ color: Color.PRIMARY }}>
-            Who is Pan Global?{' '}
+            Who is Nexcel Global?{' '}
             <span
               style={{
                 backgroundColor: Color.PRIMARY,
@@ -54,7 +54,7 @@ const AboutUs = () => {
             </span>
           </Text>
           <Text fz={17}>
-            Pan Global is the investors gateway to the world’s markets. we’re the core in real estate, stocks and E-currencies. our transparent, low commissions and financing rates, support for best price, stock yield enhancement program which help minimize costs to maximize your returns.
+            Nexcel Global is the investors gateway to the world’s markets. we’re the core in real estate, stocks and E-currencies. our transparent, low commissions and financing rates, support for best price, stock yield enhancement program which help minimize costs to maximize your returns.
           </Text>
         </div>
         <Group mt="40">
@@ -77,11 +77,11 @@ const AboutUs = () => {
           </Tabs.List>
 
           <Tabs.Panel value="gallery" fz={16}>
-          Pan global was founded with a clear mission: to make cryptocurrency trading accessible, transparent, and secure for everyone. We believe in creating a platform where our users can easily trade a wide range of cryptocurrencies with confidence. Our commitment to security and compliance ensures that your investments are safe and your trading is in line with global standards.
+          Nexcel global was founded with a clear mission: to make cryptocurrency trading accessible, transparent, and secure for everyone. We believe in creating a platform where our users can easily trade a wide range of cryptocurrencies with confidence. Our commitment to security and compliance ensures that your investments are safe and your trading is in line with global standards.
           </Tabs.Panel>
 
           <Tabs.Panel value="messages" fz={16}>
-          Pan global aims to continue leading the way in innovation within the crypto trading industry. We strive to introduce new features that enhance user experience and broaden market access, all while maintaining the highest standards of security and compliance. Join us at Pan global and be part of a community that is shaping the future of cryptocurrency trading.
+          Nexcel global aims to continue leading the way in innovation within the crypto trading industry. We strive to introduce new features that enhance user experience and broaden market access, all while maintaining the highest standards of security and compliance. Join us at Pan global and be part of a community that is shaping the future of cryptocurrency trading.
           </Tabs.Panel>
         </Tabs>
         </Group> 
