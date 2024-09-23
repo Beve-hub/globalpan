@@ -24,7 +24,8 @@ const AboutMain = () => {
                 display:"grid",
                 justifyContent: 'center',
                 alignItems:'center',   
-                color: Color.BLACK           
+                color: Color.BLACK ,
+                width:'20rem'       
             }}>
                About  Nexcel Global
             </Text>
