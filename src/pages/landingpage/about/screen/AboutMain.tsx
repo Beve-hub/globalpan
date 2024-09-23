@@ -29,7 +29,9 @@ const AboutMain = () => {
             }}>
                About  Nexcel Global
             </Text>
-            <Text  fw={isMobile ? 600 : 700 } fz={isMobile ? 20 : 30 }  style={{ color: Color.PRIMARY }}>
+            <Text  fw={isMobile ? 600 : 700 }
+             fz={isMobile ? 20 : 30 }
+               style={{ color: Color.PRIMARY }}>
                 We Are Helping People get Success
             </Text>
             </Box>

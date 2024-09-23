@@ -27,23 +27,23 @@ const TeamCeo = () => {
         }}
       >
         <Text
-          fw={500}
-          fz={16}
-          style={{
-            display: 'grid',
+          fw={500} fz={isMobile ? 14 : 20} style={{
+            display:"grid",
             justifyContent: 'center',
-            alignItems: 'center',
-            color: Color.PRIMARY,
-          }}
+            alignItems:'center',   
+            color: Color.BLACK ,
+            width:'20rem'       
+        }}
         >
           Our Staff Profiles
         </Text>
-        <Text fw={700} fz={30} style={{ color:  Color.BLACK }}>
+        <Text fw={isMobile ? 600 : 700 }
+             fz={isMobile ? 20 : 30 } style={{ color:  Color.PRIMARY }}>
           GET TO KNOW OUR TEAM OF EXPERTS
         </Text>
       </Box>
 
-      <SimpleGrid cols={isMobile ? 1 : 2} mx="70" mt={50}>
+      <SimpleGrid cols={isMobile ? 1 : 2} mx={isMobile ? 30 : 70} mt={50}>
         {!isMobile && (
           <Image
             src={IMG}
@@ -59,7 +59,17 @@ const TeamCeo = () => {
 
         <div>
           <Text fw={700} fz={24} my={10} color={ Color.PRIMARY}>
-            Our CEO
+            Our CEO{' '}
+            <span
+              style={{
+                backgroundColor: Color.PRIMARY ,
+                width: '10rem',
+                height: '20px',
+                fontSize: 4,
+              }}
+            >
+              iusududufhcjjdjdskjalkhdhhdhdhdhdh
+            </span>
           </Text>
           <Text fz={17}>
             Edward Campbell is an English American-born businessman, investor, and the founder of Nexcel Global. With years of experience in the investment industry, Edward has gained a reputation as a knowledgeable and successful investor. His dedication and commitment to the industry led him to establish Pan Global, an investment company that provides cutting-edge trading solutions to clients around the world.
