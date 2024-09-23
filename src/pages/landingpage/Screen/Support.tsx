@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
 import { Color } from '@/utils/reusable/Theme';
 
-
-
 const Support = () => {
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery('(max-width: 768px)'); // Adjust breakpoint as needed
@@ -18,11 +16,17 @@ const Support = () => {
   };
 
   return (
-    <div style={{ backgroundColor: Color.INFO_BG_COLOR, minHeight: '60vh' }}>
+    <div 
+      style={{ 
+        backgroundColor: Color.INFO_BG_COLOR, 
+        minHeight: '60vh', 
+        padding: isSmallScreen ? '10px' : '0px'  // Add padding for small screens
+      }}
+    >
       <Center style={{ height: '60vh' }}>
         <SimpleGrid
           cols={isSmallScreen ? 1 : 2}
-          spacing="md"         
+          spacing="md"
         >
           <div>
             <Text
@@ -35,12 +39,12 @@ const Support = () => {
             </Text>
           </div>
           <form style={{ width: '100%' }}>
-            <SimpleGrid cols={isSmallScreen ? 1 : 2} spacing="md" >
+            <SimpleGrid cols={isSmallScreen ? 1 : 2} spacing="md">
               <CustomInput placeholder="Name" />
               <CustomInput placeholder="Email" />
             </SimpleGrid>
             <SimpleGrid cols={1} spacing="md" mt="md">
-              <CustomInput placeholder="Name" />
+              <CustomInput placeholder="Subject" />
               <CustomTextArea
                 placeholder="Type something..."
                 highlightColor="green"
