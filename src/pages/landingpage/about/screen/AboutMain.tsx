@@ -20,11 +20,11 @@ const AboutMain = () => {
                 alignItems:'center',  
                 marginTop:40              
             }}>
-            <Text fw={500} fz={16} style={{
+            <Text fw={500} fz={isMobile ? 14 : 20} style={{
                 display:"grid",
                 justifyContent: 'center',
                 alignItems:'center',   
-                color: Color.PRIMARY            
+                color: Color.BLACK           
             }}>
                About  Nexcel Global
             </Text>

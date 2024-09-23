@@ -61,6 +61,7 @@ const styles = {
     height: '50vh',
     marginTop: '120px',
     marginBottom: '100px',
+    padding: '50px',
     position: 'relative',
   } as React.CSSProperties,
   containerSmall: {
