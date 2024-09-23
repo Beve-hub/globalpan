@@ -25,6 +25,8 @@ const TeamCeo = () => {
           alignItems: 'center',
           marginTop: 40,
         }}
+       
+
       >
         <Text
           fw={500} fz={isMobile ? 14 : 20} style={{
@@ -32,13 +34,17 @@ const TeamCeo = () => {
             justifyContent: 'center',
             alignItems:'center',   
             color: Color.BLACK ,
-            width:'20rem'       
+            width:'20rem'  ,
+            textAlign:'center'     
         }}
+        w={isMobile ? '20rem' : '100%'}
         >
           Our Staff Profiles
         </Text>
         <Text fw={isMobile ? 600 : 700 }
-             fz={isMobile ? 20 : 30 } style={{ color:  Color.PRIMARY }}>
+             fz={isMobile ? 20 : 30 } 
+             w={isMobile ? '20rem' : '100%'}
+              style={{ color:  Color.PRIMARY ,textAlign:'center'}}>
           GET TO KNOW OUR TEAM OF EXPERTS
         </Text>
       </Box>
