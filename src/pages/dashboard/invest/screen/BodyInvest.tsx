@@ -115,28 +115,28 @@ const BodyInvest = ({ ...props }) => {
         case 'Basic Plan':
           setFormData((prev) => ({
             ...prev,
-            range: '$200 - $2000',
+            range: '$200 - $50,000',
             description: '2% Daily',
           }));
           break;
         case 'Advance Plan':
           setFormData((prev) => ({
             ...prev,
-            range: '$2001 - $5000',
+            range: '$30,000 - $70,000',
             description: '5% Daily',
           }));
           break;
         case 'Professional Plan':
           setFormData((prev) => ({
             ...prev,
-            range: '$5001 - $10,000',
+            range: '$50,000 - unlimited',
             description: '7.5% Daily',
           }));
           break;
         case 'Premium Plan':
           setFormData((prev) => ({
             ...prev,
-            range: '$10,000 - Unlimited',
+            range: '$80,000 - Unlimited',
             description: '12.5% Daily',
           }));
           break;
