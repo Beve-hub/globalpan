@@ -147,7 +147,7 @@ const SideBar = () => {
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: isSmallScreen ? '30%' : 230,
+        width: isSmallScreen ? '25%' : 230,
         breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
