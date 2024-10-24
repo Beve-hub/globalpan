@@ -81,6 +81,20 @@ const UserProfile = () => {
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, []);
 
+  useEffect(() => {
+    if (!userId) {
+      console.error('No valid userId found');
+      notifications.show({
+        title: 'Invalid User',
+        message: 'User ID is missing. Please log in again.',
+        color: Color.ERROR_COLOR,
+        position: 'top-right',
+      });
+      navigate('/login'); // Redirect to login page
+    }
+  }, [userId, navigate]);
+  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
