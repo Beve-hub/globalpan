@@ -142,7 +142,7 @@ const Payment = ({ ...props }) => {
               <Image src={Gif} />
             </Group>
 
-            <CustomButton label='Go Back' onClick={close} variant='filled' color={Color.PRIMARY} size='md' fullWidth radius='md' />
+            <CustomButton label='Go Back' onClick={handleInvest} variant='filled' color={Color.PRIMARY} size='md' fullWidth radius='md' />
           </div>
         </Modal>
       </Center>
