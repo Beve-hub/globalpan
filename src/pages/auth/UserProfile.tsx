@@ -95,12 +95,12 @@ const UserProfile = () => {
 
   const handleSubmit = async () => {
     if (validate() && user) {
+      console.log('Form is valid, proceeding to submit.');
       setLoading(true);
-     
+  
       try {
         const db = getFirestore();
         const userDocRef = doc(db, 'users', userId);
-        // Check if the document exists
         const docSnap = await getDoc(userDocRef);
   
         if (docSnap.exists()) {
@@ -111,7 +111,8 @@ const UserProfile = () => {
             zip: formData.zip,
             role: formData.role,
           });
-          
+          console.log('Profile updated successfully.');
+  
           notifications.show({
             title: 'Profile Updated',
             message: 'Your profile has been successfully updated.',
@@ -119,6 +120,7 @@ const UserProfile = () => {
             position: 'top-right',
           });
         } else {
+          console.log('User document does not exist.');
           throw new Error('User document does not exist');
         }
   
@@ -134,9 +136,11 @@ const UserProfile = () => {
           position: 'top-right',
         });
       }
+    } else {
+      console.log('Validation failed:', errors);
     }
   };
-
+  
   if (loading) {
     return <Loader />; // Show loader if loading state is true
   }
