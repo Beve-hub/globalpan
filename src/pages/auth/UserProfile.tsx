@@ -100,7 +100,7 @@ const UserProfile = () => {
   
       try {
         const db = getFirestore();
-        const userDocRef = doc(db, 'users', userId);
+        const userDocRef = doc(db, 'users', userId); // Ensure the userId is valid
         const docSnap = await getDoc(userDocRef);
   
         if (docSnap.exists()) {
@@ -111,7 +111,6 @@ const UserProfile = () => {
             zip: formData.zip,
             role: formData.role,
           });
-          console.log('Profile updated successfully.');
   
           notifications.show({
             title: 'Profile Updated',
@@ -119,27 +118,31 @@ const UserProfile = () => {
             color: Color.PRIMARY,
             position: 'top-right',
           });
+  
+          navigate('/dashboard');
         } else {
           console.log('User document does not exist.');
           throw new Error('User document does not exist');
         }
-  
-        setLoading(false);
-        navigate('/dashboard');
       } catch (error) {
+        // Enhanced error handling to capture specific errors
         console.error('Error updating profile:', error);
-        setLoading(false);
+  
+        // You can handle different errors here more effectively.
         notifications.show({
           title: 'Update Failed',
-          message: 'There was an issue updating your profile. Please try again later.',
+          message: `There was an issue updating your profile: ${error}. Please try again later.`,
           color: Color.ERROR_COLOR,
           position: 'top-right',
         });
+      } finally {
+        setLoading(false);
       }
     } else {
       console.log('Validation failed:', errors);
     }
   };
+  
   
   if (loading) {
     return <Loader />; // Show loader if loading state is true
