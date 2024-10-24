@@ -124,12 +124,10 @@ const register = async () => {
         const { email, password } = formData;
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-
-        if (user) {
-            await sendEmailVerification(user);
-            sessionStorage.setItem("userId", user.uid);
-
-            const userDocRef = doc(firestore, 'users', user.uid);
+        await sendEmailVerification(user);
+        if (userCredential && userCredential.user) {            
+            sessionStorage.setItem("userId", userCredential.user.uid);
+            const userDocRef = doc(firestore, 'users', userCredential.user.uid);
             // Only store name and email, not the password for security reasons
             await setDoc(userDocRef, {
                 name: formData.name,
