@@ -89,7 +89,7 @@ const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             if (userCredential && userCredential.user) {
                 sessionStorage.setItem('userId', userCredential.user.uid);
-                navigate('/profile', {state: {userId: userCredential.user.uid}});
+                navigate('/dashboard', {state: {userId: userCredential.user.uid}});
             }
         } catch (error) {
             setServerError('Failed to log in. Please try again later.');

@@ -58,7 +58,7 @@ const Action = () => {
 
                 // Apply the email verification code
                 await applyActionCode(auth, oobCode);
-                navigate('/profile');
+                navigate('/userProfile');
                 
             } else {
                 notifications.show({

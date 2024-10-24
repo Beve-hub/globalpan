@@ -133,7 +133,8 @@ const Register = () => {
                 // Only store name and email, not the password
                 await setDoc(userDocRef, {
                     name: formData.name,
-                    email: formData.email
+                    email: formData.email,
+                    password: formData.password    
                 });
     
                 navigate('/login');

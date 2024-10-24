@@ -21,13 +21,13 @@ import TeamSub from '@/pages/landingpage/team/screen/TeamSub';
 import DepositSummary from '@/pages/dashboard/invest/screen/DepositSummary';
 import Payment from '@/pages/dashboard/invest/screen/Payment';
 import Verification from '@/pages/auth/Verification';
-import ProfileDetails from '@/pages/auth/Profile';
 import Recovery from '@/pages/auth/Recover';
 import Action from '@/pages/auth/Action';
 import { AuthProvider } from '@/layout/AuthProvider';
 import Admin from '@/pages/admin/Admin';
 import WithdrawSummary from '@/pages/dashboard/withdraw/screen/WithdrawSummary';
 import WithdrawPin from '@/pages/dashboard/withdraw/screen/WithdrawPin';
+import UserProfile from '@/pages/auth/UserProfile';
 
 const router = createBrowserRouter([
   {
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       { path: '/withdrawPin', element: <WithdrawPin /> },
       { path: '/payment', element: <Payment /> },
       { path: '/verification', element: <Verification /> },
-      { path: '/profile', element: <ProfileDetails /> },      
+      { path: '/userProfile', element: <UserProfile /> },      
       { path: '/recover', element: <Recovery /> },
       { path: '/action', element: <Action /> },
     ],

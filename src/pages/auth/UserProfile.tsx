@@ -25,7 +25,7 @@ const phoneRegex = /^\+?[0-9\s()-]{10,15}$/;
 const addressRegex = /^[A-Za-z0-9\s,.'-]{3,}$/;
 const zipcodeRegex = /^[0-9]{5,6}$/;
 
-const Profile = () => {
+const UserProfile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -181,6 +181,17 @@ const Profile = () => {
               </Text>
             </div>
             <SimpleGrid cols={{ base: 1, sm: 1, lg: 1 }} mb={10}>
+            <div>                
+                <Text fz={14} fw={500}>Country <span style={{color:Color.ERROR_COLOR}}>*</span></Text>
+                <ReactFlagsSelect
+                selected={formData.country}
+                onSelect={handleCountrySelect}
+                searchable
+                searchPlaceholder="Search countries"
+                placeholder="Select Country"
+              />
+                {errors.country && <Text color={Color.ERROR_COLOR}>{errors.country}</Text>}
+              </div>
               <CustomInput
                 type="tel"
                 label="Phone Number"
@@ -222,17 +233,7 @@ const Profile = () => {
                   onChange={handleRoleChange}
                 />
               </div>
-              <div>                
-                <Text fz={14} fw={500}>Country <span style={{color:Color.ERROR_COLOR}}>*</span></Text>
-                <ReactFlagsSelect
-                selected={formData.country}
-                onSelect={handleCountrySelect}
-                searchable
-                searchPlaceholder="Search countries"
-                placeholder="Select Country"
-              />
-                {errors.country && <Text color={Color.ERROR_COLOR}>{errors.country}</Text>}
-              </div>
+              
             </SimpleGrid>
             <CustomeButton
               label="Submit"
@@ -250,4 +251,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;
