@@ -118,32 +118,42 @@ const Register = () => {
     };
     
     
-    const register = async () => {
-        try {
-            const { email, password } = formData;
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-    
-            if (user) {
-                await sendEmailVerification(user);
-                sessionStorage.setItem("userId", user.uid);
-    
-                // Save user info in Firestore
-                const userDocRef = doc(firestore, 'users', user.uid);
-                await setDoc(userDocRef, {
-                    name: formData.name,
-                    email,
-                    password
-                });
-    
-                // Navigate to verification page after successful registration
-                navigate('/login');
-            }
-        } catch (error) {
-            setServerError('Failed to register. Please try again later.');
-            console.error(error);
+    // Remove password from Firestore storage and improve error handling
+const register = async () => {
+    try {
+        const { email, password } = formData;
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (user) {
+            await sendEmailVerification(user);
+            sessionStorage.setItem("userId", user.uid);
+
+            const userDocRef = doc(firestore, 'users', user.uid);
+            // Only store name and email, not the password for security reasons
+            await setDoc(userDocRef, {
+                name: formData.name,
+                email,
+                password
+            });
+
+            navigate('/login');
         }
-    };
+    } catch (error: any) {
+        const errorMessage = error.code === 'auth/email-already-in-use' 
+            ? 'This email is already in use.' 
+            : 'Failed to register. Please try again later.';
+        
+        setServerError(errorMessage);
+        notifications.show({
+            title: 'Registration Failed',
+            message: errorMessage,
+            color: Color.ERROR_COLOR,
+            position: 'top-right',
+        });
+    }
+};
+
     
 
     const handleRegister = () => {

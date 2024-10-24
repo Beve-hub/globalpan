@@ -24,8 +24,7 @@ const Payment = ({ ...props }) => {
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
   const location = useLocation();
-  const { coin, amount } = location.state || {}; // Extract coin and amount from location.state
-  console.log('Coin:', coin, 'Amount:', amount);
+  const { coin, amount } = location.state || {}; // Extract coin and amount from location.state console.log('Coin:', coin, 'Amount:', amount);
 
   const [storedWallets, setStoredWallets] = useState<WalletWithKey[]>([]);
   const [filteredWallet, setFilteredWallet] = useState<WalletWithKey | null>(null);

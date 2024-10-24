@@ -4,16 +4,18 @@ import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
+
 const firebaseConfig = {
-    apiKey: "AIzaSyBnqEKEqo4D7xmqSP0fpfBxUo5IOUuQ5s8",
-    authDomain: "panglobal-5c601.firebaseapp.com",
-    databaseURL: "https://panglobal-5c601-default-rtdb.firebaseio.com",
-    projectId: "panglobal-5c601",
-    storageBucket: "panglobal-5c601.appspot.com",
-    messagingSenderId: "321734780345",
-    appId: "1:321734780345:web:09ac13974e7f50bd300268",
-    measurementId: "G-ZC4PNC5HY9"
-  };
+  apiKey: "AIzaSyDJMiieHkMK0vKzR0d2RPjpQhdfinn5X5M",
+  authDomain: "nexcelglobal-236a6.firebaseapp.com",
+  databaseURL: "https://nexcelglobal-236a6-default-rtdb.firebaseio.com",
+  projectId: "nexcelglobal-236a6",
+  storageBucket: "nexcelglobal-236a6.appspot.com",
+  messagingSenderId: "1041481301268",
+  appId: "1:1041481301268:web:61633c4a3df53c49bd9601",
+  measurementId: "G-ZR2EKGZJKL"
+};
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
