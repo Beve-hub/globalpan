@@ -10,8 +10,7 @@ import { useAuth } from '@/layout/AuthProvider';
 import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
 import { notifications } from '@mantine/notifications';
 import { Color } from '@/utils/reusable/Theme';
-
-
+import { getCountryNameFromCode } from '@/utils/countryUtils';  // Utility to convert country codes to full names
 
 interface Errors {
   address?: string;
@@ -38,7 +37,6 @@ const Profile = () => {
   const [errors, setErrors] = useState<Errors>({});
   const { user } = useAuth();
   const { state } = useLocation();
-
   const userId = state?.userId || '';
 
   const validate = (): boolean => {
@@ -54,6 +52,7 @@ const Profile = () => {
       errors.country = 'Please select a country';
       isValid = false;
     }
+
     if (!formData.role) {
       errors.role = 'Please select a role';
       isValid = false;
@@ -85,9 +84,9 @@ const Profile = () => {
   };
 
   const handleCountrySelect = (countryCode: string) => {
-    setFormData({ ...formData, country: countryCode });
+    const countryName = getCountryNameFromCode(countryCode);  // Convert country code to full name
+    setFormData({ ...formData, country: countryName });
   };
-
 
   const handleRoleChange: SelectProps['onChange'] = (value) => {
     setFormData({ ...formData, role: value || '' });
@@ -99,7 +98,6 @@ const Profile = () => {
       try {
         const db = getFirestore();
         const userDocRef = doc(db, 'users', userId);
-        // Check if the document exists
         const docSnap = await getDoc(userDocRef);
   
         if (docSnap.exists()) {
@@ -211,7 +209,7 @@ const Profile = () => {
                 onChange={handleInputChange}
               />
               <div>
-              <Select
+                <Select
                   label="Role"
                   name="role"
                   placeholder="Choose A Role"
@@ -224,23 +222,19 @@ const Profile = () => {
               <div>                
                 <Text fz={14} fw={500}>Country <span style={{color:Color.ERROR_COLOR}}>*</span></Text>
                 <ReactFlagsSelect
-                selected={formData.country}
-                onSelect={handleCountrySelect}
-                searchable
-                searchPlaceholder="Search countries"
-                placeholder="Select Country"
-              />
+                  selected={formData.country}
+                  onSelect={handleCountrySelect}
+                  searchable
+                  searchPlaceholder="Search countries"
+                  placeholder="Select Country"
+                />
                 {errors.country && <Text color={Color.ERROR_COLOR}>{errors.country}</Text>}
               </div>
             </SimpleGrid>
             <CustomeButton
               label="Submit"
               onClick={handleSubmit}
-              variant="filled" // Or 'outline', 'light', 'default', etc.
-              color={Color.PRIMARY} // You can use any color supported by Mantine
-              size="md" // Options: 'xs', 'sm', 'md', 'lg', 'xl'
-              fullWidth // Set to true to make the button full width
-              radius="md"
+              variant="filled"
             />
           </Center>
         </Box>
