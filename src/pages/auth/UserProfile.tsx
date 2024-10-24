@@ -98,9 +98,22 @@ const UserProfile = () => {
       console.log('Form is valid, proceeding to submit.');
       setLoading(true);
   
+      // Check if userId is valid before proceeding
+      if (!userId) {
+        setLoading(false);
+        console.error('Invalid userId: ', userId);
+        notifications.show({
+          title: 'Update Failed',
+          message: 'Invalid user ID. Unable to update profile.',
+          color: Color.ERROR_COLOR,
+          position: 'top-right',
+        });
+        return;
+      }
+  
       try {
         const db = getFirestore();
-        const userDocRef = doc(db, 'users', userId); // Ensure the userId is valid
+        const userDocRef = doc(db, 'users', userId); // Ensure the userId is valid and not empty
         const docSnap = await getDoc(userDocRef);
   
         if (docSnap.exists()) {
@@ -125,10 +138,8 @@ const UserProfile = () => {
           throw new Error('User document does not exist');
         }
       } catch (error) {
-        // Enhanced error handling to capture specific errors
         console.error('Error updating profile:', error);
   
-        // You can handle different errors here more effectively.
         notifications.show({
           title: 'Update Failed',
           message: `There was an issue updating your profile: ${error}. Please try again later.`,
@@ -142,6 +153,7 @@ const UserProfile = () => {
       console.log('Validation failed:', errors);
     }
   };
+  
   
   
   if (loading) {
