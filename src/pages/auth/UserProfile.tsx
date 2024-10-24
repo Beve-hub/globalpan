@@ -26,7 +26,7 @@ const addressRegex = /^[A-Za-z0-9\s,.'-]{3,}$/;
 const zipcodeRegex = /^[0-9]{5,6}$/;
 
 const UserProfile = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     address: '',
@@ -39,7 +39,7 @@ const UserProfile = () => {
   const { user } = useAuth();
   const { state } = useLocation();
 
-  const userId = state?.userId || '';
+  const userId = state?.userId || sessionStorage.getItem('userId') || '';
 
   const validate = (): boolean => {
     const errors: Errors = {};
