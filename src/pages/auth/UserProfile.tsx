@@ -40,6 +40,7 @@ const UserProfile = () => {
   const { state } = useLocation();
 
   const userId = state?.userId || sessionStorage.getItem('userId') || '';
+  console.log('user is present', userId)
 
   const validate = (): boolean => {
     const errors: Errors = {};
