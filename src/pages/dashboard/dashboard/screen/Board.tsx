@@ -18,15 +18,10 @@ const Board = () => {
   const [totalWithdraw, setTotalWithdraw] = useState<number>(0);
   const [profit, setProfit] = useState<number>(0);
 
-  // Helper function to format the number in 'K' or 'M'
-  const formatAmount = (amount: number): string => {
-    if (amount >= 1_000_000) {
-      return `${(amount / 1_000_000).toFixed(2)}M`;
-    } else if (amount >= 1_000) {
-      return `${(amount / 1_000).toFixed(2)}K`;
-    }
-    return amount.toString();
-  };
+// Helper function to format number with commas
+const formatAmount = (amount: number): string => {
+  return amount.toLocaleString(); // Adds commas automatically
+};
 
   useEffect(() => {
     const fetchData = async () => {
