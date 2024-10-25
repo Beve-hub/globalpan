@@ -1,10 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Button, CopyButton, TextInput,  Box } from '@mantine/core';
 import { Color } from '@/utils/reusable/Theme';
+import { useLocation } from 'react-router-dom';
+import { firestore } from '@/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 const Referrals = () => {
-    const [referralLink, ] = useState<string>('https://panglobal.com/referral/username');
+    const { state } = useLocation();
+  const userId = state?.userId || '';
+    
+    const [name, setName] = useState<string>('');
 
+    useEffect(() => {
+        const fetchPersonalInfo = async () => {
+          const userId = sessionStorage.getItem('userId');
+          if (userId) {
+            const userDocRef = doc(firestore, 'users', userId);
+            const snapshot = await getDoc(userDocRef);
+            if (snapshot.exists()) {
+              const userDetails = snapshot.data();
+              console.log('userDetails', userDetails);
+    
+              if (userDetails) {
+                setName(userDetails.name || '');
+                
+              }
+            } else {
+              console.log('No such document!');
+            }
+          }
+        };
+    
+        fetchPersonalInfo();
+      }, [userId]);
+
+      const [referralLink, ] = useState<string>(`https://nexcelglobal.com/referral/${name}`);
     return (
         <Box style={{ backgroundColor: Color.INFO_COLOR, padding: '1rem', borderRadius: 10, width: '100%' }}>
             <Text fz={20} fw={600} >Referral Link</Text>

@@ -263,7 +263,7 @@ const UserProfile = () => {
                   placeholder="Choose A Role"
                   error={errors.role}
                   value={formData.role}
-                  data={['investor', 'others']}
+                  data={['investor', '']}
                   onChange={handleRoleChange}
                 />
               </div>
