@@ -18,6 +18,16 @@ const Board = () => {
   const [totalWithdraw, setTotalWithdraw] = useState<number>(0);
   const [profit, setProfit] = useState<number>(0);
 
+  // Helper function to format the number in 'K' or 'M'
+  const formatAmount = (amount: number): string => {
+    if (amount >= 1_000_000) {
+      return `${(amount / 1_000_000).toFixed(2)}M`;
+    } else if (amount >= 1_000) {
+      return `${(amount / 1_000).toFixed(2)}K`;
+    }
+    return amount.toString();
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const userId = sessionStorage.getItem('userId');
@@ -110,7 +120,7 @@ const Board = () => {
         </Group>
         <div style={{ display: 'grid' }}>
           <Text fz={18} color={Color.WHITE}>Balance</Text>
-          <Text fz={30} fw={700} color={Color.WHITE}>${(totalDeposit - totalWithdraw) <= 0 ? 0 : (totalDeposit - totalWithdraw)}.00</Text>
+          <Text fz={30} fw={700} color={Color.WHITE}>${formatAmount(totalDeposit - totalWithdraw <= 0 ? 0 : totalDeposit - totalWithdraw)}</Text>
         </div>
       </Group>
 
@@ -138,7 +148,7 @@ const Board = () => {
         </Group>
         <div style={{ display: 'grid' }}>
           <Text fz={18} color={Color.BLACK}>Active Deposit</Text>
-          <Text fz={30} fw={700} color={Color.BLACK}>${totalDeposit <= 0 ? 0 : totalDeposit}.00</Text>
+          <Text fz={30} fw={700} color={Color.BLACK}>${formatAmount(totalDeposit <= 0 ? 0 : totalDeposit)}</Text>
         </div>
       </Group>
 
@@ -166,7 +176,7 @@ const Board = () => {
         </Group>
         <div style={{ display: 'grid' }}>
           <Text fz={18} color={Color.BLACK}>Profit</Text>
-          <Text fz={30} fw={700} color={Color.BLACK}>${profit <= 0 ? 0 : profit.toFixed(2)}</Text>
+          <Text fz={30} fw={700} color={Color.BLACK}>${formatAmount(profit <= 0 ? 0 : Number(profit.toFixed(2)))}</Text>
         </div>
       </Group>
 
