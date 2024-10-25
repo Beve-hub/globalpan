@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Paper, Modal, ActionIcon, Box, Center, CopyButton, Group, Text, Tooltip, UnstyledButton, Image } from '@mantine/core';
+import { Paper, Modal, ActionIcon, Box, Center, CopyButton, Group, Text, Tooltip, UnstyledButton, Image, Loader } from '@mantine/core';
 import CustomButton from '@/utils/reusable/CustomButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiChevronLeft } from 'react-icons/fi';
@@ -28,6 +28,7 @@ const Payment = ({ ...props }) => {
 
   const [storedWallets, setStoredWallets] = useState<WalletWithKey[]>([]);
   const [filteredWallet, setFilteredWallet] = useState<WalletWithKey | null>(null);
+  const [loading, setLoading] = useState(false); // Loader state
 
   const handleInvest = () => {
     navigate('/invest');
@@ -63,7 +64,16 @@ const Payment = ({ ...props }) => {
       }
     };
     fetchWallet();
-  }, [coin,storedWallets]);
+  }, [coin, storedWallets]);
+
+  // Handle payment completion click
+  const handlePaymentComplete = () => {
+    setLoading(true); // Show loader
+    setTimeout(() => {
+      setLoading(false); // Hide loader after 5 minutes
+      open(); // Show modal
+    }, 300000); // 5 minutes = 300,000 ms
+  };
 
   return (
     <div>
@@ -129,8 +139,11 @@ const Payment = ({ ...props }) => {
           )}
 
           {/* Button to confirm payment */}
-          <CustomButton label='Click when payment is completed' onClick={open} variant='filled' color={Color.PRIMARY} size='md' fullWidth radius='md' />
+          <CustomButton label='Click when payment is completed' onClick={handlePaymentComplete} variant='filled' color={Color.PRIMARY} size='md' fullWidth radius='md' />
         </Paper>
+
+        {/* Show loader when payment is processing */}
+        {loading && <Loader size="xl" color={Color.PRIMARY} />}
 
         {/* Modal for payment success */}
         <Modal opened={opened} onClose={close} centered>
@@ -151,6 +164,3 @@ const Payment = ({ ...props }) => {
 };
 
 export default Payment;
-
-
-
