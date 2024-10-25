@@ -166,7 +166,7 @@ const Board = () => {
         </Group>
         <div style={{ display: 'grid' }}>
           <Text fz={18} color={Color.BLACK}>Profit</Text>
-          <Text fz={30} fw={700} color={Color.BLACK}>${profit <= 0 ? 0 : profit.toFixed(2)}.00</Text>
+          <Text fz={30} fw={700} color={Color.BLACK}>${profit <= 0 ? 0 : profit.toFixed(2)}</Text>
         </div>
       </Group>
 
