@@ -132,6 +132,9 @@ const SideBar = () => {
     if (role === 'investor' && item.name === 'Admin') {
       return false; // Hide admin for investors
     }
+    if (role === 'others' && item.name === 'Transaction') {
+      return false; // Hide transaction for others
+    }
     return true; // Show other items
   });
   const handleClick = () => {
